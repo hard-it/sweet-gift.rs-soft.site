@@ -9,5 +9,15 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class'           => 'yii\rbac\DbManager',
+            'itemTable'       => 'AuthItem',
+            'itemChildTable'  => 'AuthItemChild',
+            'assignmentTable' => 'AuthAssignment',
+            'ruleTable'       => 'AuthRule',
+            'defaultRoles'    => [
+                'guest',
+            ],
+        ],
     ],
 ];
