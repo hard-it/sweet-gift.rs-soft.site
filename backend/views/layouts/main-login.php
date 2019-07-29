@@ -1,12 +1,11 @@
 <?php
 use backend\assets\AppAsset;
 use yii\helpers\Html;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
-// You could register AppAsset depended with AdminlteAsset instead
-yidas\adminlte\AdminlteAsset::register($this);
-// iCheck
-yidas\adminlte\plugins\iCheckAsset::register($this);
+
+dmstr\web\AdminLteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -18,7 +17,7 @@ yidas\adminlte\plugins\iCheckAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="hold-transition login-page">
+<body class="login-page">
 
 <?php $this->beginBody() ?>
 
