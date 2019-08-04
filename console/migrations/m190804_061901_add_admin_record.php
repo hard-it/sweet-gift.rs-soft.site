@@ -18,7 +18,7 @@ class m190804_061901_add_admin_record extends Migration
         $user->username = 'admin';
         $user->email    = 'softarts@mail.ru';
         $user->status   = User::STATUS_ACTIVE;
-        
+
         $user->setPassword('1q2w3e4r5t');
         $user->generateAuthKey();
 
