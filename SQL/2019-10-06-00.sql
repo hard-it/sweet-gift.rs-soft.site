@@ -312,18 +312,22 @@ CREATE TABLE `ProductPart`
 (
   `Id` Int NOT NULL AUTO_INCREMENT
  COMMENT 'Идентификатор записи',
-  `Product` Int NOT NULL
- COMMENT 'Продукт',
-  `OrderProduct` Int NOT NULL
+  `OrderProduct` Int
  COMMENT 'Продукт заказа',
+  `Product` Int
+ COMMENT 'Произведённый продукт',
   `Quantity` Int
  COMMENT 'Количество',
   `State` Json
- COMMENT 'Состояние части продукта'
+ COMMENT 'Состояние части продукта',
+  PRIMARY KEY (`Id`)
 )
 ;
 
-ALTER TABLE `ProductPart` ADD PRIMARY KEY (`Product`,`OrderProduct`,`Id`)
+CREATE INDEX `ix_productpart_product` ON `ProductPart` (`Product`)
+;
+
+CREATE INDEX `ix_productpart_orderproduct` ON `ProductPart` (`OrderProduct`)
 ;
 
 -- Table Tag
@@ -383,14 +387,6 @@ ALTER TABLE `ProductType` ADD CONSTRAINT `fk_productcategory_producttype` FOREIG
 ;
 
 
-ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_product_productpart` FOREIGN KEY (`Product`) REFERENCES `Product` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
-;
-
-
-ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_productorder_productpart` FOREIGN KEY (`OrderProduct`) REFERENCES `OrderProduct` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
-;
-
-
 ALTER TABLE `Product` ADD CONSTRAINT `fk_producttype_product` FOREIGN KEY (`ProductType`) REFERENCES `ProductType` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ;
 
@@ -400,6 +396,14 @@ ALTER TABLE `Product` ADD CONSTRAINT `fk_productcategory_product` FOREIGN KEY (`
 
 
 ALTER TABLE `Customer` ADD CONSTRAINT `fk_user_customer` FOREIGN KEY (`User`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_product_productpart` FOREIGN KEY (`Product`) REFERENCES `Product` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
+;
+
+
+ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_orderproduct_productpart` FOREIGN KEY (`OrderProduct`) REFERENCES `OrderProduct` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ;
 
 

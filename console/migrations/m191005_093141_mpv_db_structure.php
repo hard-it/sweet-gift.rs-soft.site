@@ -13,7 +13,7 @@ class m191005_093141_mpv_db_structure extends Migration
     public function safeUp()
     {
         $this->getDb()->createCommand("
-        -- Table ProductCategory
+
 
 CREATE TABLE `ProductCategory`
 (
@@ -93,7 +93,8 @@ CREATE TABLE `CustomerOrder`
 )
  COMMENT = 'Заказы';
 
-CREATE INDEX `ix_customer` ON `CustomerOrder` (`Customer`);
+CREATE INDEX `ix_customer` ON `CustomerOrder` (`Customer`)
+;
 
 CREATE UNIQUE INDEX `ui_number` ON `CustomerOrder` (`Number`);
 
@@ -120,6 +121,8 @@ CREATE TABLE `OrderProduct`
 CREATE INDEX `ix_order` ON `OrderProduct` (`CustomerOrder`);
 
 CREATE INDEX `ix_product` ON `OrderProduct` (`Product`);
+
+-- Table Product
 
 CREATE TABLE `Product`
 (
@@ -165,17 +168,20 @@ CREATE TABLE `ProductPart`
 (
   `Id` Int NOT NULL AUTO_INCREMENT
  COMMENT 'Идентификатор записи',
-  `Product` Int NOT NULL
- COMMENT 'Продукт',
-  `OrderProduct` Int NOT NULL
+  `OrderProduct` Int
  COMMENT 'Продукт заказа',
+  `Product` Int
+ COMMENT 'Произведённый продукт',
   `Quantity` Int
  COMMENT 'Количество',
   `State` Json
- COMMENT 'Состояние части продукта'
+ COMMENT 'Состояние части продукта',
+  PRIMARY KEY (`Id`)
 );
 
-ALTER TABLE `ProductPart` ADD PRIMARY KEY (`Product`,`OrderProduct`,`Id`);
+CREATE INDEX `ix_productpart_product` ON `ProductPart` (`Product`);
+
+CREATE INDEX `ix_productpart_orderproduct` ON `ProductPart` (`OrderProduct`);
 
 CREATE TABLE `Tag`
 (
@@ -195,17 +201,24 @@ CREATE TABLE `Keyword`
 
 ALTER TABLE `Keyword` ADD PRIMARY KEY (`Name`);
 
-
 ALTER TABLE `CustomerOrder` ADD CONSTRAINT `fk_customer_order` FOREIGN KEY (`Customer`) REFERENCES `Customer` (`Id`) ON DELETE RESTRICT ON UPDATE NO ACTION;
+
 ALTER TABLE `OrderProduct` ADD CONSTRAINT `fk_order_orderproduct` FOREIGN KEY (`CustomerOrder`) REFERENCES `CustomerOrder` (`Id`) ON DELETE RESTRICT ON UPDATE NO ACTION;
+
 ALTER TABLE `ProductType` ADD CONSTRAINT `fk_productcategory_producttype` FOREIGN KEY (`Category`) REFERENCES `ProductCategory` (`Id`) ON DELETE RESTRICT ON UPDATE NO ACTION;
-ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_product_productpart` FOREIGN KEY (`Product`) REFERENCES `Product` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_productorder_productpart` FOREIGN KEY (`OrderProduct`) REFERENCES `OrderProduct` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
 ALTER TABLE `Product` ADD CONSTRAINT `fk_producttype_product` FOREIGN KEY (`ProductType`) REFERENCES `ProductType` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
 ALTER TABLE `Product` ADD CONSTRAINT `fk_productcategory_product` FOREIGN KEY (`ProductCategory`) REFERENCES `ProductCategory` (`Id`) ON DELETE RESTRICT ON UPDATE NO ACTION;
+
 ALTER TABLE `Customer` ADD CONSTRAINT `fk_user_customer` FOREIGN KEY (`User`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_product_productpart` FOREIGN KEY (`Product`) REFERENCES `Product` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+ALTER TABLE `ProductPart` ADD CONSTRAINT `fk_orderproduct_productpart` FOREIGN KEY (`OrderProduct`) REFERENCES `OrderProduct` (`Id`) ON DELETE CASCADE ON UPDATE NO ACTION;
         ")->execute();
 
+        return true;
     }
 
     /**
