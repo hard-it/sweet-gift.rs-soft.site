@@ -14,6 +14,5 @@ use \yii\rbac\Item as Item;
 
 class CustomerRule extends BaseRule
 {
-    public $name = 'CustomerRule';
-
+    public $name = BaseRule::RULE_CUSTOMER;
 }
