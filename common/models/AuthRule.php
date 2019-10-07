@@ -7,10 +7,10 @@ use Yii;
 /**
  * This is the model class for table "authrule".
  *
- * @property string $name       Наименование
- * @property resource $data     Данные
- * @property int $created_at    Создано
- * @property int $updated_at    Изменено
+ * @property string     $name          Наименование
+ * @property resource   $data          Данные
+ * @property int        $created_at    Создано
+ * @property int        $updated_at    Изменено
  *
  * @property Authitem[] $authitems
  */
@@ -44,8 +44,8 @@ class AuthRule extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('app', 'Наименование'),
-            'data' => Yii::t('app', 'Данные'),
+            'name'       => Yii::t('app', 'Наименование'),
+            'data'       => Yii::t('app', 'Данные'),
             'created_at' => Yii::t('app', 'Создано'),
             'updated_at' => Yii::t('app', 'Изменено'),
         ];

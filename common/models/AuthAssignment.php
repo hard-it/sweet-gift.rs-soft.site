@@ -7,9 +7,9 @@ use Yii;
 /**
  * This is the model class for table "authassignment".
  *
- * @property string $item_name Наименование
- * @property string $user_id    Идентификатор пользователя
- * @property int $created_at   Время создания
+ * @property string   $item_name    Наименование
+ * @property string   $user_id      Идентификатор пользователя
+ * @property int      $created_at   Время создания
  *
  * @property Authitem $itemName
  */
@@ -43,8 +43,8 @@ class AuthAssignment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'item_name' => Yii::t('app', 'Наименование'),
-            'user_id' => Yii::t('app', 'Идентификатор пользователя'),
+            'item_name'  => Yii::t('app', 'Наименование'),
+            'user_id'    => Yii::t('app', 'Идентификатор пользователя'),
             'created_at' => Yii::t('app', 'Время создания'),
         ];
     }

@@ -7,8 +7,8 @@ use Yii;
 /**
  * This is the model class for table "authitemchild".
  *
- * @property string $parent Родитель
- * @property string $child  Подчинённый
+ * @property string   $parent Родитель
+ * @property string   $child  Подчинённый
  *
  * @property AuthItem $parent0
  * @property AuthItem $child0
@@ -44,7 +44,7 @@ class AuthItemChild extends \yii\db\ActiveRecord
     {
         return [
             'parent' => Yii::t('app', 'Родитель'),
-            'child' => Yii::t('app', 'Подчинённый'),
+            'child'  => Yii::t('app', 'Подчинённый'),
         ];
     }
 

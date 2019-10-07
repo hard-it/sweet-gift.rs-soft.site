@@ -7,20 +7,20 @@ use Yii;
 /**
  * This is the model class for table "authitem".
  *
- * @property string $name       Наименование
- * @property string $rule_name  Наименование правила
- * @property int $type          Тип правила
- * @property string $description Описание
- * @property resource $data     Данные
- * @property int $created_at Создано
- * @property int $updated_at Изменено
+ * @property string           $name          Наименование
+ * @property string           $rule_name     Наименование правила
+ * @property int              $type          Тип правила
+ * @property string           $description   Описание
+ * @property resource         $data          Данные
+ * @property int              $created_at    Создано
+ * @property int              $updated_at    Изменено
  *
  * @property AuthAssignment[] $authAssignments
- * @property AuthRule $ruleName
- * @property AuthItemChild[] $authItemChildren
- * @property AuthItemChild[] $authItemChildren0
- * @property AuthItem[] $children
- * @property AuthItem[] $parents
+ * @property AuthRule         $ruleName
+ * @property AuthItemChild[]  $authItemChildren
+ * @property AuthItemChild[]  $authItemChildren0
+ * @property AuthItem[]       $children
+ * @property AuthItem[]       $parents
  */
 class AuthItem extends \yii\db\ActiveRecord
 {
@@ -53,13 +53,13 @@ class AuthItem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('app', 'Наименование'),
-            'rule_name' => Yii::t('app', 'Наименование правила'),
-            'type' => Yii::t('app', 'Тип правила'),
+            'name'        => Yii::t('app', 'Наименование'),
+            'rule_name'   => Yii::t('app', 'Наименование правила'),
+            'type'        => Yii::t('app', 'Тип правила'),
             'description' => Yii::t('app', 'Описание'),
-            'data' => Yii::t('app', 'Данные'),
-            'created_at' => Yii::t('app', 'Создано'),
-            'updated_at' => Yii::t('app', 'Изменено'),
+            'data'        => Yii::t('app', 'Данные'),
+            'created_at'  => Yii::t('app', 'Создано'),
+            'updated_at'  => Yii::t('app', 'Изменено'),
         ];
     }
 

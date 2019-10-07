@@ -6,6 +6,18 @@ return [
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
+        'cart' => [
+            'class' => 'devanych\cart\Cart',
+            'storageClass' => 'devanych\cart\storage\SessionStorage',
+            'calculatorClass' => 'devanych\cart\calculators\SimpleCalculator',
+            'params' => [
+                'key' => 'cart',
+                'expire' => 604800,
+                'productClass' => 'common\models\ProductType',
+                'productFieldId' => 'Id',
+                'productFieldPrice' => 'Cost',
+            ],
+        ],
         'cache'       => [
             'class' => 'yii\caching\FileCache',
         ],
