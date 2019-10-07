@@ -3,18 +3,21 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "OrderProduct".
  *
- * @property int    $Id            Идентификатор записи
- * @property int    $CustomerOrder Заказ
- * @property int    $Product       Продукт
- * @property int    $Quantity      Количество
- * @property string $Cost          Стоимость
- * @property string $Comment       Примечание
+ * @property int           $Id             Идентификатор записи
+ * @property int           $CustomerOrder  Заказ
+ * @property CustomerOrder $сustomerOrder0 Заказ
+ * @property int           $Product        Продукт
+ * @property int           $Quantity       Количество
+ * @property string        $Cost           Стоимость
+ * @property string        $Comment        Примечание
  */
-class OrderProduct extends \yii\db\ActiveRecord
+class OrderProduct extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -50,6 +53,22 @@ class OrderProduct extends \yii\db\ActiveRecord
             'Cost'          => Yii::t('app', 'Стоимость'),
             'Comment'       => Yii::t('app', 'Примечание'),
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCustomerOrder0()
+    {
+        return $this->hasOne(CustomerOrder::class, ['Id' => 'CustomerOrder']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductParts()
+    {
+        return $this->hasMany(ProductPart::class, ['Product' => 'Id']);
     }
 
     /**

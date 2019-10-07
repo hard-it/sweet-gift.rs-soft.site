@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "ProductCategory".
@@ -47,6 +48,22 @@ class ProductCategory extends \yii\db\ActiveRecord
             'Name'        => Yii::t('app', 'Наименование'),
             'Description' => Yii::t('app', 'Описание'),
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductTypes()
+    {
+        return $this->hasMany(ProductType::class, ['Category' => 'Id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['ProductCategory' => 'Id']);
     }
 
     /**

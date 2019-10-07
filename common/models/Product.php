@@ -3,17 +3,21 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "Product".
  *
- * @property int   $Id              Идентификатор записи
- * @property int   $ProductCategory Категория продукта
- * @property int   $ProductType     Тип продукта
- * @property int   $Quantity        Количество
- * @property array $State           Множество состояний продукта в JSON.
+ * @property int             $Id               Идентификатор записи
+ * @property int             $ProductCategory  Категория продукта
+ * @property ProductCategory $productCategory0 Категория продукта
+ * @property int             $ProductType      Тип продукта
+ * @property ProductType     $productType0     Тип продукта
+ * @property int             $Quantity         Количество
+ * @property array           $State            Множество состояний продукта в JSON.
  */
-class Product extends \yii\db\ActiveRecord
+class Product extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -48,6 +52,30 @@ class Product extends \yii\db\ActiveRecord
             'Quantity'        => Yii::t('app', 'Количество'),
             'State'           => Yii::t('app', 'Множество состояний продукта в JSON.'),
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductType0()
+    {
+        return $this->hasOne(ProductType::class, ['Id' => 'ProductType']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductCategory0()
+    {
+        return $this->hasOne(ProductCategory::class, ['Id' => 'ProductCategory']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProductParts()
+    {
+        return $this->hasMany(ProductPart::class, ['Product' => 'Id']);
     }
 
     /**

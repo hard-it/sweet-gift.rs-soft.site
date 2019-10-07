@@ -3,21 +3,24 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "ProductType".
  *
- * @property int    $Id              Идентификатор записи
- * @property int    $Category        Категория товара
- * @property string $Code            Код
- * @property string $Name            Наименование
- * @property int    $MinimalQuantity Минимальное количество
- * @property int    $ShelfLife       Срок хранения, сек
- * @property int    $Measure         Единица измерения
- * @property string $Cost            Цена
- * @property string $Description     Описание
+ * @property int      $Id               Идентификатор записи
+ * @property int      $Category         Категория товара
+ * @property Category $сategory0        Категория товара
+ * @property string   $Code             Код
+ * @property string   $Name             Наименование
+ * @property int      $MinimalQuantity  Минимальное количество
+ * @property int      $ShelfLife        Срок хранения, сек
+ * @property int      $Measure          Единица измерения
+ * @property string   $Cost             Цена за единицу
+ * @property string   $Description      Описание
  */
-class ProductType extends \yii\db\ActiveRecord
+class ProductType extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -57,9 +60,25 @@ class ProductType extends \yii\db\ActiveRecord
             'MinimalQuantity' => Yii::t('app', 'Минимальное количество'),
             'ShelfLife'       => Yii::t('app', 'Срок хранения, сек'),
             'Measure'         => Yii::t('app', 'Единица измерения'),
-            'Cost'            => Yii::t('app', 'Цена'),
+            'Cost'            => Yii::t('app', 'Цена за единицу'),
             'Description'     => Yii::t('app', 'Описание'),
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCategory0()
+    {
+        return $this->hasOne(ProductCategory::class, ['Id' => 'Category']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['ProductType' => 'Id']);
     }
 
     /**
