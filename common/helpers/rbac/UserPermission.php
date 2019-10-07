@@ -14,7 +14,9 @@ use \yii\rbac\Item as Item;
 
 class UserPermission extends Permission
 {
-    public $name = 'UserPermission';
+    const PERMISSION_USER = 'UserPermission';
+
+    public $name = self::PERMISSION_USER;
 
     /**
      * @param int|string $userId

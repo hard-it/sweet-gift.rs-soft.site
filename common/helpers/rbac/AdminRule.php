@@ -11,9 +11,8 @@ namespace common\helpers\rbac;
 use \yii\rbac\Rule;
 use \yii\rbac\Item as Item;
 
-
 class AdminRule extends BaseRule
 {
-    public $name = 'AdminRule';
+    public $name = BaseRule::RULE_ADMIN;
 
 }

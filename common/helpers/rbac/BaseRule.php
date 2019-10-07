@@ -22,17 +22,17 @@ class BaseRule extends Rule
     const ROLE_SUPER_ADMIN = 'super_admin';
     const ROLE_ADMIN       = 'admin';
     const ROLE_EDITOR      = 'editor';
-    const ROLE_GUIDE       = 'guide';
-    const ROLE_AGENT       = 'agent';
+    const ROLE_DELIVERY    = 'delivery';
     const ROLE_CUSTOMER    = 'customer';
     const ROLE_USER        = 'user';
     const ROLE_GUEST       = 'guest';
     const BLOCK_POSTFIX    = '_not';
 
     const RULE_SUPER_ADMIN = 'SuperAdminRule';
+    const RULE_ADMIN       = 'AdminRule';
     const RULE_EDITOR      = 'EditorRule';
-    const RULE_GUIDE       = 'GuideRule';
-    const RULE_AGENT       = 'AgentRule';
+    const RULE_CUSTOMER    = 'CustomerRule';
+    const RULE_DELIVERY    = 'DeliveryRule';
     const RULE_GUEST       = 'GuestRule';
     const RULE_USER        = 'UserRule';
 
@@ -47,12 +47,12 @@ class BaseRule extends Rule
      */
     public function executeBase($userId, $permission, $params)
     {
-        if (Yii::$app->user->can('super_admin')) {
+        if (Yii::$app->user->can(static::ROLE_SUPER_ADMIN)) {
             return 1;
         }
 
         // при налии блокирующего разрешения у пользователя
-        if (Yii::$app->user->can($permission->name . '_not')) {
+        if (Yii::$app->user->can($permission->name . static::BLOCK_POSTFIX)) {
             return false;
         }
 

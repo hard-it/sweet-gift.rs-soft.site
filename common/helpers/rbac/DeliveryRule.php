@@ -12,8 +12,8 @@ use \yii\rbac\Rule;
 use \yii\rbac\Item as Item;
 
 
-class GuideRule extends BaseRule
+class DeliveryRule extends BaseRule
 {
-    public $name = BaseRule::RULE_GUIDE;
+    public $name = BaseRule::RULE_DELIVERY;
 
 }

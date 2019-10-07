@@ -18,5 +18,5 @@ use \yii\rbac\Item as Item;
  */
 class UserRule extends BaseRule
 {
-    public $name = 'UserRule';
+    public $name = BaseRule::RULE_USER;
 }
