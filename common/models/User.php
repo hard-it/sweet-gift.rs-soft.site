@@ -236,4 +236,14 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Product::class, ['User' => 'Id']);
     }
+
+    /**
+     * @param string $url
+     *
+     * @return string|null
+     */
+    public function getRedirectUrl(string $url)
+    {
+        return null;
+    }
 }
