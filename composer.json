@@ -22,7 +22,8 @@
         "devanych/yii2-cart": "*",
         "gromovfjodor/yii2-image-manager": "^1.5",
         "2amigos/yii2-tinymce-widget": "^1.1",
-        "unclead/yii2-multiple-input": "^2.21"
+        "unclead/yii2-multiple-input": "^2.21",
+        "kartik-v/yii2-tree-manager": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
