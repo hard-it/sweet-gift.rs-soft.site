@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id'                  => 'app-backend',
+    'name'                => 'Панель управления',
     'basePath'            => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'language'            => 'ru-RU',
@@ -27,6 +28,11 @@ return [
             'cssFiles'                => [
                 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css',
             ],
+            'treemanager' =>  [
+                'class' => '\kartik\tree\Module',
+                // other module settings, refer detailed documentation
+            ]
+
         ],
     ],
     'components'          => [
