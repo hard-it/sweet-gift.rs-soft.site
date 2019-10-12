@@ -17,6 +17,10 @@ return [
         'treemanager'  => [
             'class' => '\kartik\tree\Module',
             // other module settings, refer detailed documentation
+            'dataStructure' => [
+                'keyAttribute' => 'Id',
+                'nameAttribute' => 'Name',
+            ],
 
         ],
         'imagemanager' => [
