@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
+use kartik\tree\models\Tree;
 
 /**
  * This is the model class for table "ProductCategory".
@@ -32,7 +33,7 @@ use yii\db\ActiveQuery;
  * @property int    $removable_all Whether the node is removable along with descendants
  * @property int    $child_allowed Whether to allow adding children to the node
  */
-class ProductCategory extends \yii\db\ActiveRecord
+class ProductCategory extends Tree
 {
     /**
      * {@inheritdoc}

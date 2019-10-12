@@ -14,6 +14,11 @@ return [
     'language'            => 'ru-RU',
     'bootstrap'           => ['log'],
     'modules'             => [
+        'treemanager'  => [
+            'class' => '\kartik\tree\Module',
+            // other module settings, refer detailed documentation
+
+        ],
         'imagemanager' => [
             'class'                   => 'gromovfjodor\imagemanager\Module',
             //set accces rules ()
