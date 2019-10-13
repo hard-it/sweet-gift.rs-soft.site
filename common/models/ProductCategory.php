@@ -54,7 +54,9 @@ class ProductCategory extends Tree
             [['Name'], 'string', 'max' => 128],
             [['icon'], 'string', 'max' => 255],
             [['Code'], 'unique'],
+            [['Code'], 'required'],
             [['Name'], 'unique'],
+            [['Name'], 'required'],
             [['root', 'lft', 'rgt', 'lvl', 'icon_type', 'active', 'selected', 'disabled', 'readonly', 'visible', 'collapsed', 'movable_u', 'movable_d', 'movable_l', 'movable_r', 'removable', 'removable_all', 'child_allowed'], 'integer'],
         ];
     }

@@ -15,16 +15,16 @@ return [
     'bootstrap'           => ['log'],
     'modules'             => [
         'treemanager'  => [
-            'class' => '\kartik\tree\Module',
+            'class'           => '\kartik\tree\Module',
             // other module settings, refer detailed documentation
-            'dataStructure' => [
-                'keyAttribute' => 'Id',
+            'dataStructure'   => [
+                'keyAttribute'  => 'Id',
                 'nameAttribute' => 'Name',
             ],
-
+            'treeEncryptSalt' => 'encription salt 232167',
         ],
         'imagemanager' => [
-            'class'                   => 'gromovfjodor\imagemanager\Module',
+            'class'                   => 'noam148\imagemanager\Module',
             //set accces rules ()
             'canUploadImage'          => true,
             'canRemoveImage'          => function () {
@@ -37,18 +37,13 @@ return [
             'cssFiles'                => [
                 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css',
             ],
-            'treemanager' =>  [
-                'class' => '\kartik\tree\Module',
-                // other module settings, refer detailed documentation
-            ]
-
         ],
     ],
     'components'          => [
         'imagemanager' => [
-            'class'             => 'gromovfjodor\imagemanager\components\ImageManagerGetPath',
+            'class'             => 'noam148\imagemanager\components\ImageManagerGetPath',
             //set media path (outside the web folder is possible)
-            'mediaPath'         => '../../media',
+            'mediaPath'         => '../../frontend/web/images/media',
             //path relative web folder. In case of multiple environments (frontend, backend) add more paths
             'cachePath'         => ['assets/images', '../../frontend/web/assets/images'],
             //use filename (seo friendly) for resized images else use a hash

@@ -4,6 +4,9 @@
 use kartik\tree\TreeView;
 use common\models\User;
 use common\models\ProductCategory;
+use dosamigos\tinymce\TinyMceAsset;
+
+TinyMceAsset::register($this);
 
 $this->params['breadcrumbs'][] = 'Категории товаров';
 
@@ -13,7 +16,7 @@ echo TreeView::widget([
     'id'               => 'product-category-tree',
     // single query fetch to render the tree
     'query'            => ProductCategory::find()->addOrderBy('root, lft, Name'),
-    //'nodeView'        => '@backend/views/product-category/_form',
+    'nodeView'        => '@app/views/product-category/_form',
     'headingOptions'   => ['label' => 'Категории'],
     'rootOptions'      => ['label' => '<span class="text-primary">Категории</span>'],
     // this will override the headingOptions
@@ -36,11 +39,9 @@ echo TreeView::widget([
     // normally not needed to change
     'softDelete'       => false,
     // normally not needed to change
-    'cacheSettings'    => ['enableCache' => false]
+    'cacheSettings'    => ['enableCache' => false],
 ]);
-/*
-$this->registerJs('$("#blog-tree").on(\'treeview.beforeselect\', function(event, key, jqXHR, settings) {
-    tinymce.remove();
-                        });');
 
-*/
+$this->registerJs('$("#product-category-tree").on(\'treeview:beforeselect\', function(event, key, jqXHR, settings) {
+        tinymce.remove();
+                        });');

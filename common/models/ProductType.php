@@ -41,6 +41,8 @@ class ProductType extends ActiveRecord
             [['Description'], 'string'],
             [['Code'], 'string', 'max' => 21],
             [['Name'], 'string', 'max' => 128],
+            [['Code'], 'required'],
+            [['Name'], 'required'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
             [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => Productcategory::className(), 'targetAttribute' => ['Category' => 'Id']],
