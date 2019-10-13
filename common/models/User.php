@@ -8,7 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use yii\helpers\ArrayHelper;
+use common\helpers\rbac\BaseRule;
 
 /**
  * User model
@@ -245,5 +245,89 @@ class User extends ActiveRecord implements IdentityInterface
     public function getRedirectUrl(string $url)
     {
         return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isSuperAdmin()
+    {
+        $user = Yii::$app->user;
+
+        if (!isset($user)) {
+            return false;
+        }
+
+        return $user->can(BaseRule::ROLE_SUPER_ADMIN);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isAdmin()
+    {
+        $user = Yii::$app->user;
+
+        if (!isset($user)) {
+            return false;
+        }
+
+        return $user->can(BaseRule::ROLE_ADMIN);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isEditor()
+    {
+        $user = Yii::$app->user;
+
+        if (!isset($user)) {
+            return false;
+        }
+
+        return $user->can(BaseRule::ROLE_EDITOR);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isDelivery()
+    {
+        $user = Yii::$app->user;
+
+        if (!isset($user)) {
+            return false;
+        }
+
+        return $user->can(BaseRule::ROLE_DELIVERY);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isCustomer()
+    {
+        $user = Yii::$app->user;
+
+        if (!isset($user)) {
+            return false;
+        }
+
+        return $user->can(BaseRule::ROLE_CUSTOMER);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isUser()
+    {
+        $user = Yii::$app->user;
+
+        if (!isset($user)) {
+            return false;
+        }
+
+        return $user->can(BaseRule::ROLE_USER);
     }
 }

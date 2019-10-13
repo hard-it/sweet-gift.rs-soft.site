@@ -11,31 +11,6 @@ use common\helpers\rbac\BaseRule;
 class ForbiddingController extends Controller
 {
     /**
-     * @param $check
-     *
-     * @return bool
-     */
-    public function checkGuestAccess($check)
-    {
-        $user = Yii::$app->user;
-        if (!$user->isGuest) {
-            return false;
-        }
-
-        $auth = Yii::$app->authManager;
-
-        $permissions = $auth->getPermissionsByRole(BaseRule::ROLE_GUEST);
-
-        foreach ($permissions as $permission) {
-            if ($permission->name == $check) {
-                return true;
-            }
-        }
-
-        return false;
-
-    }
-    /**
      * @param $action
      *
      * @return bool
@@ -43,10 +18,11 @@ class ForbiddingController extends Controller
      */
     public function beforeAction($action)
     {
+        return true;
         if (parent::beforeAction($action)) {
-            $check = Yii::$app->id . '\\' . $action->controller->id . '\\' . $action->id;
+            $check = static::getCurrentPermission();
             $user = Yii::$app->user;
-            if ($user->can($check) || $this->checkGuestAccess($check)) {
+            if ($user->can($check) || static::hasGuestAccess($check)) {
                 $identity = $user->identity;
                 if ($identity instanceof User) {
                     /* @var User $identity */
@@ -76,5 +52,49 @@ class ForbiddingController extends Controller
                 'view'  => 'site\error',
             ],
         ];
+
+
+    }
+
+    /**
+     * @return string
+     */
+    public static function getCurrentPermission()
+    {
+        return Yii::$app->id . '\\' . Yii::$app->controller->id . '\\' . Yii::$app->controller->action->id;
+
+    }
+
+    /**
+     * @param string $check
+     *
+     * @return bool
+     */
+    public static function hasGuestAccess(string $check)
+    {
+        $auth = Yii::$app->authManager;
+
+        $permissions = $auth->getPermissionsByRole(BaseRule::ROLE_GUEST);
+
+        foreach ($permissions as $permission) {
+            if ($permission->name == $check) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    /**
+     * @param string $permission
+     *
+     * @return bool
+     */
+    public static function hasAccess(string $permission)
+    {
+        return true;
+        $user = Yii::$app->user;
+        return $user->can($permission) || static::hasGuestAccess($permission);
     }
 }
