@@ -12,7 +12,7 @@ use kartik\tree\models\Tree;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
-use \common\models\ProductCategory;
+use common\models\ProductCategory;
 use dosamigos\tinymce\TinyMce;
 
 /**
@@ -329,7 +329,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'language'      => 'ru',
         'clientOptions' => [
             'file_browser_callback' => new yii\web\JsExpression("function(field_name, url, type, win) {
-			window.open('" . yii\helpers\Url::to(['/imagemanager/manager', 'view-mode' => 'iframe', 'select-type' => 'tinymce']) . "&tag_name='+field_name,'','width=800,height=540 ,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no');
+			window.open('".yii\helpers\Url::to(['imagemanager/manager', 'view-mode'=>'iframe', 'select-type'=>'tinymce'])."&tag_name='+field_name,'','width=800,height=540 ,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no');
 		}"),
             'plugins'               => [
                 "advlist autolink lists link charmap print preview anchor",
