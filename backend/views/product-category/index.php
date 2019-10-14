@@ -16,7 +16,7 @@ echo TreeView::widget([
     'id'               => 'product-category-tree',
     // single query fetch to render the tree
     'query'            => ProductCategory::find()->addOrderBy('root, lft, Name'),
-    'nodeView'        => '@app/views/product-category/_form',
+    'nodeView'         => '@app/views/product-category/_form',
     'headingOptions'   => ['label' => 'Категории'],
     'rootOptions'      => ['label' => '<span class="text-primary">Категории</span>'],
     // this will override the headingOptions
@@ -42,6 +42,7 @@ echo TreeView::widget([
     'cacheSettings'    => ['enableCache' => false],
 ]);
 
-$this->registerJs('$("#product-category-tree").on(\'treeview:beforeselect\', function(event, key, jqXHR, settings) {
+$this->registerJs("$('#product-category-tree').on('treeview:beforeselect', function(event, key, jqXHR, settings) {
         tinymce.remove();
-                        });');
+                        });
+                        ");

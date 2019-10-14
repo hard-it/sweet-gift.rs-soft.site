@@ -14,6 +14,7 @@ use yii\helpers\Html;
 use yii\web\View;
 use common\models\ProductCategory;
 use dosamigos\tinymce\TinyMce;
+use yii\web\JsExpression;
 
 /**
  * @var View            $this
@@ -328,8 +329,8 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'options'       => ['rows' => 20],
         'language'      => 'ru',
         'clientOptions' => [
-            'file_browser_callback' => new yii\web\JsExpression("function(field_name, url, type, win) {
-			window.open('".yii\helpers\Url::to(['imagemanager/manager', 'view-mode'=>'iframe', 'select-type'=>'tinymce'])."&tag_name='+field_name,'','width=800,height=540 ,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no');
+            // @toDo: insert elFinder
+            'file_picker_callback' => new yii\web\JsExpression("function(field_name, url, type, win) {
 		}"),
             'plugins'               => [
                 "advlist autolink lists link charmap print preview anchor",
