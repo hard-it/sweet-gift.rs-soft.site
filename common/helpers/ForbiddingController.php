@@ -53,7 +53,6 @@ class ForbiddingController extends Controller
             ],
         ];
 
-
     }
 
     /**

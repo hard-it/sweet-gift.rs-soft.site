@@ -64,6 +64,11 @@ class SiteController extends ForbiddingController
         return $this->render('index');
     }
 
+    public function actionImages()
+    {
+        return $this->render('images');
+    }
+
     /**
      * Login action.
      *
