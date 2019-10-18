@@ -3,13 +3,15 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "Tag".
  *
  * @property string $Name Наименование
  */
-class Tag extends \yii\db\ActiveRecord
+class Tag extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -48,5 +50,15 @@ class Tag extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TagQuery(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        $all = static::find()->orderBy('Name')->all();
+
+        return ArrayHelper::map($all, 'Name', 'Name');
     }
 }

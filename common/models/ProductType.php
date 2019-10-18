@@ -19,6 +19,9 @@ use yii\db\ActiveRecord;
  * @property int      $Measure          Единица измерения
  * @property string   $Cost             Цена за единицу
  * @property string   $Description      Описание
+ * @property array    $Tags             Тэги
+ * @property array    $Keywords         Ключевые слова
+ * @property array    $Images           Изображения
  */
 class ProductType extends ActiveRecord
 {
@@ -43,6 +46,7 @@ class ProductType extends ActiveRecord
             [['Name'], 'string', 'max' => 128],
             [['Code'], 'required'],
             [['Name'], 'required'],
+            [['Tags', 'Keywords', 'Images'], 'safe'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
             [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => Productcategory::className(), 'targetAttribute' => ['Category' => 'Id']],
@@ -64,6 +68,9 @@ class ProductType extends ActiveRecord
             'Measure'         => Yii::t('app', 'Единица измерения'),
             'Cost'            => Yii::t('app', 'Цена за единицу'),
             'Description'     => Yii::t('app', 'Описание'),
+            'Tags'            => Yii::t('app', 'Тэги'),
+            'Keywords'        => Yii::t('app', 'Ключевые слова'),
+            'Images'          => Yii::t('app', 'Изображения'),
         ];
     }
 

@@ -3,13 +3,15 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "Keyword".
  *
  * @property string $Name Наименование
  */
-class Keyword extends \yii\db\ActiveRecord
+class Keyword extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -48,5 +50,15 @@ class Keyword extends \yii\db\ActiveRecord
     public static function find()
     {
         return new KeywordQuery(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        $all = static::find()->orderBy('Name')->all();
+
+        return ArrayHelper::map($all, 'Name', 'Name');
     }
 }

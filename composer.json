@@ -24,7 +24,8 @@
         "kartik-v/yii2-tree-manager": "dev-master",
         "kartik-v/yii2-widgets": "*",
         "mihaildev/yii2-elfinder": "*",
-        "mihaildev/yii2-ckeditor": "*"
+        "mihaildev/yii2-ckeditor": "*",
+        "kartik-v/yii2-widget-select2": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

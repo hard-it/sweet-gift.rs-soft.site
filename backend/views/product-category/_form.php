@@ -15,6 +15,11 @@ use yii\web\View;
 use common\models\ProductCategory;
 use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
+use kartik\widgets\Select2;
+use common\models\Tag;
+use common\models\Keyword;
+use unclead\multipleinput\MultipleInput;
+use mihaildev\elfinder\InputFile;
 
 /**
  * @var View            $this
@@ -53,6 +58,7 @@ use mihaildev\elfinder\ElFinder;
  * @var string          $treeMoveHash
  * @var string          $hideCssClass
  */
+
 ?>
 
 <?php
@@ -326,13 +332,62 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 
     // РЕДАКТОР ОПИСАНИЯ
 
-    echo $form->field($node, 'Description')->widget(CKEditor::className(),[
-        'editorOptions' => [
-            //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-            'preset' => 'full',
-            //по умолчанию false
-            'inline' => false,
-            'editorOptions' => ElFinder::ckeditorOptions('elfinder',[/* Some CKEditor Options */]),
+    echo $form->field($node, 'Description')->widget(CKEditor::className(), [
+        'editorOptions' => ElFinder::ckeditorOptions('elfinder',
+            [
+                //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                'preset' => 'standart',
+                //по умолчанию false
+                'inline' => false,
+                'rows'   => 10,
+            ]
+        ),
+    ]);
+
+    echo $form->field($node, 'Images')->widget(MultipleInput::class, [
+        'max'               => 10,
+        //'min'               => 2, // should be at least 2 rows
+        'allowEmptyList'    => true,
+        'enableGuessTitle'  => true,
+        'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
+        'columns'           => [
+            [
+                'name'    => 'Images',
+                'type'    => InputFile::class,
+                'title'   => Yii::t('elfinder', 'Изображения'),
+                'options' => [
+                    'language'      => 'ru',
+                    'controller'    => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
+                    'filter'        => 'image',    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
+                    'template'      => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
+                    'options'       => ['class' => 'form-control'],
+                    'buttonOptions' => ['class' => 'btn btn-default'],
+                    'buttonName'    => Yii::t('elfinder', 'Выбрать'),
+                    'multiple'      => false       // возможность выбора нескольких файлов
+                ],
+            ],
+        ],
+    ])->label(false);
+
+    echo $form->field($node, 'Tags')->widget(Select2::classname(), [
+        'data'          => Tag::getList(),
+        'value'         => $node->Tags,
+        'options'       => ['placeholder' => 'Тэги...', 'multiple' => true],
+        'pluginOptions' => [
+            'tags'               => true,
+            'tokenSeparators'    => [',', ' '],
+            'maximumInputLength' => 64,
+        ],
+    ]);
+
+    echo $form->field($node, 'Keywords')->widget(Select2::classname(), [
+        'data'          => Keyword::getList(),
+        'value'         => $node->Keywords,
+        'options'       => ['placeholder' => 'Ключевые слова...', 'multiple' => true],
+        'pluginOptions' => [
+            'tags'               => true,
+            'tokenSeparators'    => [',', ' '],
+            'maximumInputLength' => 64,
         ],
     ]);
     ?>
