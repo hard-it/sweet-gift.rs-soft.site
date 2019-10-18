@@ -13,8 +13,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 use common\models\ProductCategory;
-use dosamigos\tinymce\TinyMce;
-use yii\web\JsExpression;
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
 
 /**
  * @var View            $this
@@ -325,21 +325,14 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
      */
 
     // РЕДАКТОР ОПИСАНИЯ
-    echo $form->field($node, 'Description')->widget(TinyMce::class, [
-        'options'       => ['rows' => 20],
-        'language'      => 'ru',
-        'clientOptions' => [
-            // @toDo: insert elFinder
-            'file_picker_callback' => new yii\web\JsExpression("function(field_name, url, type, win) {
-		}"),
-            'plugins'               => [
-                "advlist autolink lists link charmap print preview anchor",
-                "searchreplace visualblocks code",
-                "insertdatetime media table contextmenu paste image pagebreak",
-            ],
-            'toolbar'               => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | pagebreak | code",
-            'branding'              => false,
-            'image_advtab'          => true,
+
+    echo $form->field($node, 'Description')->widget(CKEditor::className(),[
+        'editorOptions' => [
+            //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'preset' => 'full',
+            //по умолчанию false
+            'inline' => false,
+            'editorOptions' => ElFinder::ckeditorOptions('elfinder',[/* Some CKEditor Options */]),
         ],
     ]);
     ?>

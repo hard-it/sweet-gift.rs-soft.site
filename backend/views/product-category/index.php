@@ -4,9 +4,6 @@
 use kartik\tree\TreeView;
 use common\models\User;
 use common\models\ProductCategory;
-use dosamigos\tinymce\TinyMceAsset;
-
-TinyMceAsset::register($this);
 
 $this->params['breadcrumbs'][] = 'Категории товаров';
 
@@ -41,8 +38,3 @@ echo TreeView::widget([
     // normally not needed to change
     'cacheSettings'    => ['enableCache' => false],
 ]);
-
-$this->registerJs("$('#product-category-tree').on('treeview:beforeselect', function(event, key, jqXHR, settings) {
-        tinymce.remove();
-                        });
-                        ");
