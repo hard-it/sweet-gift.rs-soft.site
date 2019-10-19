@@ -11,6 +11,7 @@ use kartik\tree\TreeView;
 use kartik\tree\models\Tree;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 use common\models\ProductCategory;
 use mihaildev\ckeditor\CKEditor;
@@ -361,7 +362,11 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 'name'          => 'PreviewImages',
                 'type'          => 'static',
                 'value'         => function ($data) {
-                    return Html::img($data, ['class' => 'multiple-input-image']);
+                    if (isset($data)) {
+                        return Html::img(Url::toRoute($data['Images']), ['class' => 'multiple-input-image']);
+                    } else {
+                        return '';
+                    }
                 },
             ],
 
@@ -392,7 +397,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'options'       => ['placeholder' => 'Тэги...', 'multiple' => true],
         'pluginOptions' => [
             'tags'               => true,
-            'tokenSeparators'    => [',', ' '],
+            'tokenSeparators'    => [','],
             'maximumInputLength' => 64,
         ],
     ]);
@@ -403,7 +408,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'options'       => ['placeholder' => 'Ключевые слова...', 'multiple' => true],
         'pluginOptions' => [
             'tags'               => true,
-            'tokenSeparators'    => [',', ' '],
+            'tokenSeparators'    => [','],
             'maximumInputLength' => 64,
         ],
     ]);
