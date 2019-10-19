@@ -345,25 +345,42 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
     ]);
 
     echo $form->field($node, 'Images')->widget(MultipleInput::class, [
+        // max images count
         'max'               => 10,
-        //'min'               => 2, // should be at least 2 rows
+        // should be at least 2 rows
+        //'min'               => 2,
         'allowEmptyList'    => true,
         'enableGuessTitle'  => true,
-        'addButtonPosition' => MultipleInput::POS_FOOTER, // show add button in the header
+        'cloneButton'       => true,
+        'sortable'          => true,
+        // show add button in the footer
+        'addButtonPosition' => MultipleInput::POS_FOOTER,
+        'id'                => 'node-images',
         'columns'           => [
+            [
+                'name'          => 'PreviewImages',
+                'type'          => 'static',
+                'value'         => function ($data) {
+                    return Html::img($data, ['class' => 'multiple-input-image']);
+                },
+            ],
+
             [
                 'name'    => 'Images',
                 'type'    => InputFile::class,
                 'title'   => Yii::t('elfinder', 'Изображения'),
                 'options' => [
                     'language'      => 'ru',
-                    'controller'    => 'elfinder', // вставляем название контроллера, по умолчанию равен elfinder
-                    'filter'        => 'image',    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
-                    'template'      => '<div class="input-group">{input}<span class="input-group-btn">{button}</span></div>',
+                    // вставляем название контроллера, по умолчанию равен elfinder
+                    'controller'    => 'elfinder',
+                    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
+                    'filter'        => 'image',
+                    'template'      => '<div class="input-group multiple-input-elfinder">{input}<span class="input-group-btn">{button}</span></div>',
                     'options'       => ['class' => 'form-control'],
                     'buttonOptions' => ['class' => 'btn btn-default'],
                     'buttonName'    => Yii::t('elfinder', 'Выбрать'),
-                    'multiple'      => false       // возможность выбора нескольких файлов
+                    // возможность выбора нескольких файлов
+                    'multiple'      => false,
                 ],
             ],
         ],
