@@ -382,8 +382,8 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                     'filter'        => 'image',
                     'template'      => '<div class="input-group multiple-input-elfinder">{input}<span class="input-group-btn">{button}</span></div>',
                     'options'       => ['class' => 'form-control'],
-                    'buttonOptions' => ['class' => 'btn btn-default'],
-                    'buttonName'    => Yii::t('elfinder', 'Выбрать'),
+                    'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
+                    'buttonName'    => Yii::t('elfinder', ''),
                     // возможность выбора нескольких файлов
                     'multiple'      => false,
                 ],

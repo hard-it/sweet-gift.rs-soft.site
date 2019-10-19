@@ -140,3 +140,19 @@ a.desc:after {
 .multiple-input-image {
     height: 20px;
 }
+
+.btn-select-image {
+    width: 46px;
+    height: 34px;
+    margin-left: 13px;
+    margin-top: -1px;
+    font-size: 18px;
+}
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+    width: 46px;
+    height: 32px;
+    margin-left: 13px;
+    margin-top: -1px;
+    font-size: 14px;
+
+}
