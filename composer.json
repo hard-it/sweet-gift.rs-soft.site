@@ -20,11 +20,12 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "dmstr/yii2-adminlte-asset": "^2.1",
         "devanych/yii2-cart": "*",
-        "noam148/yii2-image-manager": "*",
-        "2amigos/yii2-tinymce-widget": "^1.1",
         "unclead/yii2-multiple-input": "^2.21",
         "kartik-v/yii2-tree-manager": "dev-master",
-        "kartik-v/yii2-widgets": "*"
+        "kartik-v/yii2-widgets": "*",
+        "mihaildev/yii2-elfinder": "*",
+        "mihaildev/yii2-ckeditor": "*",
+        "kartik-v/yii2-widget-select2": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

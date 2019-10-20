@@ -11,9 +11,17 @@ use kartik\tree\TreeView;
 use kartik\tree\models\Tree;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
-use \common\models\ProductCategory;
-use dosamigos\tinymce\TinyMce;
+use common\models\ProductCategory;
+use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
+use kartik\widgets\Select2;
+use common\models\Tag;
+use common\models\Keyword;
+use unclead\multipleinput\MultipleInput;
+use mihaildev\elfinder\InputFile;
+use backend\helpers\js\MultiInputHelper;
 
 /**
  * @var View            $this
@@ -52,6 +60,7 @@ use dosamigos\tinymce\TinyMce;
  * @var string          $treeMoveHash
  * @var string          $hideCssClass
  */
+
 ?>
 
 <?php
@@ -324,21 +333,82 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
      */
 
     // РЕДАКТОР ОПИСАНИЯ
-    echo $form->field($node, 'Description')->widget(TinyMce::class, [
-        'options'       => ['rows' => 20],
-        'language'      => 'ru',
-        'clientOptions' => [
-            'file_browser_callback' => new yii\web\JsExpression("function(field_name, url, type, win) {
-			window.open('" . yii\helpers\Url::to(['/imagemanager/manager', 'view-mode' => 'iframe', 'select-type' => 'tinymce']) . "&tag_name='+field_name,'','width=800,height=540 ,toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no');
-		}"),
-            'plugins'               => [
-                "advlist autolink lists link charmap print preview anchor",
-                "searchreplace visualblocks code",
-                "insertdatetime media table contextmenu paste image pagebreak",
+
+    echo $form->field($node, 'Description')->widget(CKEditor::className(), [
+        'editorOptions' => ElFinder::ckeditorOptions('elfinder',
+            [
+                //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                'preset' => 'standart',
+                //по умолчанию false
+                'inline' => false,
+                'rows'   => 10,
+            ]
+        ),
+    ]);
+
+    echo $form->field($node, 'Images')->widget(MultipleInput::class, [
+        // max images count
+        'max'               => 10,
+        // should be at least 2 rows
+        //'min'               => 2,
+        'allowEmptyList'    => true,
+        'enableGuessTitle'  => true,
+        'cloneButton'       => true,
+        'sortable'          => true,
+        // show add button in the footer
+        'addButtonPosition' => MultipleInput::POS_FOOTER,
+        'id'                => 'node-images',
+        'columns'           => [
+            [
+                'name'  => 'PreviewImages',
+                'type'  => 'static',
+                'value' => function ($data) {
+                    $url = $data['Images'] ?? ProductCategory::DEFAULT_IMAGE;
+
+                    return Html::img(Url::toRoute([$url]), ['class' => 'multiple-input-image', 'data-placement' => "top", 'data-toggle' => "tooltip", 'data-trigger' => 'hover', 'data-html' => "true", 'title' => "<img src='$url' height='400'>"]);
+                },
             ],
-            'toolbar'               => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | pagebreak | code",
-            'branding'              => false,
-            'image_advtab'          => true,
+
+            [
+                'name'    => 'Images',
+                'type'    => InputFile::class,
+                'title'   => Yii::t('elfinder', 'Изображения'),
+                'options' => [
+                    'language'      => 'ru',
+                    // вставляем название контроллера, по умолчанию равен elfinder
+                    'controller'    => 'elfinder',
+                    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
+                    'filter'        => 'image',
+                    'template'      => '<div class="input-group multiple-input-elfinder">{input}<span class="input-group-btn">{button}</span></div>',
+                    'options'       => ['class' => 'form-control'],
+                    'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
+                    'buttonName'    => Yii::t('elfinder', ''),
+                    // возможность выбора нескольких файлов
+                    'multiple'      => false,
+                ],
+            ],
+        ],
+    ])->label(false);
+
+    echo $form->field($node, 'Tags')->widget(Select2::classname(), [
+        'data'          => Tag::getList(),
+        'value'         => $node->Tags,
+        'options'       => ['placeholder' => 'Тэги...', 'multiple' => true],
+        'pluginOptions' => [
+            'tags'               => true,
+            'tokenSeparators'    => [','],
+            'maximumInputLength' => 64,
+        ],
+    ]);
+
+    echo $form->field($node, 'Keywords')->widget(Select2::classname(), [
+        'data'          => Keyword::getList(),
+        'value'         => $node->Keywords,
+        'options'       => ['placeholder' => 'Ключевые слова...', 'multiple' => true],
+        'pluginOptions' => [
+            'tags'               => true,
+            'tokenSeparators'    => [','],
+            'maximumInputLength' => 64,
         ],
     ]);
     ?>
@@ -407,4 +477,8 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
  * END VALID NODE DISPLAY
  */
 ?>
-<?php ActiveForm::end(); ?>
+<?php
+ActiveForm::end();
+MultiInputHelper::registerImageScript($this, 'node-images');
+MultiInputHelper::registerTooltip($this);
+?>

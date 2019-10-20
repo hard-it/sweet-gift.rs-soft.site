@@ -4,6 +4,8 @@ use common\models\User;
 use common\helpers\ForbiddingController;
 use dmstr\widgets\Menu;
 use yii\helpers\Url;
+use backend\helpers\MenuBuilder;
+use yii\helpers\ArrayHelper;
 
 /* @var string $directoryAsset */
 ?>
@@ -38,8 +40,8 @@ use yii\helpers\Url;
         </form>
         -->
         <!-- /.search form -->
-        <?php
 
+        <?php
         /*
          [
                         ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
@@ -74,36 +76,14 @@ use yii\helpers\Url;
                         ],
                     ],
          */
-        $menuItems = [];
 
-        if (User::isAdmin() || User::isSuperAdmin() || User::isDelivery()) {
-
-            $goodsSubmenu = [
-                'label'   => Yii::t('app', 'Продукция'),
-                'icon'    => 'truck',
-                'items'   => [],
-            ];
-
-            if (ForbiddingController::hasAccess('app-backend\product-category\index')) {
-                $goodsSubmenu['items'][] = [
-                    'label' => Yii::t('app', 'Категории товаров'),
-                    'icon'  => 'folder-o',
-                    'url'   => Url::toRoute('/product-category/index'),
-                ];
-            }
-
-            if (ForbiddingController::hasAccess('app-backend\product-type\index')) {
-                $goodsSubmenu['items'][] = [
-                    'label' => Yii::t('app', 'Типы товаров'),
-                    'icon'  => 'gift',
-                    'url'   => Url::toRoute('/product-type/index'),
-                ];
-            }
-
-            $menuItems[] = $goodsSubmenu;
-        }
+        $menuItems   = [MenuBuilder::buildGoodsSubMenu()];
+        $menuItems[] = ArrayHelper::merge($menuItems, MenuBuilder::buildImagesItem());
 
         //print_r($menuItems);
+        //echo "Гавно";
+        //die();
+
         //die();
 
         echo Menu::widget(
