@@ -21,6 +21,7 @@ use common\models\Tag;
 use common\models\Keyword;
 use unclead\multipleinput\MultipleInput;
 use mihaildev\elfinder\InputFile;
+use backend\helpers\js\MultiInputHelper;
 
 /**
  * @var View            $this
@@ -359,14 +360,12 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'id'                => 'node-images',
         'columns'           => [
             [
-                'name'          => 'PreviewImages',
-                'type'          => 'static',
-                'value'         => function ($data) {
-                    if (isset($data)) {
-                        return Html::img(Url::toRoute($data['Images']), ['class' => 'multiple-input-image']);
-                    } else {
-                        return '';
-                    }
+                'name'  => 'PreviewImages',
+                'type'  => 'static',
+                'value' => function ($data) {
+                    $url = $data['Images'] ?? ProductCategory::DEFAULT_IMAGE;
+
+                    return Html::img(Url::toRoute([$url]), ['class' => 'multiple-input-image', 'data-placement' => "top", 'data-toggle' => "tooltip", 'data-trigger' => 'hover', 'data-html' => "true", 'title' => "<img src='$url' height='400'>"]);
                 },
             ],
 
@@ -478,4 +477,8 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
  * END VALID NODE DISPLAY
  */
 ?>
-<?php ActiveForm::end(); ?>
+<?php
+ActiveForm::end();
+MultiInputHelper::registerImageScript($this, 'node-images');
+MultiInputHelper::registerTooltip($this);
+?>
