@@ -138,7 +138,10 @@ a.desc:after {
 }
 
 .multiple-input-image {
-    height: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     cursor: pointer;
 }
 
@@ -149,19 +152,84 @@ a.desc:after {
     margin-top: -1px;
     font-size: 18px;
 }
+
 .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
-    width: 46px;
+    width: 40px;
     height: 32px;
+    /*
     margin-left: 13px;
+     */
     margin-top: -1px;
     font-size: 14px;
 
 }
+
 .tooltip-inner {
-    max-width:700px;
+    max-width: 700px;
     overflow: hidden;
 }
-.list-cell__PreviewImages {
-    width: 50px;
-    overflow: auto;
+
+#node-images {
+    display: block;
+    float: left;
+}
+
+#node-images .multiple-input-list__item {
+    width: 30%;
+    display: inline-block;
+    float: left;
+}
+
+.image-button-offset {
+    margin-right: 10px;
+}
+
+#node-images {
+    margin-top: 32px;
+}
+
+#node-images img {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    margin: 10px;
+}
+
+#node-images .image-preview-container {
+    width: 100%;
+    display: block;
+    float: left;
+    height: 200px;
+    overflow: hidden;
+    margin-top: -50px;
+    margin-left: -10px;
+}
+
+#node-images input {
+    display: none;
+}
+
+#node-images .form-control-static {
+    display: none;
+}
+
+#node-images .input-group.multiple-input-elfinder {
+    float: right;
+    margin-right: 5px;
+    margin-top: 1px;
+}
+
+#node-images .image-button-offset {
+    z-index: 1;
+    margin-top: -30px;
+}
+
+#node-images .list-cell__Images {
+    margin-left: -10px;
+}
+
+#node-images .list-cell__button {
+    padding-bottom: 32px;
+    margin-top: -32px;
 }

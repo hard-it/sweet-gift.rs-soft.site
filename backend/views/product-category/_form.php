@@ -20,6 +20,8 @@ use kartik\widgets\Select2;
 use common\models\Tag;
 use common\models\Keyword;
 use unclead\multipleinput\MultipleInput;
+use unclead\multipleinput\renderers\DivRenderer;
+use unclead\multipleinput\renderers\BaseRenderer;
 use mihaildev\elfinder\InputFile;
 use backend\helpers\js\MultiInputHelper;
 
@@ -262,10 +264,10 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
     <?php if ($iconsList == 'text' || $iconsList == 'none'): ?>
         <?php if ($showIDAttribute && $showNameAttribute): ?>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-xs-4">
                     <?= $keyField ?>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-xs-8">
                     <?php
                     echo $form->field($node, 'Code')->textInput();
                     ?>
@@ -285,20 +287,20 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         </div>
         <?php if ($iconsList === 'text'): ?>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-xs-4">
                     <?= $form->field($node, $iconTypeAttribute)->dropdownList([
                         TreeView::ICON_CSS => 'CSS Suffix',
                         TreeView::ICON_RAW => 'Raw Markup',
                     ], $inputOpts) ?>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-xs-8">
                     <?= $form->field($node, $iconAttribute)->textInput($inputOpts) ?>
                 </div>
             </div>
         <?php endif; ?>
     <?php else: ?>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-xs-6">
                 <?= $keyField ?>
                 <?= Html::activeHiddenInput($node, $iconTypeAttribute) ?>
                 <?php
@@ -306,7 +308,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 ?>
                 <?= $nameField ?>
             </div>
-            <div class="col-sm-6">
+            <div class="col-xs-6">
                 <?= /** @noinspection PhpUndefinedMethodInspection */
                 $form->field($node, $iconAttribute)->multiselect($iconsList, [
                     'item'     => function ($index, $label, $name, $checked, $value) use ($inputOpts) {
@@ -351,35 +353,26 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'max'               => 10,
         // should be at least 2 rows
         //'min'               => 2,
+        'rendererClass'     => \unclead\multipleinput\renderers\DivRenderer::class,
         'allowEmptyList'    => true,
         'enableGuessTitle'  => true,
-        'cloneButton'       => true,
-        'sortable'          => true,
+        'cloneButton'       => false,
+        'sortable'          => false,
         // show add button in the footer
-        'addButtonPosition' => MultipleInput::POS_FOOTER,
+        'addButtonPosition' => MultipleInput::POS_HEADER,
         'id'                => 'node-images',
         'columns'           => [
             [
-                'name'  => 'PreviewImages',
-                'type'  => 'static',
-                'value' => function ($data) {
-                    $url = $data['Images'] ?? ProductCategory::DEFAULT_IMAGE;
-
-                    return Html::img(Url::toRoute([$url]), ['class' => 'multiple-input-image', 'data-placement' => "top", 'data-toggle' => "tooltip", 'data-trigger' => 'hover', 'data-html' => "true", 'title' => "<img src='$url' height='400'>"]);
-                },
-            ],
-
-            [
                 'name'    => 'Images',
                 'type'    => InputFile::class,
-                'title'   => Yii::t('elfinder', 'Изображения'),
+                'title'   => '',
                 'options' => [
                     'language'      => 'ru',
                     // вставляем название контроллера, по умолчанию равен elfinder
                     'controller'    => 'elfinder',
                     // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
                     'filter'        => 'image',
-                    'template'      => '<div class="input-group multiple-input-elfinder">{input}<span class="input-group-btn">{button}</span></div>',
+                    'template'      => '{input}<div class="input-group multiple-input-elfinder col-xs-12"><span class="input-group-btn">{button}</span></div>',
                     'options'       => ['class' => 'form-control'],
                     'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
                     'buttonName'    => Yii::t('elfinder', ''),
@@ -387,6 +380,36 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                     'multiple'      => false,
                 ],
             ],
+            [
+                'name'  => 'PreviewImages',
+                'type'  => 'static',
+                'value' => function ($data) {
+                    $url = $data['Images'] ?? ProductCategory::DEFAULT_IMAGE;
+
+                    return
+                        Html::tag('div',
+                            Html::img(
+                                Url::toRoute([$url]),
+                                [
+                                    'class'          => 'multiple-input-image',
+                                    'data-placement' => "top",
+                                    'data-toggle'    => "tooltip",
+                                    'data-trigger'   => 'hover',
+                                    'data-html'      => "true",
+                                    'title'          => "<img src='$url'>",
+                                ]),
+                            ['class' => 'image-preview-container']
+
+                        );
+                },
+            ],
+        ],
+        //'theme'             => BaseRenderer::THEME_BS,
+        'layoutConfig'      => [
+            'offsetClass'  => 'col-xs-offset-0',
+            'wrapperClass' => 'col-xs-12 col-xs-offset-0',
+            'buttonAddClass'    => 'col-xs-offset-11',
+            'buttonActionClass' => 'col-xs-offset-3 col-xs-1 image-button-offset-0',
         ],
     ])->label(false);
 
@@ -435,20 +458,20 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
          */
         ?>
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-xs-4">
                 <?= $form->field($node, 'active')->checkbox() ?>
                 <?= $form->field($node, 'visible')->checkbox() ?>
                 <?= $form->field($node, 'readonly')->checkbox() ?>
                 <?= $form->field($node, 'disabled')->checkbox() ?>
                 <?= $form->field($node, 'child_allowed')->checkbox() ?>
             </div>
-            <div class="col-sm-4">
+            <div class="col-xs-4">
                 <?= $form->field($node, 'selected')->checkbox() ?>
                 <?= $form->field($node, 'collapsed')->checkbox($flagOptions) ?>
                 <?= $form->field($node, 'removable')->checkbox() ?>
                 <?= $form->field($node, 'removable_all')->checkbox($flagOptions) ?>
             </div>
-            <div class="col-sm-4">
+            <div class="col-xs-4">
                 <?= $form->field($node, 'movable_u')->checkbox() ?>
                 <?= $form->field($node, 'movable_d')->checkbox() ?>
                 <?= $form->field($node, 'movable_l')->checkbox() ?>
@@ -479,6 +502,6 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 ?>
 <?php
 ActiveForm::end();
-MultiInputHelper::registerImageScript($this, 'node-images');
-MultiInputHelper::registerTooltip($this);
+//MultiInputHelper::registerImageScript($this, 'node-images');
+//MultiInputHelper::registerTooltip($this);
 ?>
