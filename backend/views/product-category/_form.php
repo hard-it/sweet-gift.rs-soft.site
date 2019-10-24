@@ -363,24 +363,6 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'id'                => 'node-images',
         'columns'           => [
             [
-                'name'    => 'Images',
-                'type'    => InputFile::class,
-                'title'   => '',
-                'options' => [
-                    'language'      => 'ru',
-                    // вставляем название контроллера, по умолчанию равен elfinder
-                    'controller'    => 'elfinder',
-                    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
-                    'filter'        => 'image',
-                    'template'      => '{input}<div class="input-group multiple-input-elfinder col-xs-12"><span class="input-group-btn">{button}</span></div>',
-                    'options'       => ['class' => 'form-control'],
-                    'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
-                    'buttonName'    => Yii::t('elfinder', ''),
-                    // возможность выбора нескольких файлов
-                    'multiple'      => false,
-                ],
-            ],
-            [
                 'name'  => 'PreviewImages',
                 'type'  => 'static',
                 'value' => function ($data) {
@@ -403,6 +385,26 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                         );
                 },
             ],
+            /*
+            [
+                'name'    => 'Images',
+                'type'    => InputFile::class,
+                'title'   => '',
+                'options' => [
+                    'language'      => 'ru',
+                    // вставляем название контроллера, по умолчанию равен elfinder
+                    'controller'    => 'elfinder',
+                    // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
+                    'filter'        => 'image',
+                    'template'      => '{input}<div class="input-group multiple-input-elfinder col-xs-12"><span class="input-group-btn">{button}</span></div>',
+                    'options'       => ['class' => 'form-control'],
+                    'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
+                    'buttonName'    => Yii::t('elfinder', ''),
+                    // возможность выбора нескольких файлов
+                    'multiple'      => false,
+                ],
+            ],
+            */
         ],
         //'theme'             => BaseRenderer::THEME_BS,
         'layoutConfig'      => [
@@ -411,7 +413,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
             'buttonAddClass'    => 'col-xs-offset-11',
             'buttonActionClass' => 'col-xs-offset-3 col-xs-1 image-button-offset-0',
         ],
-    ])->label(false);
+    ]);
 
     echo $form->field($node, 'Tags')->widget(Select2::classname(), [
         'data'          => Tag::getList(),
