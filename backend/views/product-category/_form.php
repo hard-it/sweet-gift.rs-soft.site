@@ -385,7 +385,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                         );
                 },
             ],
-            /*
+
             [
                 'name'    => 'Images',
                 'type'    => InputFile::class,
@@ -396,22 +396,22 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                     'controller'    => 'elfinder',
                     // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
                     'filter'        => 'image',
-                    'template'      => '{input}<div class="input-group multiple-input-elfinder col-xs-12"><span class="input-group-btn">{button}</span></div>',
+                    'template'      => '{input}<div class="input-group multiple-input-elfinder"><span class="input-group-btn">{button}</span></div>',
                     'options'       => ['class' => 'form-control'],
                     'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
                     'buttonName'    => Yii::t('elfinder', ''),
                     // возможность выбора нескольких файлов
                     'multiple'      => false,
                 ],
+
             ],
-            */
         ],
         //'theme'             => BaseRenderer::THEME_BS,
         'layoutConfig'      => [
-            'offsetClass'  => 'col-xs-offset-0',
-            'wrapperClass' => 'col-xs-12 col-xs-offset-0',
-            'buttonAddClass'    => 'col-xs-offset-11',
-            'buttonActionClass' => 'col-xs-offset-3 col-xs-1 image-button-offset-0',
+            'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
+            'wrapperClass'      => 'col-md-6 col-xs-12 col-xs-offset-0',
+            'buttonAddClass'    => 'col-md-offset-0 col-xs-offset-0',
+            'buttonActionClass' => 'col-xs-offset-0 col-xs-1 image-button-offset-0',
         ],
     ]);
 

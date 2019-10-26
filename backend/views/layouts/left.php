@@ -80,12 +80,6 @@ use yii\helpers\ArrayHelper;
         $menuItems   = [MenuBuilder::buildGoodsSubMenu()];
         $menuItems[] = ArrayHelper::merge($menuItems, MenuBuilder::buildImagesItem());
 
-        //print_r($menuItems);
-        //echo "Гавно";
-        //die();
-
-        //die();
-
         echo Menu::widget(
             [
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
