@@ -188,3 +188,7 @@ div.image-preview-container div.container {
 .field-productcategory-images {
     margin-top: 25px;
 }
+
+#product-category-tree-detail {
+    overflow: hidden;
+}
