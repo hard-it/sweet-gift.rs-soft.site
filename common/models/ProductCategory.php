@@ -78,7 +78,7 @@ class ProductCategory extends Tree
             'Description'   => Yii::t('app', 'Описание'),
             'Tags'          => Yii::t('app', 'Тэги'),
             'Keywords'      => Yii::t('app', 'Ключевые слова'),
-            'Images'        => Yii::t('app', 'Изображения'),
+            'Images'        => Yii::t('app', 'Изображения для категории товаров'),
             'root'          => Yii::t('app', 'Идентификатор корня дерева'),
             'lft'           => Yii::t('app', 'Связь слева'),
             'rgt'           => Yii::t('app', 'Связь справа'),

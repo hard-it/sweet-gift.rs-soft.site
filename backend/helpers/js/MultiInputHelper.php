@@ -46,7 +46,9 @@ JS;
     {
         $js = <<<JS
         function reloadImage() {
-         let img = $(this).closest('tr').find('img:first');
+         let img = $(this).closest('.multiple-input-list__item').find('.list-cell__PreviewImages img:first');
+         console.log(img);
+         console.log($(this).val());
          img.attr('src',$(this).val());
          let tooltip ="<img src='"+$(this).val()+"' height='400'>";
          img.attr('title',tooltip).tooltip('fixTitle');

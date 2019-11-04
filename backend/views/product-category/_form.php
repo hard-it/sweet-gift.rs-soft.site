@@ -348,6 +348,8 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         ),
     ]);
 
+    echo Html::beginTag('div', ['class' => 'row']);
+
     echo $form->field($node, 'Images')->widget(MultipleInput::class, [
         // max images count
         'max'               => 10,
@@ -361,12 +363,17 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         // show add button in the footer
         'addButtonPosition' => MultipleInput::POS_HEADER,
         'id'                => 'node-images',
+        'class'             => 'multiple-input col-md-12 col-xs-12 col-lg-12',
         'columns'           => [
             [
                 'name'  => 'PreviewImages',
                 'type'  => 'static',
                 'value' => function ($data) {
                     $url = $data['Images'] ?? ProductCategory::DEFAULT_IMAGE;
+
+                    if (!strlen($url)) {
+                        $url = ProductCategory::DEFAULT_IMAGE;
+                    }
 
                     return
                         Html::tag('div',
@@ -379,7 +386,11 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                                     'data-trigger'   => 'hover',
                                     'data-html'      => "true",
                                     'title'          => "<img src='$url'>",
-                                ]),
+                                ])
+                            .Html::tag('div',
+                                '',
+                                ['class' => 'container']
+                                ),
                             ['class' => 'image-preview-container']
 
                         );
@@ -409,11 +420,21 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         //'theme'             => BaseRenderer::THEME_BS,
         'layoutConfig'      => [
             'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
-            'wrapperClass'      => 'col-md-6 col-xs-12 col-xs-offset-0',
-            'buttonAddClass'    => 'col-md-offset-0 col-xs-offset-0',
-            'buttonActionClass' => 'col-xs-offset-0 col-xs-1 image-button-offset-0',
+            'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0',
+            'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 image-button-offset-1',
+            'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
+            //'buttonActionClass' => 'col-xs-offset-0 col-lg-offset-0 col-md-offset-0 col-xs-0 image-button-offset-1',
         ],
+
+        'rowOptions' =>[
+            'class' => 'col-md-6 col-lg-4 col-xs-12 col-xs-offset-0',
+        ],
+
     ]);
+
+    echo Html::endTag('div');
+
+    echo Html::beginTag('div', ['class' => 'row']);
 
     echo $form->field($node, 'Tags')->widget(Select2::classname(), [
         'data'          => Tag::getList(),
@@ -426,6 +447,10 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         ],
     ]);
 
+    echo Html::endTag('div');
+
+    echo Html::beginTag('div', ['class' => 'row']);
+
     echo $form->field($node, 'Keywords')->widget(Select2::classname(), [
         'data'          => Keyword::getList(),
         'value'         => $node->Keywords,
@@ -436,6 +461,9 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
             'maximumInputLength' => 64,
         ],
     ]);
+
+    echo Html::endTag('div');
+
     ?>
     <?= $renderContent(Module::VIEW_PART_2) ?>
 
@@ -504,6 +532,6 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 ?>
 <?php
 ActiveForm::end();
-//MultiInputHelper::registerImageScript($this, 'node-images');
-//MultiInputHelper::registerTooltip($this);
+MultiInputHelper::registerImageScript($this, 'node-images');
+MultiInputHelper::registerTooltip($this);
 ?>
