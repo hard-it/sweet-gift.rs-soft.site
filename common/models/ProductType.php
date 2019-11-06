@@ -23,8 +23,10 @@ use yii\db\ActiveRecord;
  * @property array    $Keywords         Ключевые слова
  * @property array    $Images           Изображения
  */
-class ProductType extends ActiveRecord
+class ProductType extends BaseTagKeywordModel
 {
+
+    const DEFAULT_MEASURE_VALUE = 3600;
 
     const MEASURE_VALUES = [
         1     => 'сек',
@@ -42,6 +44,12 @@ class ProductType extends ActiveRecord
         return 'ProductType';
     }
 
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+        $this->Measure = static::DEFAULT_MEASURE_VALUE;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -49,7 +57,6 @@ class ProductType extends ActiveRecord
     {
         return [
             [['Category', 'MinimalQuantity', 'ShelfLife', 'Measure'], 'integer'],
-            [['Measure'], 'default', 'value' => 3600],
             [['Cost'], 'number'],
             [['Description'], 'string'],
             [['Code'], 'string', 'max' => 21],
@@ -74,7 +81,7 @@ class ProductType extends ActiveRecord
             'Code'            => Yii::t('app', 'Код'),
             'Name'            => Yii::t('app', 'Наименование'),
             'MinimalQuantity' => Yii::t('app', 'Минимальное количество'),
-            'ShelfLife'       => Yii::t('app', 'Срок хранения, сек'),
+            'ShelfLife'       => Yii::t('app', 'Срок хранения товара'),
             'Measure'         => Yii::t('app', 'Единица измерения'),
             'Cost'            => Yii::t('app', 'Цена за единицу'),
             'Description'     => Yii::t('app', 'Описание'),

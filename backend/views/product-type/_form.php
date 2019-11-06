@@ -14,6 +14,7 @@ use unclead\multipleinput\MultipleInput;
 use mihaildev\elfinder\InputFile;
 use backend\helpers\js\MultiInputHelper;
 use kartik\number\NumberControl;
+use common\models\ProductType;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProductType */
@@ -226,20 +227,13 @@ echo $form->field($model, 'Keywords')->widget(Select2::classname(), [
         echo Html::endTag('div');
 
         echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
-            echo $form->field($model, 'Measure')->dropDownList(\common\models\ProductType::MEASURE_VALUES);
+            echo $form->field($model, 'Measure')->dropDownList(ProductType::MEASURE_VALUES);
         echo Html::endTag('div');
 
 echo Html::endTag('div');
 echo Html::endTag('div');
-?>
 
-<?= $form->field($model, 'ShelfLife')->textInput() ?>
 
-<?= $form->field($model, 'Measure')->textInput() ?>
-
-<?= $form->field($model, 'Cost')->textInput(['maxlength' => true]) ?>
-
-<?php
 echo Html::beginTag('div', ['class' => 'form-group']);
 echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-success']);
 echo Html::endTag('div');
