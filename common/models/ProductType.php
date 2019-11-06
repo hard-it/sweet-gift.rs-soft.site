@@ -25,6 +25,15 @@ use yii\db\ActiveRecord;
  */
 class ProductType extends ActiveRecord
 {
+
+    const MEASURE_VALUES = [
+        1     => 'сек',
+        60    => 'мин',
+        3600  => 'час',
+        86400 => 'суток',
+
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -40,6 +49,7 @@ class ProductType extends ActiveRecord
     {
         return [
             [['Category', 'MinimalQuantity', 'ShelfLife', 'Measure'], 'integer'],
+            [['Measure'], 'default', 'value' => 3600],
             [['Cost'], 'number'],
             [['Description'], 'string'],
             [['Code'], 'string', 'max' => 21],
@@ -49,7 +59,7 @@ class ProductType extends ActiveRecord
             [['Tags', 'Keywords', 'Images'], 'safe'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
-            [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => Productcategory::className(), 'targetAttribute' => ['Category' => 'Id']],
+            [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['Category' => 'Id']],
         ];
     }
 
