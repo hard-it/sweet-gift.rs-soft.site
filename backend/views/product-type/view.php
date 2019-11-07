@@ -38,9 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'Measure',
             'Cost',
             'Description:ntext',
-            'Tags',
-            'Keywords',
-            'Images',
         ],
     ]) ?>
 

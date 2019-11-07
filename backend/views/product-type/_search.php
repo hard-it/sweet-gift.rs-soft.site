@@ -2,51 +2,50 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\tree\TreeViewInput;
+use common\models\ProductCategory;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProductTypeSearch */
 /* @var $form yii\widgets\ActiveForm */
-?>
 
-<div class="product-type-search">
+echo Html::beginTag('div', ['class' => 'product-type-search']);
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
+    $form = ActiveForm::begin([
+            'action' => ['index'],
+            'method' => 'get',
+            'options' => [
+                'data-pjax' => 1
+            ],
+        ]);
 
-    <?= $form->field($model, 'Id') ?>
+        echo $form->field($model, 'Code');
 
-    <?= $form->field($model, 'Category') ?>
+        echo $form->field($model, 'Category')->widget(TreeViewInput::classname(),
+            [
+                'name' => 'Category',
+                'value' => 'true', // preselected values
+                'query' =>ProductCategory::find()->addOrderBy('root, lft, Name'),
+                'headingOptions' => ['label' => 'Категории'],
+                'rootOptions' => ['label'=>''],
+                'fontAwesome' => true,
+                'asDropdown' => true,
+                'multiple' => false,
+                'options' => [
+                    'disabled' => false,
+                ],
+            ]);
 
-    <?= $form->field($model, 'Code') ?>
+        echo $form->field($model, 'Name');
 
-    <?= $form->field($model, 'Name') ?>
+        echo Html::beginTag('div', ['class' => 'form-group']);
 
-    <?= $form->field($model, 'MinimalQuantity') ?>
+            echo Html::submitButton(Yii::t('app', 'Поиск'), ['class' => 'btn btn-primary']);
 
-    <?php // echo $form->field($model, 'ShelfLife') ?>
+            echo Html::resetButton(Yii::t('app', 'Очистить'), ['class' => 'btn btn-outline-secondary']);
 
-    <?php // echo $form->field($model, 'Measure') ?>
+        echo Html::endTag('div');
 
-    <?php // echo $form->field($model, 'Cost') ?>
+    ActiveForm::end();
 
-    <?php // echo $form->field($model, 'Description') ?>
-
-    <?php // echo $form->field($model, 'Tags') ?>
-
-    <?php // echo $form->field($model, 'Keywords') ?>
-
-    <?php // echo $form->field($model, 'Images') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>
+echo Html::endTag('div');
