@@ -63,6 +63,7 @@ class ProductType extends BaseTagKeywordModel
             [['Name'], 'string', 'max' => 128],
             [['Code'], 'required'],
             [['Name'], 'required'],
+            [['Category'], 'required'],
             [['Tags', 'Keywords', 'Images'], 'safe'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
