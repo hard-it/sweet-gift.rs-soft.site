@@ -44,7 +44,7 @@ $form = ActiveForm::begin();
             echo $form->field($model, 'Category')->widget(TreeViewInput::classname(),
                 [
                     'name' => 'Category',
-                    'value' => 'true', // preselected values
+                    'value' => $model->Category, // preselected values
                     'query' =>ProductCategory::find()->addOrderBy('root, lft, Name'),
                     'headingOptions' => ['label' => 'Категории'],
                     'rootOptions' => ['label'=>''],

@@ -76,4 +76,9 @@ class ProductTypeSearch extends ProductType
 
         return $dataProvider;
     }
+
+    public function getCategoryList(string $baseCategory = null)
+    {
+        
+    }
 }

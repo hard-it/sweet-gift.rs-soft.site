@@ -19,24 +19,34 @@ echo Html::beginTag('div', ['class' => 'product-type-search']);
             ],
         ]);
 
-        echo $form->field($model, 'Code');
+        echo Html::beginTag('div', ['class' => 'row']);
 
-        echo $form->field($model, 'Category')->widget(TreeViewInput::classname(),
-            [
-                'name' => 'Category',
-                'value' => 'true', // preselected values
-                'query' =>ProductCategory::find()->addOrderBy('root, lft, Name'),
-                'headingOptions' => ['label' => 'Категории'],
-                'rootOptions' => ['label'=>''],
-                'fontAwesome' => true,
-                'asDropdown' => true,
-                'multiple' => false,
-                'options' => [
-                    'disabled' => false,
-                ],
-            ]);
+            echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
+                echo $form->field($model, 'Code');
+            echo Html::endTag('div');
 
-        echo $form->field($model, 'Name');
+            echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
+                echo $form->field($model, 'Category')->widget(TreeViewInput::classname(),
+                    [
+                        'name' => 'Category',
+                        'value' => $model->Category, // preselected values
+                        'query' =>ProductCategory::find()->addOrderBy('root, lft, Name'),
+                        'headingOptions' => ['label' => 'Категории'],
+                        'rootOptions' => ['label'=>''],
+                        'fontAwesome' => true,
+                        'asDropdown' => true,
+                        'multiple' => false,
+                        'options' => [
+                            'disabled' => false,
+                        ],
+                    ]);
+            echo Html::endTag('div');
+
+            echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
+                echo $form->field($model, 'Name');
+            echo Html::endTag('div');
+
+        echo Html::endTag('div');
 
         echo Html::beginTag('div', ['class' => 'form-group']);
 
