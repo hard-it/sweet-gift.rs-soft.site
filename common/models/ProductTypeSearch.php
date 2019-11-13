@@ -17,8 +17,8 @@ class ProductTypeSearch extends ProductType
     public function rules()
     {
         return [
-            [['Id', 'Category', 'MinimalQuantity', 'ShelfLife', 'Measure'], 'integer'],
-            [['Code', 'Name', 'Description', 'Tags', 'Keywords', 'Images'], 'safe'],
+            [['Id', 'MinimalQuantity', 'ShelfLife', 'Measure'], 'integer'],
+            [['Category', 'Code', 'Name', 'Description', 'Tags', 'Keywords', 'Images'], 'safe'],
             [['Cost'], 'number'],
         ];
     }
@@ -57,28 +57,38 @@ class ProductTypeSearch extends ProductType
             return $dataProvider;
         }
 
+
         // grid filtering conditions
         $query->andFilterWhere([
-            'Id' => $this->Id,
-            'Category' => $this->Category,
+            //'Category' => $this->Category,
             'MinimalQuantity' => $this->MinimalQuantity,
             'ShelfLife' => $this->ShelfLife,
-            'Measure' => $this->Measure,
+            //'Measure' => $this->Measure,
             'Cost' => $this->Cost,
         ]);
 
         $query->andFilterWhere(['like', 'Code', $this->Code])
-            ->andFilterWhere(['like', 'Name', $this->Name])
-            ->andFilterWhere(['like', 'Description', $this->Description])
-            ->andFilterWhere(['like', 'Tags', $this->Tags])
-            ->andFilterWhere(['like', 'Keywords', $this->Keywords])
-            ->andFilterWhere(['like', 'Images', $this->Images]);
+            ->andFilterWhere(['like', 'Name', $this->Name]);
+
+        $this->setCategoryFilter($query);
+
+        //$txt = $query->createCommand()->getRawSql();
 
         return $dataProvider;
     }
 
-    public function getCategoryList(string $baseCategory = null)
+    /**
+     * @param ProductTypeQuery $query
+     */
+    public function setCategoryFilter(ProductTypeQuery $query)
     {
-        
+        if (!isset($this->Category) || !strlen($this->Category)) {
+            return;
+        }
+
+        $cats = explode(',', $this->Category);
+
+        $query->andFilterWhere(['IN', 'Category', $cats]);
+
     }
 }
