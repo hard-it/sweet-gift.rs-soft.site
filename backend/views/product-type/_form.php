@@ -20,43 +20,45 @@ use common\models\ProductType;
 /* @var $model common\models\ProductType */
 /* @var $form yii\widgets\ActiveForm */
 
+echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
+
 echo Html::beginTag('div', ['class' => 'product-type-form']);
 
 $form = ActiveForm::begin();
 
-    echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'row']);
 
-        echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-12']);
-            echo $form->field($model, 'Code')
-                ->textInput(['maxlength' => true ])
-                ->label(null, ['maxlength' => true ]);
-        echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-12']);
+echo $form->field($model, 'Code')
+    ->textInput(['maxlength' => true])
+    ->label(null, ['maxlength' => true]);
+echo Html::endTag('div');
 
-        echo Html::beginTag('div', ['class' => 'col-lg-9 col-xs-12']);
-            echo $form->field($model, 'Name')
-                ->textInput(['maxlength' => true])
-                ->label(null, ['maxlength' => true]);;
+echo Html::beginTag('div', ['class' => 'col-lg-9 col-xs-12']);
+echo $form->field($model, 'Name')
+    ->textInput(['maxlength' => true])
+    ->label(null, ['maxlength' => true]);;
 
-        echo Html::endTag('div');
+echo Html::endTag('div');
 
 
-        echo Html::beginTag('div', ['class' => 'col-lg-12']);
-            echo $form->field($model, 'Category')->widget(TreeViewInput::classname(),
-                [
-                    'name' => 'Category',
-                    'value' => $model->Category, // preselected values
-                    'query' =>ProductCategory::find()->addOrderBy('root, lft, Name'),
-                    'headingOptions' => ['label' => 'Категории'],
-                    'rootOptions' => ['label'=>''],
-                    'fontAwesome' => true,
-                    'asDropdown' => true,
-                    'multiple' => false,
-                    'options' => [
-                        'disabled' => false,
-                    ],
-                ]);
-        echo Html::endTag('div');
-    echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-lg-12']);
+echo $form->field($model, 'Category')->widget(TreeViewInput::classname(),
+    [
+        'name'           => 'Category',
+        'value'          => $model->Category, // preselected values
+        'query'          => ProductCategory::find()->addOrderBy('root, lft, Name'),
+        'headingOptions' => ['label' => 'Категории'],
+        'rootOptions'    => ['label' => ''],
+        'fontAwesome'    => true,
+        'asDropdown'     => true,
+        'multiple'       => false,
+        'options'        => [
+            'disabled' => false,
+        ],
+    ]);
+echo Html::endTag('div');
+echo Html::endTag('div');
 
 // РЕДАКТОР ОПИСАНИЯ
 
@@ -71,6 +73,10 @@ echo $form->field($model, 'Description')->widget(CKEditor::className(), [
         ]
     ),
 ]);
+
+echo Html::beginTag('div', ['class' => 'row']);
+
+echo Html::beginTag('div', ['class' => 'col-12 col-lg-12']);
 
 echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     // max images count
@@ -109,7 +115,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
                                 'data-html'      => "true",
                                 'title'          => "<img src='$url'>",
                             ])
-                        .Html::tag('div',
+                        . Html::tag('div',
                             '',
                             ['class' => 'container']
                         ),
@@ -143,16 +149,20 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     'layoutConfig'      => [
         'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
         'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0',
-        'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 image-button-offset-1',
+        //'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 image-button-offset-1',
         'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
         //'buttonActionClass' => 'col-xs-offset-0 col-lg-offset-0 col-md-offset-0 col-xs-0 image-button-offset-1',
     ],
 
-    'rowOptions' =>[
+    'rowOptions' => [
         'class' => 'col-md-6 col-lg-4 col-xs-12 col-xs-offset-0',
     ],
 
 ]);
+
+echo Html::endTag('div');
+echo Html::endTag('div');
+
 
 echo $form->field($model, 'Tags')->widget(Select2::classname(), [
     'data'          => Tag::getList(),
@@ -177,65 +187,67 @@ echo $form->field($model, 'Keywords')->widget(Select2::classname(), [
     ],
 ]);
 
-    echo Html::beginTag('div', ['class' => 'row']);
-        echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
-            echo $form->field($model, 'MinimalQuantity')->widget(NumberControl::classname(), [
-                'maskedInputOptions' => [
-                    'prefix' => '',
-                    'suffix' => '',
-                    'allowMinus' => false,
-                    'groupSeparator' => '',
-                    'radixPoint' => '.',
-                    'digits' => 2,
-                ],
-                'displayOptions' => [
-                    'placeholder' => Yii::t('app', 'Введите количество...'),
-                ],
-            ]);
-        echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'MinimalQuantity')->widget(NumberControl::classname(), [
+    'maskedInputOptions' => [
+        'prefix'         => '',
+        'suffix'         => '',
+        'allowMinus'     => false,
+        'groupSeparator' => '',
+        'radixPoint'     => '.',
+        'digits'         => 2,
+    ],
+    'displayOptions'     => [
+        'placeholder' => Yii::t('app', 'Введите количество...'),
+    ],
+]);
+echo Html::endTag('div');
 
-         echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
-            echo $form->field($model, 'Cost')->widget(NumberControl::classname(), [
-                'maskedInputOptions' => [
-                    'prefix' => '',
-                    'suffix' => '',
-                    'allowMinus' => false,
-                    'groupSeparator' => '',
-                    'radixPoint' => '.',
-                    'digits' => 2,
-                ],
-                'displayOptions' => [
-                    'placeholder' => Yii::t('app', 'Введите цену...'),
-                ],
-            ]);
-        echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'Cost')->widget(NumberControl::classname(), [
+    'maskedInputOptions' => [
+        'prefix'         => '',
+        'suffix'         => '',
+        'allowMinus'     => false,
+        'groupSeparator' => '',
+        'radixPoint'     => '.',
+        'digits'         => 2,
+    ],
+    'displayOptions'     => [
+        'placeholder' => Yii::t('app', 'Введите цену...'),
+    ],
+]);
+echo Html::endTag('div');
 
-        echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
-            echo $form->field($model, 'ShelfLife')->widget(NumberControl::classname(), [
-                'maskedInputOptions' => [
-                    'prefix' => '',
-                    'suffix' => '',
-                    'allowMinus' => false,
-                    'groupSeparator' => '',
-                    'radixPoint' => '',
-                    'digits' => 0,
-                ],
-                'displayOptions' => [
-                    'placeholder' => Yii::t('app', 'Введите срок хранения...'),
-                ],
-            ]);
-        echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'ShelfLife')->widget(NumberControl::classname(), [
+    'maskedInputOptions' => [
+        'prefix'         => '',
+        'suffix'         => '',
+        'allowMinus'     => false,
+        'groupSeparator' => '',
+        'radixPoint'     => '',
+        'digits'         => 0,
+    ],
+    'displayOptions'     => [
+        'placeholder' => Yii::t('app', 'Введите срок хранения...'),
+    ],
+]);
+echo Html::endTag('div');
 
-        echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
-            echo $form->field($model, 'Measure')->dropDownList(ProductType::MEASURE_VALUES);
-        echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'Measure')->dropDownList(ProductType::MEASURE_VALUES);
+echo Html::endTag('div');
 
 echo Html::endTag('div');
 echo Html::endTag('div');
 
 
-echo Html::beginTag('div', ['class' => 'form-group']);
-echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-success']);
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-12 col-md-3']);
+echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-lg bg-olive fa fa-save btn-block btn-flat']);
+echo Html::endTag('div');
 echo Html::endTag('div');
 
 ActiveForm::end();
@@ -245,3 +257,4 @@ MultiInputHelper::registerTooltip($this);
 
 echo Html::endTag('div');
 
+echo Html::endTag('div');

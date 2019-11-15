@@ -44,6 +44,17 @@ class ProductTypeController extends ForbiddingController
         ]);
     }
 
+    public function actionClearSearch()
+    {
+        $searchModel = new ProductTypeSearch();
+        $dataProvider = $searchModel->cleanSearch();
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single ProductType model.
      * @param integer $id

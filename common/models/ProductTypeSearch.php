@@ -2,9 +2,9 @@
 
 namespace common\models;
 
+use common\models\ProductType;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\ProductType;
 
 /**
  * ProductTypeSearch represents the model behind the search form of `common\models\ProductType`.
@@ -71,6 +71,28 @@ class ProductTypeSearch extends ProductType
             ->andFilterWhere(['like', 'Name', $this->Name]);
 
         $this->setCategoryFilter($query);
+
+        //$txt = $query->createCommand()->getRawSql();
+
+        return $dataProvider;
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function cleanSearch()
+    {
+        $query = ProductType::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
 
         //$txt = $query->createCommand()->getRawSql();
 

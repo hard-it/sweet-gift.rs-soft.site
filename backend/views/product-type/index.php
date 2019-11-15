@@ -10,23 +10,24 @@ use common\models\ProductCategory;
 /* @var $searchModel common\models\ProductTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title                   = Yii::t('app', 'Product Types');
+$this->title                   = Yii::t('app', 'Типы продуктов');
 $this->params['breadcrumbs'][] = $this->title;
+
+echo Html::beginTag('div', ['class' => 'product-type-index']);
+
+echo Html::tag('h1', Html::encode($this->title));
+
 ?>
-<div class="product-type-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Product Type'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+    echo $this->render('_search', ['model' => $searchModel]);
+    ?>
 
-    <?= GridView::widget([
+    <?php
+    echo Html::beginTag('div', ['class' => 'box box-no-top-border']);
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel'  => $searchModel,
+        //'filterModel'  => $searchModel,
         'tableOptions' => [
             'class' => 'table table-bordered table-hover',
         ],
@@ -85,12 +86,27 @@ $this->params['breadcrumbs'][] = $this->title;
             //'Images',
 
             [
-                    'class' => 'yii\grid\ActionColumn',
-                    'contentOptions' => ['style' => 'width:3%'],
+                'class'          => 'yii\grid\ActionColumn',
+                'contentOptions' => ['style' => 'width:3%'],
             ],
         ],
-    ]); ?>
+    ]);
 
-    <?php Pjax::end(); ?>
+    echo Html::endTag('div');
 
-</div>
+    echo Html::beginTag('div', ['class' => 'row']);
+
+        echo Html::beginTag('div', ['class' => 'col-12 col-md-3']);
+
+                echo Html::a(Yii::t('app', 'Создать новый тип'),
+                    ['create'],
+                    [
+                        'class' => 'btn btn-lg bg-olive fa fa-plus btn-block btn-flat'
+                    ]
+            );
+        echo Html::endTag('div');
+    echo Html::endTag('div');
+
+    Pjax::end();
+
+    echo Html::endTag('div');
