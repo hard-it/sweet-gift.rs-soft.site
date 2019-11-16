@@ -35,7 +35,8 @@ echo Html::tag('h1', Html::encode($this->title));
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute'      => 'Code',
-                'contentOptions' => ['style' => 'width:3%'],
+                'label' => Yii::t('app','Код'),
+                //'contentOptions' => ['style' => 'width:3%'],
             ],
             [
                 'value'          => function ($model) {
@@ -46,8 +47,10 @@ echo Html::tag('h1', Html::encode($this->title));
 
                     return isset($category) ? $category->Name : '';
                 },
+                'label' => Yii::t('app','Категория'),
                 'attribute'      => 'Category',
-                'contentOptions' => ['style' => 'width:25%'],
+                //'contentOptions' => ['style' => 'width:25%'],
+                /*
                 'filter'         => TreeViewInput::widget(
                     [
 
@@ -64,21 +67,24 @@ echo Html::tag('h1', Html::encode($this->title));
                             'disabled' => false,
                         ],
                     ]
-                ),
+                ),*/
             ],
             [
                 'attribute'      => 'Name',
-                'contentOptions' => ['style' => 'min-width:50%'],
+                'label' => Yii::t('app','Наименование'),
+                //'contentOptions' => ['style' => 'min-width:50%'],
             ],
             [
                 'attribute'      => 'MinimalQuantity',
-                'contentOptions' => ['style' => 'width:3%'],
+                'label' => Yii::t('app','Мин. кол.'),
+                //'contentOptions' => ['style' => 'width:3%'],
             ],
             //'ShelfLife',
             //'Measure',
             [
                 'attribute'      => 'Cost',
-                'contentOptions' => ['style' => 'width:3%'],
+                'label' => Yii::t('app','Цена'),
+                //'contentOptions' => ['style' => 'width:3%'],
             ],
             //'Description:ntext',
             //'Tags',
@@ -87,25 +93,26 @@ echo Html::tag('h1', Html::encode($this->title));
 
             [
                 'class'          => 'yii\grid\ActionColumn',
-                'contentOptions' => ['style' => 'width:3%'],
+                //'contentOptions' => ['style' => 'width:3%'],
             ],
         ],
     ]);
 
-    echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'row']);
 
-    echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-12 col-md-3']);
 
-        echo Html::beginTag('div', ['class' => 'col-12 col-md-3']);
+echo Html::a(Yii::t('app', 'Создать новый тип'),
+    ['create'],
+    [
+        'class' => 'btn btn-lg bg-olive fa fa-plus btn-block btn-flat'
+    ]
+);
+echo Html::endTag('div');
+echo Html::endTag('div');
 
-                echo Html::a(Yii::t('app', 'Создать новый тип'),
-                    ['create'],
-                    [
-                        'class' => 'btn btn-lg bg-olive fa fa-plus btn-block btn-flat'
-                    ]
-            );
-        echo Html::endTag('div');
-    echo Html::endTag('div');
+
+echo Html::endTag('div');
 
     Pjax::end();
 
