@@ -74,7 +74,9 @@ a.desc:after {
 
 .grid-view th,
 .grid-view td:last-child {
+    /*
     white-space: nowrap;
+     */
 }
 
 .grid-view .filters input,
@@ -216,4 +218,24 @@ div.image-preview-container div.container {
 button, a, tr {
     -webkit-transition-duration: 750ms; /* Safari */
     transition-duration: 750ms;
+}
+
+.gridview-update-button {
+    padding: 2px;
+    color: blue;
+    cursor: pointer;
+    color: #269abc;
+}
+
+.gridview-delete-button {
+    padding: 2px;
+    cursor: pointer;
+    color: #dd4b39;
+}
+
+.gridview-buttons > i {
+    display: block;
+    text-align: center;
+    height: 100%;
+    font-size: 22px;
 }
