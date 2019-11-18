@@ -18,91 +18,71 @@ echo Html::beginTag('div', ['class' => 'product-type-index']);
 
 echo Html::tag('h1', Html::encode($this->title));
 
-?>
-<?php Pjax::begin(); ?>
-<?php
 echo $this->render('_search', ['model' => $searchModel]);
-?>
 
-<?php
 echo Html::beginTag('div', ['class' => 'box box-no-top-border']);
+
+Pjax::begin([
+    'id'              => 'pjax-gridview',
+    'enablePushState' => true,
+    'timeout'         => 5000,
+]);
+
 echo GridView::widget([
     'dataProvider' => $dataProvider,
-    //'filterModel'  => $searchModel,
+    'layout'       => "\n{items}\n{pager}",
     'tableOptions' => [
         'class' => 'table table-bordered table-hover',
     ],
     'columns'      => [
-        ['class' => 'yii\grid\SerialColumn'],
+        [
+            'class'          => 'yii\grid\SerialColumn',
+            'contentOptions' => ['class' => 'clickable-gridview-column'],
+        ],
         [
             'attribute' => 'Code',
             'label'     => Yii::t('app', 'Код'),
-            //'contentOptions' => ['style' => 'width:3%'],
+            'contentOptions' => ['class' => 'clickable-gridview-column'],
         ],
         [
-            'value'     => function ($model) {
+            'label'          => Yii::t('app', 'Категория'),
+            'attribute'      => 'category0.Name',
+            'contentOptions' => ['class' => 'clickable-gridview-column'],
+        ],
 
-                /* @var \common\models\ProductType $model */
-                /* @var \common\models\ProductCategory $category */
-                $category = $model->getCategory0()->one();
-
-                return isset($category) ? $category->Name : '';
-            },
-            'label'     => Yii::t('app', 'Категория'),
-            'attribute' => 'Category',
-            //'contentOptions' => ['style' => 'width:25%'],
-            /*
-            'filter'         => TreeViewInput::widget(
-                [
-
-                    'model'          => $searchModel,
-                    'attribute'      => 'Category',
-                    'value'          => $searchModel->Category, // preselected values
-                    'query'          => ProductCategory::find()->addOrderBy('root, lft, Name'),
-                    'headingOptions' => ['label' => 'Категории'],
-                    'rootOptions'    => ['label' => 'Все категории'],
-                    'fontAwesome'    => true,
-                    'asDropdown'     => true,
-                    'multiple'       => true,
-                    'options'        => [
-                        'disabled' => false,
-                    ],
-                ]
-            ),*/
+        [
+            'attribute'      => 'Name',
+            'label'          => Yii::t('app', 'Наименование'),
+            'contentOptions' => ['class' => 'clickable-gridview-column'],
         ],
         [
-            'attribute' => 'Name',
-            'label'     => Yii::t('app', 'Наименование'),
-            //'contentOptions' => ['style' => 'min-width:50%'],
+            'attribute'      => 'MinimalQuantity',
+            'label'          => Yii::t('app', 'Мин. кол.'),
+            'contentOptions' => ['class' => 'clickable-gridview-column'],
         ],
         [
-            'attribute' => 'MinimalQuantity',
-            'label'     => Yii::t('app', 'Мин. кол.'),
-            //'contentOptions' => ['style' => 'width:3%'],
-        ],
-        //'ShelfLife',
-        //'Measure',
-        [
-            'attribute' => 'Cost',
-            'label'     => Yii::t('app', 'Цена'),
-            //'contentOptions' => ['style' => 'width:3%'],
+            'attribute'      => 'Cost',
+            'label'          => Yii::t('app', 'Цена'),
+            'contentOptions' => ['class' => 'clickable-gridview-column'],
         ],
         [
             'format' => 'raw',
             'value'  => function ($model) {
 
                 /* @var ProductType $model */
-                $update = Html::tag('i', '', ['class' => 'fa fa-pencil gridview-update-button', 'data-key' => $model->Id]);
+                $update = '';
 
                 $delete = Html::tag('i', '', ['class' => 'fa fa-trash gridview-delete-button', 'data-key' => $model->Id]);
 
-                $div = Html::tag('div', $update.$delete, ['class' => 'gridview-buttons']);
+                $div = Html::tag('div', $delete, ['class' => 'gridview-buttons']);
+
                 return $div;
-            }
-            ,
+            },
         ],
     ],
 ]);
+
+Pjax::end();
 
 echo Html::beginTag('div', ['class' => 'row']);
 
@@ -119,7 +99,5 @@ echo Html::endTag('div');
 
 
 echo Html::endTag('div');
-
-Pjax::end();
 
 echo Html::endTag('div');

@@ -29,8 +29,8 @@ class SearchHelper extends BaseJsHelper
                 $.pjax.reload({
                     container:'#{$pjaxId}',
                     url: pjaxUrl,
-                    push: false,
-                    replace: false,
+                    push: true,
+                    replace: true,
                     pushRedirect: false,
                     replaceRedirect: false,
                     async:true
@@ -38,6 +38,24 @@ class SearchHelper extends BaseJsHelper
             })
         });
         ");
+
+        return $js->expression;
+    }
+
+    /**
+     * @param string $searchId
+     * @param string $gridId
+     *
+     * @return string
+     */
+    public function generatePjaxGridReload(string $searchId, string $gridId)
+    {
+        $js = new JsExpression("
+            $('document').ready(function() {
+                $('#{$searchId}').on('pjax:end', function() {
+                $.pjax.reload({container:'#{$gridId}'});  //Reload GridView
+            });
+            });");
 
         return $js->expression;
     }

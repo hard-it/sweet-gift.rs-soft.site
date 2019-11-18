@@ -15,11 +15,13 @@ use yii\web\View;
 
 $jsHelper = new SearchHelper($this);
 
+$this->registerJs($jsHelper->generatePjaxGridReload('pjax-search-form', 'pjax-gridview'), View::POS_END);
+
 echo Html::beginTag('div', ['class' => 'product-type-search box box-no-top-border']);
 
 Pjax::begin([
     'id'              => 'pjax-search-form',
-    'enablePushState' => false,
+    'enablePushState' => true,
     'timeout'         => 5000,
 ]);
 

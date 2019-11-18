@@ -41,7 +41,9 @@ class ProductTypeSearch extends ProductType
      */
     public function search($params)
     {
-        $query = ProductType::find();
+        $query = ProductType::find()->alias('producttype');
+
+        $query->joinWith('category0 category0');
 
         // add conditions that should always apply here
 
@@ -57,22 +59,12 @@ class ProductTypeSearch extends ProductType
             return $dataProvider;
         }
 
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            //'Category' => $this->Category,
-            'MinimalQuantity' => $this->MinimalQuantity,
-            'ShelfLife' => $this->ShelfLife,
-            //'Measure' => $this->Measure,
-            'Cost' => $this->Cost,
-        ]);
-
-        $query->andFilterWhere(['like', 'Code', $this->Code])
-            ->andFilterWhere(['like', 'Name', $this->Name]);
+        $query->andFilterWhere(['like', 'producttype.Code', $this->Code])
+            ->andFilterWhere(['like', 'producttype.Name', $this->Name]);
 
         $this->setCategoryFilter($query);
 
-        //$txt = $query->createCommand()->getRawSql();
+        $txt = $query->createCommand()->getRawSql();
 
         return $dataProvider;
     }
@@ -87,6 +79,8 @@ class ProductTypeSearch extends ProductType
     public function cleanSearch()
     {
         $query = ProductType::find();
+
+        $query->joinWith('category0 category0');
 
         // add conditions that should always apply here
 
@@ -110,7 +104,7 @@ class ProductTypeSearch extends ProductType
 
         $cats = explode(',', $this->Category);
 
-        $query->andFilterWhere(['IN', 'Category', $cats]);
+        $query->andFilterWhere(['IN', 'producttype.Category', $cats]);
 
     }
 }

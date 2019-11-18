@@ -239,3 +239,7 @@ button, a, tr {
     height: 100%;
     font-size: 22px;
 }
+
+.clickable-gridview-column {
+    cursor: pointer;
+}
