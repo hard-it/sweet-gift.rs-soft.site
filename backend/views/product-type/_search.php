@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 use kartik\tree\TreeViewInput;
 use common\models\ProductCategory;
 use backend\helpers\js\grids\SearchHelper;
@@ -15,7 +15,7 @@ use yii\web\View;
 
 $jsHelper = new SearchHelper($this);
 
-$this->registerJs($jsHelper->generatePjaxGridReload('pjax-search-form', 'pjax-gridview'), View::POS_END);
+$this->registerJs($jsHelper->generatePjaxGridReload('pjax-search-form', 'pjax-gridview'));
 
 echo Html::beginTag('div', ['class' => 'product-type-search box box-no-top-border']);
 
@@ -69,16 +69,16 @@ echo Html::beginTag('div', ['class' => 'form-group']);
 
 echo Html::beginTag('div', ['class' => 'row']);
 
-echo Html::beginTag('div', ['class' => 'col-12 col-md-3']);
-echo Html::submitButton(Yii::t('app', '<span>Поиск</span>'), ['class' => 'btn btn-lg bg-olive fa fa-search fa-search-button btn-block btn-flat']);
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-xs-3']);
+echo Html::submitButton(Yii::t('app', '<span>Поиск</span>'), ['class' => 'btn btn-lg btn-primary fa fa-search fa-search-button btn-block btn-flat']);
 echo Html::endTag('div');
 
-echo Html::beginTag('div', ['class' => 'col-12 col-md-3']);
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3  col-xs-3']);
 echo Html::resetButton(
     Yii::t('app', '<span>Очистить</span>'),
     [
         'id'    => 'reset-form-btn',
-        'class' => 'btn btn-lg fa fa-refresh fa-refresh-button btn-block btn-flat',
+        'class' => 'btn btn-lg fa btn-danger fa-refresh fa-refresh-button btn-block btn-flat',
     ]);
 echo Html::endTag('div');
 echo Html::endTag('div');

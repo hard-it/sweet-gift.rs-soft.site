@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 use kartik\tree\TreeViewInput;
 use common\models\ProductCategory;
 use mihaildev\ckeditor\CKEditor;
@@ -246,7 +246,7 @@ echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-12 col-md-3']);
-echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-lg bg-olive fa fa-save btn-block btn-flat']);
+echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-lg btn-primary fa fa-save btn-block btn-flat']);
 echo Html::endTag('div');
 echo Html::endTag('div');
 

@@ -22,20 +22,20 @@ class SearchHelper extends BaseJsHelper
     public function generatePjaxResetForm(string $id, string $pjaxId, string $url)
     {
         $js = new JsExpression("
-        $(function () {
-        $('#{$id}').on('click', function (xhr, textStatus, error, options) {
-                xhr.preventDefault();
-                let pjaxUrl = '{$url}';
-                $.pjax.reload({
-                    container:'#{$pjaxId}',
-                    url: pjaxUrl,
-                    push: true,
-                    replace: true,
-                    pushRedirect: false,
-                    replaceRedirect: false,
-                    async:true
-                });
-            })
+        $('document').ready(function () {
+            $('#{$id}').on('click', function (xhr, textStatus, error, options) {
+                    xhr.preventDefault();
+                    let pjaxUrl = '{$url}';
+                    $.pjax.reload({
+                        container:'#{$pjaxId}',
+                        url: pjaxUrl,
+                        push: true,
+                        replace: true,
+                        pushRedirect: false,
+                        replaceRedirect: false,
+                        async:true
+                    });
+                })
         });
         ");
 

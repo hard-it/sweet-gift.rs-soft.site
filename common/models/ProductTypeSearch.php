@@ -49,6 +49,9 @@ class ProductTypeSearch extends ProductType
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 1,
+            ],
         ]);
 
         $this->load($params);
@@ -86,6 +89,9 @@ class ProductTypeSearch extends ProductType
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 1,
+            ],
         ]);
 
         //$txt = $query->createCommand()->getRawSql();

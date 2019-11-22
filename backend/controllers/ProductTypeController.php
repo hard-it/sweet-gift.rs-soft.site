@@ -8,6 +8,7 @@ use common\models\ProductTypeSearch;
 use common\helpers\ForbiddingController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * ProductTypeController implements the CRUD actions for ProductType model.
@@ -37,6 +38,8 @@ class ProductTypeController extends ForbiddingController
     {
         $searchModel = new ProductTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        Url::remember();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -78,9 +81,10 @@ class ProductTypeController extends ForbiddingController
         $model = new ProductType();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(Url::previous());
         }
 
+        Url::remember();
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -98,9 +102,10 @@ class ProductTypeController extends ForbiddingController
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(Url::previous());
         }
 
+        Url::remember();
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -117,7 +122,7 @@ class ProductTypeController extends ForbiddingController
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Url::previous());
     }
 
     /**

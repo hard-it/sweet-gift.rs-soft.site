@@ -1,8 +1,9 @@
 html,
 body {
     height: 100%;
+    min-width: 620px !important;
+    overflow-x: visible !important;
 }
-
 .wrap {
     min-height: 100%;
     height: auto;
@@ -37,7 +38,7 @@ body {
 }
 
 /* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
+th a:before, th a.asc:before, th a.desc:before {
     position: relative;
     top: 1px;
     display: inline-block;
@@ -48,28 +49,53 @@ a.asc:after, a.desc:after {
     padding-left: 5px;
 }
 
-a.asc:after {
-    content: /*"\e113"*/ "\e151";
+th a.asc:before {
+    content: /*"\e113"*/ "\e093";
+    position: absolute;
+    top: 2px;
+    left: -7px;
 }
 
-a.desc:after {
-    content: /*"\e114"*/ "\e152";
+th a.desc:before {
+    content: /*"\e114"*/ "\e094";
+    position: absolute;
+    top: 2px;
+    left: -7px;
 }
 
-.sort-numerical a.asc:after {
-    content: "\e153";
+th a:before {
+    content: "\e150";
+    position: absolute;
+    top: 2px;
+    left: -7px;
 }
 
-.sort-numerical a.desc:after {
-    content: "\e154";
+.sort-numerical a.asc:before {
+    content: "\e093";
+    position: absolute;
+    top: 2px;
+    left: -7px;
 }
 
-.sort-ordinal a.asc:after {
-    content: "\e155";
+.sort-numerical a.desc:before {
+    content: "\e094";
+    position: absolute;
+    top: 2px;
+    left: -7px;
 }
 
-.sort-ordinal a.desc:after {
-    content: "\e156";
+.sort-ordinal a.asc:before {
+    content: "\e093";
+    position: absolute;
+    top: 2px;
+    left: -7px;
+}
+
+.sort-ordinal a.desc:before {
+    content: "\e094";
+    position: absolute;
+    top: 2px;
+    left: -7px;
 }
 
 .grid-view th,
@@ -77,6 +103,11 @@ a.desc:after {
     /*
     white-space: nowrap;
      */
+}
+
+.grid-view th > a {
+    position: relative;
+    padding-left: 14px;
 }
 
 .grid-view .filters input,
