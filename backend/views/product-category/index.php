@@ -10,6 +10,11 @@ $this->params['breadcrumbs'][] = 'Категории товаров';
 
 $this->title = 'Категории товаров';
 
+echo Html::beginTag('div', ['class' => 'product-category-index']);
+
+echo Html::tag('h1', Html::encode($this->title));
+
+
 echo Html::beginTag('div', ['class' => 'box box-no-top-border']);
 
 echo TreeView::widget([
@@ -42,4 +47,5 @@ echo TreeView::widget([
     'cacheSettings'    => ['enableCache' => false],
 ]);
 
+echo Html::endTag('div');
 echo Html::endTag('div');

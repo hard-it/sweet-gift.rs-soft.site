@@ -11,6 +11,10 @@ use yii\data\ActiveDataProvider;
  */
 class ProductTypeSearch extends ProductType
 {
+    const DEFAULT_PAGE_SIZE = 1;
+
+    public $pageSize = self::DEFAULT_PAGE_SIZE;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +22,7 @@ class ProductTypeSearch extends ProductType
     {
         return [
             [['Id', 'MinimalQuantity', 'ShelfLife', 'Measure'], 'integer'],
-            [['Category', 'Code', 'Name', 'Description', 'Tags', 'Keywords', 'Images'], 'safe'],
+            [['pageSize', 'Category', 'Code', 'Name', 'Description', 'Tags', 'Keywords', 'Images'], 'safe'],
             [['Cost'], 'number'],
         ];
     }
@@ -45,16 +49,16 @@ class ProductTypeSearch extends ProductType
 
         $query->joinWith('category0 category0');
 
+        $this->load($params);
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query'      => $query,
             'pagination' => [
-                'pageSize' => 1,
+                'pageSize' => $this->pageSize ?? static::DEFAULT_PAGE_SIZE,
             ],
         ]);
-
-        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -79,18 +83,20 @@ class ProductTypeSearch extends ProductType
      *
      * @return ActiveDataProvider
      */
-    public function cleanSearch()
+    public function cleanSearch($params)
     {
         $query = ProductType::find();
 
         $query->joinWith('category0 category0');
 
+        $this->pageSize = $params[static::class]['pageSize'] ?? static::DEFAULT_PAGE_SIZE;
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query'      => $query,
             'pagination' => [
-                'pageSize' => 1,
+                'pageSize' => $this->pageSize ?? static::DEFAULT_PAGE_SIZE,
             ],
         ]);
 

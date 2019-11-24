@@ -1,8 +1,9 @@
 html,
 body {
     height: 100%;
-    min-width: 620px !important;
+    min-width: 700px !important;
     overflow-x: visible !important;
+    position: relative;
 }
 .wrap {
     min-height: 100%;
@@ -273,4 +274,8 @@ button, a, tr {
 
 .clickable-gridview-column {
     cursor: pointer;
+}
+
+.pager-dropdown {
+    margin-bottom: 5px;
 }

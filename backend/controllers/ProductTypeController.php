@@ -50,7 +50,9 @@ class ProductTypeController extends ForbiddingController
     public function actionClearSearch()
     {
         $searchModel = new ProductTypeSearch();
-        $dataProvider = $searchModel->cleanSearch();
+        $dataProvider = $searchModel->cleanSearch(Yii::$app->request->queryParams);
+
+        Url::remember();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
