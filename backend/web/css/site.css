@@ -1,8 +1,10 @@
 html,
 body {
     height: 100%;
-    min-width: 700px !important;
+    min-width: 500px !important;
+    /*
     overflow-x: visible !important;
+     */
     position: relative;
 }
 .wrap {
@@ -54,49 +56,49 @@ th a.asc:before {
     content: /*"\e113"*/ "\e093";
     position: absolute;
     top: 2px;
-    left: -7px;
+    left: -9px;
 }
 
 th a.desc:before {
     content: /*"\e114"*/ "\e094";
     position: absolute;
     top: 2px;
-    left: -7px;
+    left: -9px;
 }
 
 th a:before {
     content: "\e150";
     position: absolute;
     top: 2px;
-    left: -7px;
+    left: -9px;
 }
 
 .sort-numerical a.asc:before {
     content: "\e093";
     position: absolute;
     top: 2px;
-    left: -7px;
+    left: -9px;
 }
 
 .sort-numerical a.desc:before {
     content: "\e094";
     position: absolute;
     top: 2px;
-    left: -7px;
+    left: -9px;
 }
 
 .sort-ordinal a.asc:before {
     content: "\e093";
     position: absolute;
     top: 2px;
-    left: -7px;
+    left: -9px;
 }
 
 .sort-ordinal a.desc:before {
     content: "\e094";
     position: absolute;
     top: 2px;
-    left: -7px;
+    left: -9px;
 }
 
 .grid-view th,
@@ -243,7 +245,7 @@ div.image-preview-container div.container {
     margin-left: 5px;
 }
 
-.fa-plus:before, .fa-save:before {
+.fa-plus:before, .fa-save:before, .fa-undo:before {
     margin-right: 5px;
 }
 

@@ -1,15 +1,17 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
-use kartik\tree\TreeViewInput;
-use common\models\ProductCategory;
 use common\models\ProductType;
+use backend\helpers\js\grids\ButtonHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProductTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$buttonsHelper = new ButtonHelper($this);
 
 $this->title                   = Yii::t('app', 'Типы товаров');
 $this->params['breadcrumbs'][] = $this->title;
@@ -78,7 +80,7 @@ echo GridView::widget([
             'attribute'      => 'Code',
             'label'          => Yii::t('app', 'Код'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
-            'headerOptions'  => ['class' => 'col-2 col-md-1 col-sm-2 col-xs-2'],
+            'headerOptions'  => ['class' => 'col-1 col-md-1 col-sm-2 col-xs-2'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
         [
@@ -93,7 +95,7 @@ echo GridView::widget([
             'attribute'      => 'Name',
             'label'          => Yii::t('app', 'Товар'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
-            'headerOptions'  => ['class' => 'col-4 col-md-5 col-sm-5 col-xs-4'],
+            'headerOptions'  => ['class' => 'col-4 col-md-4 col-sm-4 col-xs-4'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
         /*
@@ -101,7 +103,7 @@ echo GridView::widget([
             'attribute'      => 'MinimalQuantity',
             'label'          => Yii::t('app', 'Кол-во'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
-            'headerOptions' => ['class' => 'col-md-1 col-sm-1'],
+            'headerOptions' => ['class' => 'col-2 col-md-2 col-sm-2 col-xs-2'],
             'hAlign'         => GridView::ALIGN_RIGHT,
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
@@ -150,6 +152,13 @@ echo GridView::widget([
         'maxButtonCount'    => 10,
     ],
 ]);
+
+$this->registerJs(
+    $buttonsHelper->generateUpdateGridRowScript(
+        'clickable-gridview-column',
+        Url::toRoute('product-type/update')
+    )
+);
 
 Pjax::end();
 
