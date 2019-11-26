@@ -7,5 +7,5 @@ use yii\helpers\Html;
 /* @var $message string */
 /* @var $exception Exception */
 
-$this->title = Yii::t('app', 'Home page');
+$this->title = Yii::t('app', Yii::t('app', 'Главная'));
 ?>

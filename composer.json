@@ -25,7 +25,10 @@
         "kartik-v/yii2-widgets": "*",
         "mihaildev/yii2-elfinder": "*",
         "mihaildev/yii2-ckeditor": "*",
-        "kartik-v/yii2-widget-select2": "dev-master"
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "kartik-v/yii2-number": "dev-master",
+        "kartik-v/yii2-grid": "dev-master",
+        "kartik-v/yii2-dialog": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

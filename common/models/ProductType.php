@@ -23,14 +23,31 @@ use yii\db\ActiveRecord;
  * @property array    $Keywords         Ключевые слова
  * @property array    $Images           Изображения
  */
-class ProductType extends ActiveRecord
+class ProductType extends BaseTagKeywordModel
 {
+
+    const DEFAULT_MEASURE_VALUE = 3600;
+
+    const MEASURE_VALUES = [
+        1     => 'сек',
+        60    => 'мин',
+        3600  => 'час',
+        86400 => 'суток',
+
+    ];
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'ProductType';
+    }
+
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+        $this->Measure = static::DEFAULT_MEASURE_VALUE;
     }
 
     /**
@@ -46,10 +63,11 @@ class ProductType extends ActiveRecord
             [['Name'], 'string', 'max' => 128],
             [['Code'], 'required'],
             [['Name'], 'required'],
+            [['Category'], 'required'],
             [['Tags', 'Keywords', 'Images'], 'safe'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
-            [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => Productcategory::className(), 'targetAttribute' => ['Category' => 'Id']],
+            [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['Category' => 'Id']],
         ];
     }
 
@@ -64,7 +82,7 @@ class ProductType extends ActiveRecord
             'Code'            => Yii::t('app', 'Код'),
             'Name'            => Yii::t('app', 'Наименование'),
             'MinimalQuantity' => Yii::t('app', 'Минимальное количество'),
-            'ShelfLife'       => Yii::t('app', 'Срок хранения, сек'),
+            'ShelfLife'       => Yii::t('app', 'Срок хранения товара'),
             'Measure'         => Yii::t('app', 'Единица измерения'),
             'Cost'            => Yii::t('app', 'Цена за единицу'),
             'Description'     => Yii::t('app', 'Описание'),
