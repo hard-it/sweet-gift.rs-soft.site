@@ -26,9 +26,7 @@ class ButtonHelper extends BaseJsHelper
                     if (currentRow !== undefined) {
                         let currentId = currentRow.attr('data-key');
                         if (currentId !== undefined) {
-                            //alert('$baseUrl'+'?id='+currentId);
                             let url = '$baseUrl'+'?id='+currentId;
-                            alert(url);
                             window.location.href = url;
                         }
                     }

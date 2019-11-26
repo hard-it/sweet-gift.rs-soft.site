@@ -243,14 +243,15 @@ echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::endTag('div');
 
-
+echo Html::beginTag('div', ['class' => 'form-group']);
 echo Html::beginTag('div', ['class' => 'row']);
-echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-sm-3 col-xs-3']);
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-sm-4 col-xs-6']);
 echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-lg btn-primary btn-success fa fa-save btn-block btn-flat']);
 echo Html::endTag('div');
 
-echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-sm-3 col-xs-3']);
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-sm-4 col-xs-6']);
 echo Html::submitButton(Yii::t('app', 'Назад'), ['class' => 'btn btn-lg btn-primary fa fa-undo btn-block btn-flat']);
+echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::endTag('div');
 
