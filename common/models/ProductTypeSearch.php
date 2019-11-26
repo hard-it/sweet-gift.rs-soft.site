@@ -11,7 +11,7 @@ use yii\data\ActiveDataProvider;
  */
 class ProductTypeSearch extends ProductType
 {
-    const DEFAULT_PAGE_SIZE = 1;
+    const DEFAULT_PAGE_SIZE = 20;
 
     public $pageSize = self::DEFAULT_PAGE_SIZE;
 

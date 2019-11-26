@@ -6,10 +6,13 @@ use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\ProductType;
 use backend\helpers\js\grids\ButtonHelper;
+use kartik\dialog\DialogAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ProductTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+DialogAsset::register($this);
 
 $buttonsHelper = new ButtonHelper($this);
 
@@ -154,11 +157,20 @@ echo GridView::widget([
 ]);
 
 $this->registerJs(
-    $buttonsHelper->generateUpdateGridRowScript(
+    $buttonsHelper->generateGridButtonScript(
         'clickable-gridview-column',
         Url::toRoute('product-type/update')
     )
 );
+
+$this->registerJs(
+    $buttonsHelper->generateDeleteGridButtonScript(
+        'gridview-delete-button',
+        Url::toRoute('product-type/delete'),
+        Yii::t('app','Вы действительно хотите удалить данную запись')
+    )
+);
+
 
 Pjax::end();
 

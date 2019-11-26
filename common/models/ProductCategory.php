@@ -39,6 +39,7 @@ use kartik\tree\models\Tree;
 class ProductCategory extends Tree
 {
     const DEFAULT_IMAGE = '/images/water-mark.png';
+
     /**
      * {@inheritdoc}
      */
