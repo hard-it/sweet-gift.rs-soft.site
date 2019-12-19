@@ -50,6 +50,44 @@ class MenuBuilder
     /**
      * @return array
      */
+    public static function buildCustomerSubMenu()
+    {
+        $menuItems = [];
+
+        $customerSubmenu = [];
+
+        if (ForbiddingController::hasAccess('app-backend\customer\index')) {
+            $customerSubmenu[] = [
+                'label' => Yii::t('app', 'Заказчики'),
+                'icon'  => 'folder-o',
+                'url'   => Url::toRoute('/customer/index'),
+            ];
+        }
+
+        if (ForbiddingController::hasAccess('app-backend\order\index')) {
+            $customerSubmenu[] = [
+                'label' => Yii::t('app', 'Заказы'),
+                'icon'  => 'gift',
+                'url'   => Url::toRoute('/order/index'),
+            ];
+        }
+
+        if (count($customerSubmenu)) {
+            $menuItems = [
+                'label' => Yii::t('app', 'Заказы'),
+                'icon'  => 'truck',
+                'items' => [],
+            ];
+
+            $menuItems['items'] = $customerSubmenu;
+        }
+
+        return $menuItems;
+    }
+
+    /**
+     * @return array
+     */
     public static function buildImagesItem()
     {
         $menuItems = [];
