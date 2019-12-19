@@ -7,6 +7,7 @@ body {
      */
     position: relative;
 }
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -186,15 +187,14 @@ th a:before {
     margin-top: -62px;
 }
 
-#node-images .multiple-input-list__item input {
+#node-images .hidden-image-name {
     display: none;
 }
-
 #node-images .multiple-input-list__item .multiple-input-elfinder {
-    margin-top: -59px;
+    margin-top: -347px;
     float: right;
     display: grid;
-    padding-right: 5px;
+    padding-right: 50px;
 }
 
 #node-images .list-cell__button {
@@ -207,14 +207,6 @@ div.image-preview-container {
     width: 100%;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-    /*
-    border-color: #ccc;
-    border-width: 1px;
-    border-style: dashed;
-    padding: 3px;
-
-     */
 }
 
 div.image-preview-container div.container {
@@ -280,4 +272,23 @@ button, a, tr {
 
 .pager-dropdown {
     margin-bottom: 5px;
+}
+
+.js-input-remove {
+    position: absolute;
+    right: 60px;
+    top: 50px;
+}
+
+#node-images input.image-title {
+    display: block;
+    position: absolute;
+    bottom: 36px;
+    left: 8%;
+    right: 7%;
+    width: 84%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
 }

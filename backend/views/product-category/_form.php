@@ -359,7 +359,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'allowEmptyList'    => true,
         'enableGuessTitle'  => true,
         'cloneButton'       => false,
-        'sortable'          => false,
+        'sortable'          => true,
         // show add button in the footer
         'addButtonPosition' => MultipleInput::POS_HEADER,
         'id'                => 'node-images',
@@ -369,7 +369,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 'name'  => 'PreviewImages',
                 'type'  => 'static',
                 'value' => function ($data) {
-                    $url = $data['Images'] ?? ProductCategory::DEFAULT_IMAGE;
+                    $url = $data['url'] ?? ProductCategory::DEFAULT_IMAGE;
 
                     if (!strlen($url)) {
                         $url = ProductCategory::DEFAULT_IMAGE;
@@ -387,10 +387,10 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                                     'data-html'      => "true",
                                     'title'          => "<img src='$url'>",
                                 ])
-                            .Html::tag('div',
+                            . Html::tag('div',
                                 '',
                                 ['class' => 'container']
-                                ),
+                            ),
                             ['class' => 'image-preview-container']
 
                         );
@@ -398,7 +398,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
             ],
 
             [
-                'name'    => 'Images',
+                'name'    => 'url',
                 'type'    => InputFile::class,
                 'title'   => '',
                 'options' => [
@@ -407,7 +407,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                     'controller'    => 'elfinder',
                     // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
                     'filter'        => 'image',
-                    'template'      => '{input}<div class="input-group multiple-input-elfinder"><span class="input-group-btn">{button}</span></div>',
+                    'template'      => '<div class="hidden-image-name">{input}</div><div class="input-group multiple-input-elfinder"><span class="input-group-btn">{button}</span></div>',
                     'options'       => ['class' => 'form-control'],
                     'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
                     'buttonName'    => Yii::t('elfinder', ''),
@@ -416,17 +416,27 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 ],
 
             ],
+
+            [
+                'name'    => 'name',
+                'title'   => '',
+                'options' => [
+                    'class' => 'image-title',
+                    'placeholder' => Yii::t('app', 'Заголовок'),
+                ],
+
+            ],
         ],
         //'theme'             => BaseRenderer::THEME_BS,
         'layoutConfig'      => [
             'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
-            'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0',
+            'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
             'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 image-button-offset-1',
             'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
             //'buttonActionClass' => 'col-xs-offset-0 col-lg-offset-0 col-md-offset-0 col-xs-0 image-button-offset-1',
         ],
 
-        'rowOptions' =>[
+        'rowOptions' => [
             'class' => 'col-md-6 col-lg-4 col-xs-12 col-xs-offset-0',
         ],
 
@@ -533,5 +543,5 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 <?php
 ActiveForm::end();
 MultiInputHelper::registerImageScript($this, 'node-images');
-MultiInputHelper::registerTooltip($this);
+//MultiInputHelper::registerTooltip($this);
 ?>

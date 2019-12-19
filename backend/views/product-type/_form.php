@@ -87,7 +87,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     'allowEmptyList'    => true,
     'enableGuessTitle'  => true,
     'cloneButton'       => false,
-    'sortable'          => false,
+    'sortable'          => true,
     // show add button in the footer
     'addButtonPosition' => MultipleInput::POS_HEADER,
     'id'                => 'node-images',
@@ -97,7 +97,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
             'name'  => 'PreviewImages',
             'type'  => 'static',
             'value' => function ($data) {
-                $url = $data['Images'] ?? ProductCategory::DEFAULT_IMAGE;
+                $url = $data['url'] ?? ProductCategory::DEFAULT_IMAGE;
 
                 if (!strlen($url)) {
                     $url = ProductCategory::DEFAULT_IMAGE;
@@ -126,7 +126,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
         ],
 
         [
-            'name'    => 'Images',
+            'name'    => 'url',
             'type'    => InputFile::class,
             'title'   => '',
             'options' => [
@@ -135,7 +135,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
                 'controller'    => 'elfinder',
                 // фильтр файлов, можно задать массив фильтров https://github.com/Studio-42/elFinder/wiki/Client-configuration-options#wiki-onlyMimes
                 'filter'        => 'image',
-                'template'      => '{input}<div class="input-group multiple-input-elfinder"><span class="input-group-btn">{button}</span></div>',
+                'template'      => '<div class="hidden-image-name">{input}</div><div class="input-group multiple-input-elfinder"><span class="input-group-btn">{button}</span></div>',
                 'options'       => ['class' => 'form-control'],
                 'buttonOptions' => ['class' => 'btn btn-primary btn-select-image glyphicon glyphicon-camera'],
                 'buttonName'    => Yii::t('elfinder', ''),
@@ -144,11 +144,21 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
             ],
 
         ],
+
+        [
+            'name'    => 'name',
+            'title'   => '',
+            'options' => [
+                'class' => 'image-title',
+                    'placeholder' => Yii::t('app', 'Заголовок'),
+            ],
+
+        ],
     ],
     //'theme'             => BaseRenderer::THEME_BS,
     'layoutConfig'      => [
         'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
-        'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0',
+        'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
         'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 image-button-offset-1',
         'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
         //'buttonActionClass' => 'col-xs-offset-0 col-lg-offset-0 col-md-offset-0 col-xs-0 image-button-offset-1',
@@ -258,7 +268,7 @@ echo Html::endTag('div');
 ActiveForm::end();
 
 MultiInputHelper::registerImageScript($this, 'node-images');
-MultiInputHelper::registerTooltip($this);
+//MultiInputHelper::registerTooltip($this);
 
 echo Html::endTag('div');
 

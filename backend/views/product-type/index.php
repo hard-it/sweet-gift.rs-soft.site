@@ -35,7 +35,7 @@ Pjax::begin([
 
 $pageSizeContent = Html::beginTag('div', ['class' => 'row']);
 
-$pageSizeContent .= Html::beginTag('div', ['class' => 'col-md-2 col-sm-2 col-xs-2 col-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-offset-10']);
+$pageSizeContent .= Html::beginTag('div', ['class' => 'col-md-3 col-sm-3 col-xs-3 col-offset-9 col-md-offset-9 col-sm-offset-9 col-xs-offset-9']);
 
 $pageSizeContent .= Html::activeDropDownList(
     $searchModel,

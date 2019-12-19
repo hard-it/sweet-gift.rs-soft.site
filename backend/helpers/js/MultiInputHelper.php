@@ -18,7 +18,7 @@ class MultiInputHelper
     {
         $js = <<<JS
 $("#{$inputId}").on('afterInit', function() {
-    $("#{$inputId} input").on('input change', reloadImage);
+    $("#{$inputId} .hidden-image-name input").on('input change', reloadImage);
 }).on('afterAddRow', function(e, row, currentIndex) {
   row.find("input:first").on('input change', reloadImage);
   row.find("img:first").tooltip();
@@ -47,10 +47,8 @@ JS;
         $js = <<<JS
         function reloadImage() {
          let img = $(this).closest('.multiple-input-list__item').find('.list-cell__PreviewImages img:first');
-         console.log(img);
-         console.log($(this).val());
          img.attr('src',$(this).val());
-         let tooltip ="<img src='"+$(this).val()+"' height='400'>";
+         let tooltip ="<img src='"+$(this).val()+"' height='400' style='min-height:400px'>";
          img.attr('title',tooltip).tooltip('fixTitle');
         }
 JS;
