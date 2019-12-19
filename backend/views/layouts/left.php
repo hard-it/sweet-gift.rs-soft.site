@@ -78,6 +78,7 @@ use yii\helpers\ArrayHelper;
          */
 
         $menuItems   = [MenuBuilder::buildGoodsSubMenu()];
+        $menuItems[] = ArrayHelper::merge($menuItems, MenuBuilder::buildCustomerSubMenu());
         $menuItems[] = ArrayHelper::merge($menuItems, MenuBuilder::buildImagesItem());
 
         echo Menu::widget(
