@@ -4,22 +4,19 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
-use common\models\ProductType;
 use backend\helpers\js\grids\ButtonHelper;
 use kartik\dialog\DialogAsset;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\ProductTypeSearch */
+/* @var $searchModel common\models\CustomerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-DialogAsset::register($this);
 
 $buttonsHelper = new ButtonHelper($this);
 
-$this->title                   = Yii::t('app', 'Типы товаров');
+$this->title                   = Yii::t('app', 'Заказчики');
 $this->params['breadcrumbs'][] = $this->title;
 
-echo Html::beginTag('div', ['class' => 'product-type-index']);
+echo Html::beginTag('div', ['class' => 'customer-index']);
 
 echo Html::tag('h1', Html::encode($this->title));
 
@@ -80,49 +77,28 @@ echo GridView::widget([
         ],
         */
         [
-            'attribute'      => 'Code',
-            'label'          => Yii::t('app', 'Код'),
+            'attribute'      => 'Phone',
+            'label'          => Yii::t('app', 'Телефон'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
-            'headerOptions'  => ['class' => 'col-1 col-md-1 col-sm-2 col-xs-2'],
+            'headerOptions'  => ['class' => 'col-2 col-md-2 col-sm-3 col-xs-3'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
         [
-            'label'          => Yii::t('app', 'Категория'),
-            'attribute'      => 'category0.Name',
+            'label'          => Yii::t('app', 'Имя'),
+            'attribute'      => 'Firstname',
             'contentOptions' => ['class' => 'clickable-gridview-column'],
             'headerOptions'  => ['class' => 'col-3 col-md-3 col-sm-3 col-xs-3'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
 
         [
-            'attribute'      => 'Name',
-            'label'          => Yii::t('app', 'Товар'),
+            'attribute'      => 'Lastname',
+            'label'          => Yii::t('app', 'Фамилия'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
             'headerOptions'  => ['class' => 'col-4 col-md-4 col-sm-4 col-xs-4'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
-        /*
-        [
-            'attribute'      => 'MinimalQuantity',
-            'label'          => Yii::t('app', 'Кол-во'),
-            'contentOptions' => ['class' => 'clickable-gridview-column'],
-            'headerOptions' => ['class' => 'col-2 col-md-2 col-sm-2 col-xs-2'],
-            'hAlign'         => GridView::ALIGN_RIGHT,
-            'vAlign'         => GridView::ALIGN_MIDDLE,
-        ],
-        */
-        [
-            'attribute'      => 'Cost',
-            'label'          => Yii::t('app', 'Цена'),
-            'contentOptions' => ['class' => 'clickable-gridview-column'],
-            'headerOptions'  => ['class' => 'col-2 col-md-2 col-sm-2 col-xs-2'],
-            'value'          => function ($model) {
-                /* @var ProductType $model */
-                return $model->Cost ?? '-.--';
-            },
-            'hAlign'         => GridView::ALIGN_RIGHT,
-            'vAlign'         => GridView::ALIGN_MIDDLE,
-        ],
+
         [
             'format'        => 'raw',
             'value'         => function ($model) {
@@ -159,14 +135,14 @@ echo GridView::widget([
 $this->registerJs(
     $buttonsHelper->generateGridButtonScript(
         'clickable-gridview-column',
-        Url::toRoute('product-type/update')
+        Url::toRoute('customer/update')
     )
 );
 
 $this->registerJs(
     $buttonsHelper->generateDeleteGridButtonScript(
         'gridview-delete-button',
-        Url::toRoute('product-type/delete'),
+        Url::toRoute('customer/delete'),
         Yii::t('app','Вы действительно хотите удалить данную запись?')
     )
 );

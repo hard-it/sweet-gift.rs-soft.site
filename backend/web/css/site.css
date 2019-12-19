@@ -292,3 +292,7 @@ button, a, tr {
     box-shadow: none;
     border-bottom: 1px solid #ccc;
 }
+
+.iti {
+    display: block;
+}
