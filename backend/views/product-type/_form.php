@@ -283,7 +283,7 @@ ActiveForm::end();
 
 MultiInputHelper::registerImageScript($this, 'node-images');
 //MultiInputHelper::registerTooltip($this);
-MultiInputHelper::registerSortableOrder($this, 'node-images', '');
+//MultiInputHelper::registerSortableOrder($this, 'node-images', '');
 MultiInputHelper::registerUpdateImagesIndexScript($this, 'product-type-form', 'image-index');
 
 
