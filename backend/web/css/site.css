@@ -296,3 +296,7 @@ button, a, tr {
 .iti {
     display: block;
 }
+
+#node-images .form-control-static {
+    display: none;
+}
