@@ -260,7 +260,7 @@ echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn bt
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-sm-4 col-xs-6']);
-echo Html::submitButton(Yii::t('app', 'Назад'), ['class' => 'btn btn-lg btn-primary fa fa-undo btn-block btn-flat']);
+echo Html::submitButton(Yii::t('app', 'Назад'), ['class' => 'btn btn-lg btn-primary fa fa-undo btn-block btn-flat btn-back']);
 echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::endTag('div');
