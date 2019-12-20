@@ -381,11 +381,11 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                                 Url::toRoute([$url]),
                                 [
                                     'class'          => 'multiple-input-image',
-                                    'data-placement' => "top",
-                                    'data-toggle'    => "tooltip",
-                                    'data-trigger'   => 'hover',
-                                    'data-html'      => "true",
-                                    'title'          => "<img src='$url'>",
+                                    //'data-placement' => "top",
+                                    //'data-toggle'    => "tooltip",
+                                    //'data-trigger'   => 'hover',
+                                    //'data-html'      => "true",
+                                    //'title'          => "<img src='$url'>",
                                 ])
                             . Html::tag('div',
                                 '',
@@ -423,6 +423,16 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 'options' => [
                     'class' => 'image-title',
                     'placeholder' => Yii::t('app', 'Заголовок'),
+                ],
+
+            ],
+
+            [
+                'name'    => 'order',
+                'type'    => 'hiddenInput',
+                'title'   => '',
+                'options' => [
+                        'class' => 'image-index',
                 ],
 
             ],
@@ -544,4 +554,6 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 ActiveForm::end();
 MultiInputHelper::registerImageScript($this, 'node-images');
 //MultiInputHelper::registerTooltip($this);
+MultiInputHelper::registerSortableOrder($this, 'node-images', '');
+MultiInputHelper::registerUpdateImagesIndexScript($this, 'product-category-tree-nodeform', 'image-index');
 ?>

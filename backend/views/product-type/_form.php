@@ -24,7 +24,11 @@ echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
 
 echo Html::beginTag('div', ['class' => 'product-type-form']);
 
-$form = ActiveForm::begin();
+$form = ActiveForm::begin(
+    [
+        'id' => 'product-type-form',
+        ]
+);
 
 echo Html::beginTag('div', ['class' => 'row']);
 
@@ -109,11 +113,11 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
                             Url::toRoute([$url]),
                             [
                                 'class'          => 'multiple-input-image',
-                                'data-placement' => "top",
-                                'data-toggle'    => "tooltip",
-                                'data-trigger'   => 'hover',
-                                'data-html'      => "true",
-                                'title'          => "<img src='$url'>",
+                                //'data-placement' => "top",
+                                //'data-toggle'    => "tooltip",
+                                //'data-trigger'   => 'hover',
+                                //'data-html'      => "true",
+                                //'title'          => "<img src='$url'>",
                             ])
                         . Html::tag('div',
                             '',
@@ -150,7 +154,17 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
             'title'   => '',
             'options' => [
                 'class' => 'image-title',
-                    'placeholder' => Yii::t('app', 'Заголовок'),
+                'placeholder' => Yii::t('app', 'Заголовок'),
+            ],
+
+        ],
+
+        [
+            'name'    => 'order',
+            'type'    => 'hiddenInput',
+            'title'   => '',
+            'options' => [
+                'class' => 'image-index',
             ],
 
         ],
@@ -269,6 +283,9 @@ ActiveForm::end();
 
 MultiInputHelper::registerImageScript($this, 'node-images');
 //MultiInputHelper::registerTooltip($this);
+MultiInputHelper::registerSortableOrder($this, 'node-images', '');
+MultiInputHelper::registerUpdateImagesIndexScript($this, 'product-type-form', 'image-index');
+
 
 echo Html::endTag('div');
 

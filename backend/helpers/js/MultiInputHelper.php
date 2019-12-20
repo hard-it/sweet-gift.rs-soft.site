@@ -39,6 +39,19 @@ JS;
         $view->registerJs($js);
     }
 
+    public static function registerSortableOrder(View $view, string $controlId, string $hiddenId)
+    {
+        $js = <<<JS
+        $('#{$controlId}').on('afterDropRow', function(event, row) {
+            console.log("relink !!!");
+            console.log(event);
+            console.log(row);
+});//afterDropRow
+JS;
+        $view->registerJs($js);
+
+    }
+
     /**
      * @param View $view
      */
@@ -49,9 +62,27 @@ JS;
          let img = $(this).closest('.multiple-input-list__item').find('.list-cell__PreviewImages img:first');
          img.attr('src',$(this).val());
          let tooltip ="<img src='"+$(this).val()+"' height='400' style='min-height:400px'>";
-         img.attr('title',tooltip).tooltip('fixTitle');
+         //img.attr('title',tooltip).tooltip('fixTitle');
         }
 JS;
         $view->registerJs($js);
+    }
+
+    /**
+     * @param View   $view
+     * @param string $formId
+     * @param string $hiddenClass
+     */
+    public static function registerUpdateImagesIndexScript(View $view, string $formId, string $hiddenClass)
+    {
+        $js = <<<JS
+      $('#{$formId}').submit( function() {
+      $('.{$hiddenClass}').each(function (index) {
+        $(this).val(index);
+      })
+      });
+JS;
+        $view->registerJs($js);
+
     }
 }
