@@ -120,6 +120,23 @@ class ProductCategory extends Tree
     }
 
     /**
+     * @param bool $insert
+     *
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        $images    = $this->Images ?? [];
+        $tmpImages = [];
+        foreach ($images as $key => $image) {
+            $tmpImages[$image['order'] ?? $key] = $image;
+        }
+        $this->Images = $tmpImages;
+
+        return parent::beforeSave($insert);
+    }
+
+    /**
      * {@inheritdoc}
      * @return ProductCategoryQuery the active query used by this AR class.
      */
@@ -127,4 +144,5 @@ class ProductCategory extends Tree
     {
         return new ProductCategoryQuery(get_called_class());
     }
+
 }
