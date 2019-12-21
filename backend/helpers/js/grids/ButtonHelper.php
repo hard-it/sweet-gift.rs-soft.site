@@ -4,6 +4,7 @@ namespace backend\helpers\js\grids;
 
 use backend\helpers\js\BaseJsHelper;
 use yii\web\JsExpression;
+use yii\helpers\Url;
 
 /**
  * Class ButtonHelper
@@ -11,6 +12,7 @@ use yii\web\JsExpression;
  */
 class ButtonHelper extends BaseJsHelper
 {
+    const PREVIOUS_REDIRECT_URL = 'site/previous';
     /**
      * @param string $elementClass
      * @param string $baseUrl
@@ -65,6 +67,25 @@ class ButtonHelper extends BaseJsHelper
         ");
 
         return $js->expression;
+    }
+
+    /**
+     * @param string $buttonId
+     * @param string $url
+     */
+    public function registerPreviousMoveScript(string $buttonId, string $url = self::PREVIOUS_REDIRECT_URL)
+    {
+        $redirectUrl = Url::toRoute($url);
+
+        $js = new JsExpression("
+                $('#{$buttonId}').on('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window.location.href = '$redirectUrl';
+                });
+        ");
+
+        $this->view->registerJs($js);
     }
 
 }

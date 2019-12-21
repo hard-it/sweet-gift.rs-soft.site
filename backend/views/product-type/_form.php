@@ -15,10 +15,13 @@ use mihaildev\elfinder\InputFile;
 use backend\helpers\js\MultiInputHelper;
 use kartik\number\NumberControl;
 use common\models\ProductType;
+use backend\helpers\js\grids\ButtonHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProductType */
 /* @var $form yii\widgets\ActiveForm */
+
+$buttonHelper = new ButtonHelper($this);
 
 echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
 
@@ -274,7 +277,7 @@ echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn bt
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-sm-4 col-xs-6']);
-echo Html::submitButton(Yii::t('app', 'Назад'), ['class' => 'btn btn-lg btn-primary fa fa-undo btn-block btn-flat']);
+echo Html::submitButton(Yii::t('app', 'Назад'), ['id'=>'previous-button', 'class' => 'btn btn-lg btn-primary fa fa-undo btn-block btn-flat btn-back']);
 echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::endTag('div');
@@ -290,3 +293,5 @@ MultiInputHelper::registerUpdateImagesIndexScript($this, 'product-type-form', 'i
 echo Html::endTag('div');
 
 echo Html::endTag('div');
+
+$buttonHelper->registerPreviousMoveScript('previous-button');
