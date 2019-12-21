@@ -277,7 +277,7 @@ button, a, tr {
 .js-input-remove {
     position: absolute;
     right: 60px;
-    top: 16px;
+    top: 50px;
 }
 
 #node-images input.image-title {
@@ -296,6 +296,7 @@ button, a, tr {
 .iti {
     display: block;
 }
+
 #node-images .form-control-static {
     display: none;
 }
