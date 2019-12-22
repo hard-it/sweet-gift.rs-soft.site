@@ -11,7 +11,7 @@ trait Images
      */
     public function beforeSave($insert)
     {
-        $images    = $this->Images ?? [];
+        $images    = is_array($this->Images) ? $this->Images : [];
         $tmpImages = [];
         foreach ($images as $key => $image) {
             $tmpImages[$image['order'] ?? $key] = $image;
