@@ -22,7 +22,7 @@ class CustomerSearch extends Customer
     {
         return [
             [['Id', 'User'], 'integer'],
-            [['Phone', 'Firstname', 'Lastname', 'pageSearch'], 'safe'],
+            [['Phone', 'Firstname', 'Lastname', 'pageSize'], 'safe'],
         ];
     }
 
@@ -48,14 +48,14 @@ class CustomerSearch extends Customer
 
         // add conditions that should always apply here
 
+        $this->load($params);
+
         $dataProvider = new ActiveDataProvider([
             'query'      => $query,
             'pagination' => [
                 'pageSize' => $this->pageSize ?? static::DEFAULT_PAGE_SIZE,
             ],
         ]);
-
-        $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -74,6 +74,35 @@ class CustomerSearch extends Customer
         $query->andFilterWhere(['like', 'Phone', $this->Phone])
             ->andFilterWhere(['like', 'Firstname', $this->Firstname])
             ->andFilterWhere(['like', 'Lastname', $this->Lastname]);
+
+        return $dataProvider;
+    }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function cleanSearch($params)
+    {
+        $query = Customer::find();
+
+        // add conditions that should always apply here
+
+        $this->pageSize = $params[static::class]['pageSize'] ?? static::DEFAULT_PAGE_SIZE;
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query'      => $query,
+            'pagination' => [
+                'pageSize' => $this->pageSize ?? static::DEFAULT_PAGE_SIZE,
+            ],
+        ]);
+
+        //$txt = $query->createCommand()->getRawSql();
 
         return $dataProvider;
     }
