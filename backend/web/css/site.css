@@ -277,7 +277,7 @@ button, a, tr {
 .js-input-remove {
     position: absolute;
     right: 60px;
-    top: 50px;
+    top: 15px;
 }
 
 #node-images input.image-title {

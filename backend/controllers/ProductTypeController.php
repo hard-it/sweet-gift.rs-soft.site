@@ -125,6 +125,6 @@ class ProductTypeController extends ForbiddingController
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException(Yii::t('app', 'Запрошенная страница не найдена.'));
     }
 }
