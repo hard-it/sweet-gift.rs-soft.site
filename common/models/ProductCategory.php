@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\traits\Images;
 use Yii;
 use yii\db\ActiveQuery;
 use kartik\tree\models\Tree;
@@ -119,22 +120,7 @@ class ProductCategory extends Tree
         return $this->hasMany(Product::class, ['ProductCategory' => 'Id']);
     }
 
-    /**
-     * @param bool $insert
-     *
-     * @return bool
-     */
-    public function beforeSave($insert)
-    {
-        $images    = $this->Images ?? [];
-        $tmpImages = [];
-        foreach ($images as $key => $image) {
-            $tmpImages[$image['order'] ?? $key] = $image;
-        }
-        $this->Images = $tmpImages;
-
-        return parent::beforeSave($insert);
-    }
+    use Images;
 
     /**
      * {@inheritdoc}
