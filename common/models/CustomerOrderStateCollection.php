@@ -5,13 +5,13 @@ namespace common\models;
 use common\models\traits\StatesArray;
 
 /**
- * Class ProductStateCollection
+ * Class CustomerOrderStateCollection
  * @package common\models
  */
-class ProductStateCollection
+class CustomerOrderStateCollection implements \ArrayAccess
 {
     /**
-     * @var ProductState[]
+     * @var CustomerOrderState[]
      */
     protected $states = [];
 
@@ -31,9 +31,8 @@ class ProductStateCollection
 
     use StatesArray;
 
-
     /**
-     * @return ProductState[]
+     * @return CustomerOrderState[]
      */
     public function getStates(): array
     {
@@ -41,7 +40,7 @@ class ProductStateCollection
     }
 
     /**
-     * @param ProductState[] $states
+     * @param CustomerOrderState[] $states
      *
      * @return $this
      */
@@ -53,11 +52,11 @@ class ProductStateCollection
     }
 
     /**
-     * @param ProductState $state
+     * @param CustomerOrder $state
      *
      * @return $this
      */
-    public function addState(ProductState $state)
+    public function addState(CustomerOrderState $state)
     {
         if (is_array($this->states)) {
             $this->states[] = $state;
@@ -68,12 +67,15 @@ class ProductStateCollection
         return $this;
     }
 
+    /**
+     * @return CustomerOrderState
+     */
     public function getCurrentState()
     {
         if (is_array($this->states) && count($this->states)) {
             return $this->states[count($this->states) - 1];
         }
 
-        return new ProductState();
+        return new CustomerOrderState();
     }
 }

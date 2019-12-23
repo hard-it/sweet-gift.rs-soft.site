@@ -13,8 +13,7 @@ use yii\db\ActiveRecord;
  * @property string   $Number     Номер заказа
  * @property int      $Customer   Заказчик
  * @property Customer $customer0  Заказчик
- * @property array    $Delivery   Информация о доставке
- * @property int      $State      Состояние заказа
+ * @property array    $State      Состояние заказа
  * @property string   $Sum        Сумма заказа
  * @property int      $CreatedAt  Время создания
  * @property int      $UpdatedAt  Время обновления
@@ -37,8 +36,8 @@ class CustomerOrder extends ActiveRecord
     public function rules()
     {
         return [
-            [['Customer', 'State', 'CreatedAt', 'UpdatedAt', 'DeletedAt', 'ClosedAt'], 'integer'],
-            [['Delivery'], 'safe'],
+            [['Customer'], 'integer'],
+            [['State'], 'safe'],
             [['Sum'], 'number'],
             [['Number'], 'string', 'max' => 20],
             [['Number'], 'unique'],
@@ -53,16 +52,11 @@ class CustomerOrder extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Id'        => Yii::t('app', 'Идентификатор записи'),
-            'Number'    => Yii::t('app', 'Номер заказа'),
-            'Customer'  => Yii::t('app', 'Заказчик'),
-            'Delivery'  => Yii::t('app', 'Информация о доставке'),
-            'State'     => Yii::t('app', 'Состояние заказа'),
-            'Sum'       => Yii::t('app', 'Сумма заказа'),
-            'CreatedAt' => Yii::t('app', 'Время создания'),
-            'UpdatedAt' => Yii::t('app', 'Время обновления'),
-            'DeletedAt' => Yii::t('app', 'Время удаления'),
-            'ClosedAt'  => Yii::t('app', 'Заказ закончен'),
+            'Id'       => Yii::t('app', 'Идентификатор записи'),
+            'Number'   => Yii::t('app', 'Номер заказа'),
+            'Customer' => Yii::t('app', 'Заказчик'),
+            'State'    => Yii::t('app', 'Состояние заказа'),
+            'Sum'      => Yii::t('app', 'Сумма заказа'),
         ];
     }
 
@@ -81,6 +75,27 @@ class CustomerOrder extends ActiveRecord
     {
         return $this->hasMany(OrderProduct::class, ['Order' => 'Id']);
     }
+
+    /**
+     * @return CustomerOrderStateCollection
+     */
+    public function getStateCollection(): CustomerOrderStateCollection
+    {
+        return new CustomerOrderStateCollection($this->State);
+    }
+
+    /**
+     * @param CustomerOrderStateCollection $state
+     *
+     * @return $this
+     */
+    public function setStateCollection(CustomerOrderStateCollection $state)
+    {
+        $this->State = $state->toArray();
+
+        return $this;
+    }
+
 
     /**
      * {@inheritdoc}
