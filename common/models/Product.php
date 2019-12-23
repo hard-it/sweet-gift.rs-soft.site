@@ -55,6 +55,26 @@ class Product extends ActiveRecord
     }
 
     /**
+     * @return ProductStateCollection
+     */
+    public function getStateCollection(): ProductStateCollection
+    {
+        return new ProductStateCollection($this->State);
+    }
+
+    /**
+     * @param ProductStateCollection $state
+     *
+     * @return $this
+     */
+    public function setStateCollection(ProductStateCollection $state)
+    {
+        $this->State = $state->toArray();
+
+        return $this;
+    }
+
+    /**
      * @return ActiveQuery
      */
     public function getProductType0()
