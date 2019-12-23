@@ -5,20 +5,19 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use common\models\traits\Points;
 
 /**
  * This is the model class for table "CustomerOrder".
  *
- * @property int      $Id         Идентификатор записи
- * @property string   $Number     Номер заказа
- * @property int      $Customer   Заказчик
- * @property Customer $customer0  Заказчик
- * @property array    $State      Состояние заказа
- * @property string   $Sum        Сумма заказа
- * @property int      $CreatedAt  Время создания
- * @property int      $UpdatedAt  Время обновления
- * @property int      $DeletedAt  Время удаления
- * @property int      $ClosedAt   Заказ закончен
+ * @property int      $Id                    Идентификатор записи
+ * @property string   $Number                Номер заказа
+ * @property int      $Customer              Заказчик
+ * @property Customer $customer0             Заказчик
+ * @property array    $State                 Состояние заказа
+ * @property string   $Sum                   Сумма заказа
+ * @property string   $OrderPoint            Точка получения заказа
+ * @property string   $OrderPointDescription Описание точки получения заказа
  */
 class CustomerOrder extends ActiveRecord
 {
@@ -30,6 +29,10 @@ class CustomerOrder extends ActiveRecord
         return 'CustomerOrder';
     }
 
+    use Points;
+
+    protected $geoPointName = 'OrderPoint';
+
     /**
      * {@inheritdoc}
      */
@@ -37,7 +40,7 @@ class CustomerOrder extends ActiveRecord
     {
         return [
             [['Customer'], 'integer'],
-            [['State'], 'safe'],
+            [['State', 'OrderPoint', 'OrderPointDescription'], 'safe'],
             [['Sum'], 'number'],
             [['Number'], 'string', 'max' => 20],
             [['Number'], 'unique'],
@@ -52,11 +55,15 @@ class CustomerOrder extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Id'       => Yii::t('app', 'Идентификатор записи'),
-            'Number'   => Yii::t('app', 'Номер заказа'),
-            'Customer' => Yii::t('app', 'Заказчик'),
-            'State'    => Yii::t('app', 'Состояние заказа'),
-            'Sum'      => Yii::t('app', 'Сумма заказа'),
+            'Id'                    => Yii::t('app', 'Идентификатор записи'),
+            'Number'                => Yii::t('app', 'Номер заказа'),
+            'Customer'              => Yii::t('app', 'Заказчик'),
+            'State'                 => Yii::t('app', 'Состояние заказа'),
+            'Sum'                   => Yii::t('app', 'Сумма заказа'),
+            'OrderPoint'            => Yii::t('app', 'Точка получения заказа'),
+            'OrderPointDescription' => Yii::t('app', 'Описание точки получения заказа'),
+
+
         ];
     }
 
