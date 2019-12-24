@@ -5,7 +5,6 @@ namespace common\models;
 use Yii;
 use sjaakp\spatial\ActiveQuery;
 use sjaakp\spatial\ActiveRecord;
-use common\models\traits\Points;
 
 /**
  * This is the model class for table "CustomerOrder".
@@ -28,10 +27,6 @@ class CustomerOrder extends ActiveRecord
     {
         return 'CustomerOrder';
     }
-
-    use Points;
-
-    protected $geoPointName = 'OrderPoint';
 
     /**
      * {@inheritdoc}
@@ -62,8 +57,6 @@ class CustomerOrder extends ActiveRecord
             'Sum'                   => Yii::t('app', 'Сумма заказа'),
             'OrderPoint'            => Yii::t('app', 'Точка получения заказа'),
             'OrderPointDescription' => Yii::t('app', 'Описание точки получения заказа'),
-
-
         ];
     }
 
