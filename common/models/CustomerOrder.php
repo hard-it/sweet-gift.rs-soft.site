@@ -3,8 +3,8 @@
 namespace common\models;
 
 use Yii;
-use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
+use sjaakp\spatial\ActiveQuery;
+use sjaakp\spatial\ActiveRecord;
 use common\models\traits\Points;
 
 /**
@@ -16,8 +16,8 @@ use common\models\traits\Points;
  * @property Customer $customer0             Заказчик
  * @property array    $State                 Состояние заказа
  * @property string   $Sum                   Сумма заказа
- * @property string   $OrderPoint            Точка получения заказа
- * @property string   $OrderPointDescription Описание точки получения заказа
+ * @property array    $OrderPoint            Точка получения заказа
+ * @property array    $OrderPointDescription Описание точки получения заказа
  */
 class CustomerOrder extends ActiveRecord
 {

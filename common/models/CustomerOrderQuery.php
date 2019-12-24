@@ -2,12 +2,14 @@
 
 namespace common\models;
 
+use sjaakp\spatial\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[CustomerOrder]].
  *
  * @see CustomerOrder
  */
-class CustomerOrderQuery extends \yii\db\ActiveQuery
+class CustomerOrderQuery extends ActiveQuery
 {
     /*public function active()
     {

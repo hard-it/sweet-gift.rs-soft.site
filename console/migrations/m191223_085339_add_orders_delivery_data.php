@@ -12,8 +12,11 @@ class m191223_085339_add_orders_delivery_data extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('CustomerPoint', 'OrderPoint', 'POINT');
-        $this->addCommentOnColumn('CustomerPoint', 'OrderPoint', 'Точка доставки');
+        $this->addColumn('CustomerOrder', 'OrderPoint', 'POINT');
+        $this->addCommentOnColumn('CustomerOrder', 'OrderPoint', 'Точка доставки');
+
+        $this->addColumn('CustomerOrder', 'OrderPointDescription', 'JSON');
+        $this->addCommentOnColumn('CustomerOrder', 'OrderPointDescription', 'Описание точки доставки');
     }
 
     /**
