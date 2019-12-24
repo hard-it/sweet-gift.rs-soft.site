@@ -78,4 +78,16 @@ class CustomerOrderStateCollection implements \ArrayAccess
 
         return new CustomerOrderState();
     }
+
+    /**
+     * @return CustomerOrderState
+     */
+    public function getFirstState()
+    {
+        if (is_array($this->states) && count($this->states)) {
+            return $this->states[0];
+        }
+
+        return new CustomerOrderState();
+    }
 }

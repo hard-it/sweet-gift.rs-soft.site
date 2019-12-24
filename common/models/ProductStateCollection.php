@@ -68,10 +68,25 @@ class ProductStateCollection
         return $this;
     }
 
+    /**
+     * @return ProductState|mixed
+     */
     public function getCurrentState()
     {
         if (is_array($this->states) && count($this->states)) {
             return $this->states[count($this->states) - 1];
+        }
+
+        return new ProductState();
+    }
+
+    /**
+     * @return ProductState|mixed
+     */
+    public function getFirstState()
+    {
+        if (is_array($this->states) && count($this->states)) {
+            return $this->states[0];
         }
 
         return new ProductState();
