@@ -11,6 +11,12 @@ use common\models\CustomerOrder;
  */
 class CustomerOrderSearch extends CustomerOrder
 {
+    const DEFAULT_PAGE_SIZE = 20;
+
+    public $pageSize = self::DEFAULT_PAGE_SIZE;
+
+    public $fullName = '';
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +24,7 @@ class CustomerOrderSearch extends CustomerOrder
     {
         return [
             [['Id', 'Customer'], 'integer'],
-            [['Number', 'State', 'OrderPoint', 'OrderPointDescription'], 'safe'],
+            [['Number', 'pageSize', 'fullName'], 'safe'],
             [['Sum'], 'number'],
         ];
     }
