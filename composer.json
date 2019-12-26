@@ -34,7 +34,8 @@
         "kartik-v/yii2-widget-datepicker": "dev-master",
         "kartik-v/yii2-widget-datetimepicker": "dev-master",
         "kartik-v/yii2-field-range": "*",
-        "kartik-v/yii2-date-range": "dev-master"
+        "kartik-v/yii2-date-range": "dev-master",
+        "webtoucher/yii2-js-cookie": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

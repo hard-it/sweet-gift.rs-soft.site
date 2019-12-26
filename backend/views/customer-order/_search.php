@@ -46,7 +46,7 @@ echo Html::beginTag('div', ['class' => 'customer-order-search box box-no-top-bor
                     'convertFormat' => true,
                     'options' => ['placeholder' => Yii::t('app','Дата заказа')],
                     'pluginOptions' => [
-                        'format' => 'dd.mm.yyyy',
+                        'format' => 'dd.MM.yyyy',
                         'autoclose'=>true
                     ]
                 ]);
@@ -55,7 +55,7 @@ echo Html::beginTag('div', ['class' => 'customer-order-search box box-no-top-bor
             echo Html::beginTag('div', ['class' => 'col-lg-6 col-xs-12']);
 
                 echo Html::beginTag('div', ['class' => 'form-group']);
-                    echo Html::label(Yii::t('app', 'Время доставки'), 'CustomerOrderSearch[TDate]');
+                    echo Html::label(Yii::t('app', 'Время доставки'), 'CustomerOrderSearch[FullTDate]');
                     echo DateRangePicker::widget([
                         'model' => $model,
                         'hideInput' => true,
@@ -68,7 +68,10 @@ echo Html::beginTag('div', ['class' => 'customer-order-search box box-no-top-bor
                             'timePicker' => true,
                             'timePickerIncrement' => 15,
                             'presetDropdown' => true,
-                            'locale' => ['format' => 'd.m.Y H:i'],
+                            'locale' => [
+                                    'format' => 'd.m.Y H:i',
+                                    'cancelLabel' => Yii::t('app', 'Отмена'),
+                                ],
                             'showDropdowns' => true,
                             'timePicker24Hour' => true,
                         ]
