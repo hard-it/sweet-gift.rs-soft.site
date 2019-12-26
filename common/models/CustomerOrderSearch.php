@@ -4,7 +4,8 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\CustomerOrder;
+use yii\helpers\ArrayHelper;
+use Yii;
 
 /**
  * CustomerOrderSearch represents the model behind the search form of `common\models\CustomerOrder`.
@@ -17,6 +18,13 @@ class CustomerOrderSearch extends CustomerOrder
 
     public $fullName = '';
 
+    public $TDate = [];
+
+    public $RDate;
+
+    public $FullTDate = '';
+
+
     /**
      * {@inheritdoc}
      */
@@ -24,7 +32,7 @@ class CustomerOrderSearch extends CustomerOrder
     {
         return [
             [['Id', 'Customer'], 'integer'],
-            [['Number', 'pageSize', 'fullName'], 'safe'],
+            [['Number', 'pageSize', 'fullName', 'TDate', 'RDate', 'FullTDate'], 'safe'],
             [['Sum'], 'number'],
         ];
     }
@@ -36,6 +44,21 @@ class CustomerOrderSearch extends CustomerOrder
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        $oldAttrs = parent::attributeLabels();
+        $newAttrs = [
+            'RDate'    => Yii::t('app', 'Дата заказа'),
+            'TDate'    => Yii::t('app', 'Время получения'),
+            'fullName' => Yii::t('app', 'Заказчик'),
+        ];
+
+        return ArrayHelper::merge($oldAttrs, $newAttrs);
     }
 
     /**
@@ -65,9 +88,9 @@ class CustomerOrderSearch extends CustomerOrder
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'Id' => $this->Id,
+            'Id'       => $this->Id,
             'Customer' => $this->Customer,
-            'Sum' => $this->Sum,
+            'Sum'      => $this->Sum,
         ]);
 
         $query->andFilterWhere(['like', 'Number', $this->Number])
