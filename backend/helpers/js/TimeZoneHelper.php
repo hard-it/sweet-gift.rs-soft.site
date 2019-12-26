@@ -43,7 +43,7 @@ class TimeZoneHelper extends BaseJsHelper
             });
         ";
 
-        $this->registerJs($js);
+        $this->view->registerJs($js);
     }
 
 }
