@@ -77,43 +77,6 @@ echo Html::beginTag('div', ['class' => 'customer-order-search box box-no-top-bor
                         ]
                     ]);
                 echo Html::endTag('div');
-            /*
-echo DateRangePicker::widget([
-    'name'=>'TDate',
-    //'useWithAddon'=>true,
-    'convertFormat'=>true,
-    'startAttribute' => 'CustomerOrderSearch[TDate][0]',
-    'endAttribute' => 'CustomerOrderSearch[TDate][1]',
-    'pluginOptions' => [
-        'locale' => ['format' => 'd.m.Y H:i'],
-    ]
-]);
-            /*
-                echo DateTimePicker::widget([
-                    'model' => $model,
-                    'attribute' => 'TDate[0]',
-                    'attribute2' => 'TDate[1]',
-                    'options' => ['placeholder' => Yii::t('app','От')],
-                    'options2' => ['placeholder' => Yii::t('app','До')],
-                    'type' => DatePicker::TYPE_RANGE,
-                    'form' => $form,
-                    'pluginOptions' => [
-                        'format' => 'dd.mm.yyyy hh:ii',
-                        'autoclose' => true,
-                    ]
-                ]);
-
-                /*
-                echo $form->field($model, 'TDate')->widget(DateTimePicker::classname(), [
-                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                    'name' => 'TDate[0]',
-                    'options' => ['placeholder' => Yii::t('app','Время получения')],
-                    'pluginOptions' => [
-                        'format' => 'dd.mm.yyyy hh:ii',
-                        'autoclose'=>true
-                    ]
-                ]);
-                */
             echo Html::endTag('div');
 
 
