@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\CustomerOrder;
 use common\models\CustomerOrderSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,13 +31,28 @@ class CustomerOrderController extends Controller
     }
 
     /**
-     * Lists all CustomerOrder models.
+     * Lists all Customer models.
      * @return mixed
      */
     public function actionIndex()
     {
         $searchModel = new CustomerOrderSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        Url::remember();
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionClearSearch()
+    {
+        $searchModel = new CustomerOrderSearch();
+        $dataProvider = $searchModel->cleanSearch(Yii::$app->request->queryParams);
+
+        Url::remember();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -45,20 +61,7 @@ class CustomerOrderController extends Controller
     }
 
     /**
-     * Displays a single CustomerOrder model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new CustomerOrder model.
+     * Creates a new Customer model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -67,7 +70,7 @@ class CustomerOrderController extends Controller
         $model = new CustomerOrder();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(Url::previous());
         }
 
         return $this->render('create', [
@@ -76,7 +79,7 @@ class CustomerOrderController extends Controller
     }
 
     /**
-     * Updates an existing CustomerOrder model.
+     * Updates an existing Customer model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +90,7 @@ class CustomerOrderController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(Url::previous());
         }
 
         return $this->render('update', [
@@ -96,7 +99,7 @@ class CustomerOrderController extends Controller
     }
 
     /**
-     * Deletes an existing CustomerOrder model.
+     * Deletes an existing Customer model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -106,8 +109,9 @@ class CustomerOrderController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Url::previous());
     }
+
 
     /**
      * Finds the CustomerOrder model based on its primary key value.

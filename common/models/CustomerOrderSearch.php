@@ -100,4 +100,33 @@ class CustomerOrderSearch extends CustomerOrder
 
         return $dataProvider;
     }
+
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
+    public function cleanSearch($params)
+    {
+        $query = CustomerOrder::find();
+
+        // add conditions that should always apply here
+
+        $this->pageSize = $params[static::class]['pageSize'] ?? static::DEFAULT_PAGE_SIZE;
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query'      => $query,
+            'pagination' => [
+                'pageSize' => $this->pageSize ?? static::DEFAULT_PAGE_SIZE,
+            ],
+        ]);
+
+        //$txt = $query->createCommand()->getRawSql();
+
+        return $dataProvider;
+    }
 }

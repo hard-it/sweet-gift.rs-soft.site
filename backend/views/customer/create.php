@@ -6,13 +6,13 @@ use yii\helpers\Html;
 /* @var $model common\models\Customer */
 
 $this->title = Yii::t('app', 'Добавление заказчика');
-?>
-<div class="customer-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+echo Html::beginTag('div', ['class' => 'customer-create']);
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+echo Html::tag('h1', Html::encode($this->title));
 
-</div>
+echo $this->render('_form', [
+    'model' => $model,
+]);
+
+echo Html::endTag('div');
