@@ -19,8 +19,6 @@ class CustomerOrderSearch extends CustomerOrder
 
     public $TDate = [];
 
-    public $RDate;
-
     public $FullTDate = '';
 
     public $Phone;

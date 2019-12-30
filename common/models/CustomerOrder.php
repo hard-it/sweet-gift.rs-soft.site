@@ -20,6 +20,12 @@ use sjaakp\spatial\ActiveRecord;
  */
 class CustomerOrder extends ActiveRecord
 {
+    // дата заказа
+    public $RDate;
+    /**
+     * копия данных о заказчике
+     * @var Customer|null
+     */
     protected $customerData = null;
 
     /**
@@ -37,7 +43,7 @@ class CustomerOrder extends ActiveRecord
     {
         return [
             [['Customer'], 'integer'],
-            [['State', 'OrderPoint', 'OrderPointDescription'], 'safe'],
+            [['RDate', 'State', 'OrderPoint', 'OrderPointDescription'], 'safe'],
             [['Sum'], 'number'],
             [['Number'], 'string', 'max' => 20],
             [['Number'], 'unique'],
@@ -54,6 +60,7 @@ class CustomerOrder extends ActiveRecord
         return [
             'Id'                    => Yii::t('app', 'Идентификатор записи'),
             'Number'                => Yii::t('app', 'Номер заказа'),
+            'RDate'                 => Yii::t('app', 'Дата заказа'),
             'Customer'              => Yii::t('app', 'Заказчик'),
             'State'                 => Yii::t('app', 'Состояние заказа'),
             'Sum'                   => Yii::t('app', 'Сумма заказа'),
@@ -67,6 +74,10 @@ class CustomerOrder extends ActiveRecord
      */
     public function getCustomer0()
     {
+        if (isset($this->customerData)) {
+            return $this->customerData;
+        }
+
         return $this->hasOne(Customer::class, ['Id' => 'Customer']);
     }
 
