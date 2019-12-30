@@ -3,7 +3,7 @@
 namespace common\models;
 
 /**
- * Class CustomerOrder
+ * Class CustomerOrderState
  * @package common\models
  */
 class CustomerOrderState
