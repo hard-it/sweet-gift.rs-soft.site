@@ -5,6 +5,8 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use borales\extensions\phoneInput\PhoneInputValidator;
+use borales\extensions\phoneInput\PhoneInputBehavior;
 
 /**
  * This is the model class for table "Customer".
@@ -36,6 +38,8 @@ class Customer extends ActiveRecord
             [['Phone'], 'string', 'max' => 20],
             [['Firstname', 'Lastname'], 'string', 'max' => 64],
             [['Phone'], 'unique'],
+            [['Phone'], 'string'],
+            [['Phone'], PhoneInputValidator::class],
             [['User'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['User' => 'id']],
         ];
     }

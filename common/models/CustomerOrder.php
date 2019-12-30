@@ -20,6 +20,8 @@ use sjaakp\spatial\ActiveRecord;
  */
 class CustomerOrder extends ActiveRecord
 {
+    protected $customerData = null;
+
     /**
      * {@inheritdoc}
      */
@@ -61,11 +63,25 @@ class CustomerOrder extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return Customer
      */
     public function getCustomer0()
     {
         return $this->hasOne(Customer::class, ['Id' => 'Customer']);
+    }
+
+    /**
+     * @param $data
+     *
+     * @return $this
+     */
+    public function setCustomer0($data)
+    {
+        $this->customerData = $this->getCustomer0() ?? new Customer();
+
+        $this->customerData->load($data, '');
+
+        return $this;
     }
 
     /**

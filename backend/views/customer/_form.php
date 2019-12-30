@@ -11,6 +11,8 @@ use backend\helpers\js\grids\ButtonHelper;
 
 $buttonHelper = new ButtonHelper($this);
 
+echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
+
 echo Html::beginTag('div', ['class' => 'customer-form']);
 
     $form = ActiveForm::begin();
@@ -49,6 +51,7 @@ echo Html::beginTag('div', ['class' => 'customer-form']);
 
 ActiveForm::end();
 
+echo Html::endTag('div');
 echo Html::endTag('div');
 
 $buttonHelper->registerPreviousMoveScript('previous-button');
