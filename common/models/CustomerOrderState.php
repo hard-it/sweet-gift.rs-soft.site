@@ -8,13 +8,14 @@ namespace common\models;
  */
 class CustomerOrderState
 {
-    const ORDER_STATE_CREATED   = 0;
-    const ORDER_STATE_MAKING    = 2;
-    const ORDER_STATE_MADE      = 3;
-    const ORDER_STATE_PACKED    = 4;
-    const ORDER_STATE_DELIVERY  = 5;
-    const ORDER_STATE_HANDED    = 6;
-    const ORDER_STATE_CANCELLED = 7;
+    const ORDER_STATE_ALL      = -1;
+    const ORDER_STATE_CREATED  = 0;
+    const ORDER_STATE_MAKING   = 2;
+    const ORDER_STATE_MADE     = 3;
+    const ORDER_STATE_PACKED   = 4;
+    const ORDER_STATE_DELIVERY = 5;
+    const ORDER_STATE_HANDED   = 6;
+    const ORDER_STATE_CANCELED = 7;
 
     const ORDER_FIELD_STATE       = 'state';
     const ORDER_FIELD_AT          = 'at';

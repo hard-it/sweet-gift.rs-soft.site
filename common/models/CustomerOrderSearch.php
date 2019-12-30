@@ -5,6 +5,7 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
+
 use Yii;
 
 /**
@@ -16,13 +17,19 @@ class CustomerOrderSearch extends CustomerOrder
 
     public $pageSize = self::DEFAULT_PAGE_SIZE;
 
-    public $fullName = '';
-
     public $TDate = [];
 
     public $RDate;
 
     public $FullTDate = '';
+
+    public $Phone;
+
+    public $Firstname;
+
+    public $Lastname;
+
+    public $StateRange = CustomerOrderState::ORDER_STATE_ALL;
 
 
     /**
@@ -31,8 +38,8 @@ class CustomerOrderSearch extends CustomerOrder
     public function rules()
     {
         return [
-            [['Id', 'Customer'], 'integer'],
-            [['Number', 'pageSize', 'fullName', 'TDate', 'RDate', 'FullTDate'], 'safe'],
+            [['Id', 'Customer', 'StateRange'], 'integer'],
+            [['Number', 'pageSize', 'Firstname', 'Lastname', 'Phone', 'TDate', 'RDate'], 'safe'],
             [['Sum'], 'number'],
         ];
     }
@@ -53,9 +60,12 @@ class CustomerOrderSearch extends CustomerOrder
     {
         $oldAttrs = parent::attributeLabels();
         $newAttrs = [
-            'RDate'    => Yii::t('app', 'Дата заказа'),
-            'TDate'    => Yii::t('app', 'Время получения'),
-            'fullName' => Yii::t('app', 'Заказчик'),
+            'RDate'      => Yii::t('app', 'Дата заказа'),
+            'TDate'      => Yii::t('app', 'Время получения'),
+            'Phone'      => Yii::t('app', 'Телефон'),
+            'Firstname'  => Yii::t('app', 'Имя'),
+            'Lastname'   => Yii::t('app', 'Фамилия'),
+            'StateRange' => Yii::t('app', 'Состояние'),
         ];
 
         return ArrayHelper::merge($oldAttrs, $newAttrs);
@@ -128,5 +138,21 @@ class CustomerOrderSearch extends CustomerOrder
         //$txt = $query->createCommand()->getRawSql();
 
         return $dataProvider;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStateRangeList()
+    {
+        return [
+            CustomerOrderState::ORDER_STATE_ALL      => Yii::t('app', 'Все'),
+            CustomerOrderState::ORDER_STATE_CREATED  => Yii::t('app', 'Заказанные'),
+            CustomerOrderState::ORDER_STATE_MADE     => Yii::t('app', 'Сделанные'),
+            CustomerOrderState::ORDER_STATE_PACKED   => Yii::t('app', 'Упакованные'),
+            CustomerOrderState::ORDER_STATE_DELIVERY => Yii::t('app', 'В доставке'),
+            CustomerOrderState::ORDER_STATE_HANDED   => Yii::t('app', 'Вручённые'),
+            CustomerOrderState::ORDER_STATE_CANCELED => Yii::t('app', 'Отменённые'),
+        ];
     }
 }

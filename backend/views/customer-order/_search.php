@@ -7,8 +7,9 @@ use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\web\View;
 use kartik\date\DatePicker;
-use kartik\datetime\DateTimePicker;
 use kartik\daterange\DateRangePicker;
+use borales\extensions\phoneInput\PhoneInput;
+use common\models\CustomerOrderSearch;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\CustomerOrderSearch */
@@ -83,7 +84,33 @@ echo Html::beginTag('div', ['class' => 'customer-order-search box box-no-top-bor
 
         echo Html::endTag('div');
 
-        echo Html::beginTag('div', ['class' => 'form-group']);
+        echo Html::beginTag('div', ['class' => 'row']);
+
+            echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-12']);
+                echo $form->field($model, 'Phone')->widget(PhoneInput::className(), [
+                    'jsOptions' => [
+                        'preferredCountries' => ['ru', 'pl', 'ua'],
+                    ]
+                ]);
+            echo Html::endTag('div');
+
+            echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-12']);
+                echo $form->field($model, 'Firstname');
+            echo Html::endTag('div');
+
+            echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-12']);
+                echo $form->field($model, 'Lastname');
+            echo Html::endTag('div');
+
+            echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-12']);
+                echo $form->field($model, 'StateRange')->dropDownList(CustomerOrderSearch::getStateRangeList());
+            echo Html::endTag('div');
+
+
+        echo Html::endTag('div');
+
+
+echo Html::beginTag('div', ['class' => 'form-group']);
 
             echo Html::beginTag('div', ['class' => 'row']);
 
@@ -119,36 +146,3 @@ echo Html::beginTag('div', ['class' => 'customer-order-search box box-no-top-bor
     Pjax::end();
 
 echo Html::endTag('div');
-
-?>
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
-
-    <?= $form->field($model, 'Id') ?>
-
-    <?= $form->field($model, 'Number') ?>
-
-    <?= $form->field($model, 'Customer') ?>
-
-    <?= $form->field($model, 'Sum') ?>
-
-    <?= $form->field($model, 'State') ?>
-
-    <?php // echo $form->field($model, 'OrderPoint') ?>
-
-    <?php // echo $form->field($model, 'OrderPointDescription') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>

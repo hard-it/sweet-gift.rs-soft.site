@@ -3,8 +3,6 @@
 
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
-use kartik\tree\TreeViewInput;
-use common\models\ProductCategory;
 use backend\helpers\js\grids\SearchHelper;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
@@ -53,7 +51,6 @@ echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
 echo $form->field($model, 'Lastname');
 echo Html::endTag('div');
-
 
 echo Html::endTag('div');
 
