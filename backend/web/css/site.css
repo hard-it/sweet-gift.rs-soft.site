@@ -300,3 +300,9 @@ button, a, tr {
 #node-images .form-control-static {
     display: none;
 }
+
+.customer-order-button-offset > .js-input-remove  {
+    position: static;
+    top: auto;
+    right: auto;
+}

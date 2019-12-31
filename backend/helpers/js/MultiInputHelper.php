@@ -29,20 +29,13 @@ JS;
         $view->registerJs($js);
     }
 
-    public static function registerTooltip(View $view)
+    public static function registerInsertDateTimeValue(View $view, string $controlId, string $className)
     {
         $js = <<<JS
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-})
-JS;
-        $view->registerJs($js);
-    }
-
-    public static function registerSortableOrder(View $view, string $controlId, string $hiddenId)
-    {
-        $js = <<<JS
-        $('#{$controlId}').on('afterDropRow', function(event, row) {
+        $('#{$controlId}').on('afterAddRow', function(event, row, currentIndex) {
+          let dt = new Date();
+          
+            $(row).find('.$className').val(dt.parse('DD.MM.YYYY HH:mm'));
             console.log("relink !!!");
             console.log(event);
             console.log(row);

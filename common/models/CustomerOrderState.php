@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use Yii;
+
 /**
  * Class CustomerOrderState
  * @package common\models
@@ -111,5 +113,21 @@ class CustomerOrderState
         $this->state = $state;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatesList()
+    {
+        return [
+            CustomerOrderState::ORDER_STATE_CREATED  => Yii::t('app', 'Заказан'),
+            CustomerOrderState::ORDER_STATE_MAKING   => Yii::t('app', 'Изогтавливается'),
+            CustomerOrderState::ORDER_STATE_MADE     => Yii::t('app', 'Сделан'),
+            CustomerOrderState::ORDER_STATE_PACKED   => Yii::t('app', 'Упакован'),
+            CustomerOrderState::ORDER_STATE_DELIVERY => Yii::t('app', 'В доставке'),
+            CustomerOrderState::ORDER_STATE_HANDED   => Yii::t('app', 'Вручён'),
+            CustomerOrderState::ORDER_STATE_CANCELED => Yii::t('app', 'Отменён'),
+        ];
     }
 }

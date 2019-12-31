@@ -102,7 +102,7 @@ class CustomerOrderSearch extends CustomerOrder
         ]);
 
         $query->andFilterWhere(['like', 'Number', $this->Number])
-            ->andFilterWhere(['like', 'State', $this->State])
+            //->andFilterWhere(['like', 'State', $this->State])
             ->andFilterWhere(['like', 'OrderPoint', $this->OrderPoint])
             ->andFilterWhere(['like', 'OrderPointDescription', $this->OrderPointDescription]);
 

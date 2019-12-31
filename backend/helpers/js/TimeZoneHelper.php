@@ -11,6 +11,7 @@ use webtoucher\cookie\AssetBundle;
  */
 class TimeZoneHelper extends BaseJsHelper
 {
+    const TIME_ZONE_COOKIE = 'time_zone_value';
     /**
      * @param string $cookieName
      *

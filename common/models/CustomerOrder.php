@@ -36,6 +36,18 @@ class CustomerOrder extends ActiveRecord
         return 'CustomerOrder';
     }
 
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+        $this->State = [
+            [
+                CustomerOrderState::ORDER_FIELD_AT          => time(),
+                CustomerOrderState::ORDER_FIELD_STATE       => CustomerOrderState::ORDER_STATE_CREATED,
+                CustomerOrderState::ORDER_FIELD_DESCRIPTION => '',
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
