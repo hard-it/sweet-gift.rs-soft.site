@@ -20,8 +20,6 @@ use sjaakp\spatial\ActiveRecord;
  */
 class CustomerOrder extends ActiveRecord
 {
-    // дата заказа
-    public $RDate;
     /**
      * копия данных о заказчике
      * @var Customer|null
@@ -39,6 +37,7 @@ class CustomerOrder extends ActiveRecord
     public function __construct($config = [])
     {
         parent::__construct($config);
+
         $this->State = [
             [
                 CustomerOrderState::ORDER_FIELD_AT          => time(),
@@ -55,7 +54,7 @@ class CustomerOrder extends ActiveRecord
     {
         return [
             [['Customer'], 'integer'],
-            [['RDate', 'State', 'OrderPoint', 'OrderPointDescription'], 'safe'],
+            [['State', 'OrderPoint', 'OrderPointDescription', 'customerData'], 'safe'],
             [['Sum'], 'number'],
             [['Number'], 'string', 'max' => 20],
             [['Number'], 'unique'],
@@ -72,7 +71,6 @@ class CustomerOrder extends ActiveRecord
         return [
             'Id'                    => Yii::t('app', 'Идентификатор записи'),
             'Number'                => Yii::t('app', 'Номер заказа'),
-            'RDate'                 => Yii::t('app', 'Дата заказа'),
             'Customer'              => Yii::t('app', 'Заказчик'),
             'State'                 => Yii::t('app', 'Состояние заказа'),
             'Sum'                   => Yii::t('app', 'Сумма заказа'),

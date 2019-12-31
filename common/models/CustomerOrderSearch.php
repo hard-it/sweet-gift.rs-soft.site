@@ -17,6 +17,8 @@ class CustomerOrderSearch extends CustomerOrder
 
     public $pageSize = self::DEFAULT_PAGE_SIZE;
 
+    public $RDate;
+
     public $TDate = [];
 
     public $FullTDate = '';
@@ -146,6 +148,7 @@ class CustomerOrderSearch extends CustomerOrder
         return [
             CustomerOrderState::ORDER_STATE_ALL      => Yii::t('app', 'Все'),
             CustomerOrderState::ORDER_STATE_CREATED  => Yii::t('app', 'Заказанные'),
+            CustomerOrderState::ORDER_STATE_MAKING   => Yii::t('app', 'Изготавливаются'),
             CustomerOrderState::ORDER_STATE_MADE     => Yii::t('app', 'Сделанные'),
             CustomerOrderState::ORDER_STATE_PACKED   => Yii::t('app', 'Упакованные'),
             CustomerOrderState::ORDER_STATE_DELIVERY => Yii::t('app', 'В доставке'),

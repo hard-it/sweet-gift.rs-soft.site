@@ -122,7 +122,7 @@ class CustomerOrderState
     {
         return [
             CustomerOrderState::ORDER_STATE_CREATED  => Yii::t('app', 'Заказан'),
-            CustomerOrderState::ORDER_STATE_MAKING   => Yii::t('app', 'Изогтавливается'),
+            CustomerOrderState::ORDER_STATE_MAKING   => Yii::t('app', 'Изоготавливается'),
             CustomerOrderState::ORDER_STATE_MADE     => Yii::t('app', 'Сделан'),
             CustomerOrderState::ORDER_STATE_PACKED   => Yii::t('app', 'Упакован'),
             CustomerOrderState::ORDER_STATE_DELIVERY => Yii::t('app', 'В доставке'),

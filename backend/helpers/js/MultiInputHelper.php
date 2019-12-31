@@ -29,13 +29,15 @@ JS;
         $view->registerJs($js);
     }
 
-    public static function registerInsertDateTimeValue(View $view, string $controlId, string $className)
+    public static function registerInsertDateTimeValue(View $view, string $controlId, string $selector)
     {
+        MomentAssetBundle::register($view);
+
         $js = <<<JS
         $('#{$controlId}').on('afterAddRow', function(event, row, currentIndex) {
           let dt = new Date();
-          
-            $(row).find('.$className').val(dt.parse('DD.MM.YYYY HH:mm'));
+            console.log(moment(dt).format('DD.MM.YYYY HH:mm'));
+            $(row).find('$selector').val(moment(dt).format('DD.MM.YYYY HH:mm'));
             console.log("relink !!!");
             console.log(event);
             console.log(row);

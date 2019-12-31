@@ -30,40 +30,6 @@ echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
 echo $form->field($model, 'Number');
 echo Html::endTag('div');
 
-echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
-
-//echo Html::beginTag('div', ['class' => 'form-group']);
-/*
-echo Html::label(Yii::t('app', 'Время доставки'), 'CustomerOrderSearch[FullTDate]');
-echo DateTimePicker::widget([
-    'model'         => $model,
-    'type'          => DateTimePicker::TYPE_COMPONENT_APPEND,
-    'name'          => 'CustomerOrder[RDate]',
-    'convertFormat' => true,
-    'pluginOptions' => [
-        'timePicker'          => true,
-        'timePickerIncrement' => 15,
-        'presetDropdown'      => true,
-        'format'              => 'dd.MM.yyyy H:i',
-        'autoclose'           => true,
-        'showDropdowns'       => true,
-        'timePicker24Hour'    => true,
-    ],
-]);
-echo Html::endTag('div');
-*/
-echo $form->field($model, 'RDate')->widget(DatePicker::class, [
-    'type'          => DatePicker::TYPE_COMPONENT_APPEND,
-    'convertFormat' => true,
-    'options'       => ['placeholder' => Yii::t('app', 'Дата заказа')],
-    'pluginOptions' => [
-        'format'    => 'dd.MM.yyyy',
-        'autoclose' => true,
-    ],
-]);
-
-echo Html::endTag('div');
-
 echo Html::endTag('div');
 
 
@@ -114,7 +80,6 @@ echo $form->field($model, 'State')->widget(MultipleInput::class, [
             },
             'options' => [
                 'type'          => DateTimePicker::TYPE_COMPONENT_APPEND,
-                'class'       => 'customer-order-state-at',
                 'convertFormat' => true,
                 'pluginOptions' => [
                     'timePicker'          => true,
@@ -188,7 +153,7 @@ echo Html::endTag('div');
 
 $buttonHelper->registerPreviousMoveScript('previous-button');
 
-MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', 'customer-order-state-at');
+MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', '.input-group.date > input');
 ?>
 
 <div class="customer-order-form">
