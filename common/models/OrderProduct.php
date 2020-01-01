@@ -14,8 +14,9 @@ use yii\db\ActiveRecord;
  * @property CustomerOrder $сustomerOrder0 Заказ
  * @property int           $Product        Продукт
  * @property int           $Quantity       Количество
- * @property string        $Cost           Стоимость
+ * @property number        $Cost           Стоимость
  * @property string        $Comment        Примечание
+ * @property number        $Sum            Сумма
  */
 class OrderProduct extends ActiveRecord
 {
@@ -34,7 +35,7 @@ class OrderProduct extends ActiveRecord
     {
         return [
             [['CustomerOrder', 'Product', 'Quantity'], 'integer'],
-            [['Cost'], 'number'],
+            [['Cost', 'Sum'], 'number'],
             [['Comment'], 'string'],
             [['CustomerOrder'], 'exist', 'skipOnError' => true, 'targetClass' => Customerorder::className(), 'targetAttribute' => ['CustomerOrder' => 'Id']],
         ];
@@ -51,6 +52,7 @@ class OrderProduct extends ActiveRecord
             'Product'       => Yii::t('app', 'Продукт'),
             'Quantity'      => Yii::t('app', 'Количество'),
             'Cost'          => Yii::t('app', 'Стоимость'),
+            'Sum'           => Yii::t('app', 'Сумма'),
             'Comment'       => Yii::t('app', 'Примечание'),
         ];
     }

@@ -62,7 +62,7 @@ echo $form->field($model, 'State')->widget(MultipleInput::class, [
     //'max'               => 10,
     // should be at least 2 rows
     //'min'               => 2,
-    'rendererClass'     => \unclead\multipleinput\renderers\DivRenderer::class,
+    'rendererClass'     => DivRenderer::class,
     'allowEmptyList'    => false,
     'enableGuessTitle'  => true,
     'cloneButton'       => false,
@@ -131,7 +131,86 @@ echo $form->field($model, 'State')->widget(MultipleInput::class, [
 ]);
 
 echo Html::endTag('div');
+echo Html::endTag('div');
 
+
+
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-12 col-lg-12 col-xs-12']);
+echo $form->field($model, 'State')->widget(MultipleInput::class, [
+    // max images count
+    //'max'               => 10,
+    // should be at least 2 rows
+    //'min'               => 2,
+    'rendererClass'     => DivRenderer::class,
+    'allowEmptyList'    => false,
+    'enableGuessTitle'  => true,
+    'cloneButton'       => false,
+    'sortable'          => true,
+    // show add button in the footer
+    'addButtonPosition' => MultipleInput::POS_HEADER,
+    'id'                => 'model-states',
+    'class'             => 'multiple-input col-md-12 col-xs-12 col-lg-12',
+    'columns'           => [
+        [
+            'name'    => CustomerOrderState::ORDER_FIELD_AT,
+            'type'    => DateTimePicker::class,
+            'value'   => function ($data) {
+                return TimeZoneHelper::buildTime(TimeZoneHelper::TIME_ZONE_COOKIE, (int)$data[CustomerOrderState::ORDER_FIELD_AT], 'd.m.Y H:i');
+            },
+            'options' => [
+                'type'          => DateTimePicker::TYPE_COMPONENT_APPEND,
+                'convertFormat' => true,
+                'pluginOptions' => [
+                    'timePicker'          => true,
+                    'timePickerIncrement' => 15,
+                    'presetDropdown'      => true,
+                    'format'              => 'dd.MM.yyyy H:i',
+                    'autoclose'           => true,
+                    'showDropdowns'       => true,
+                    'timePicker24Hour'    => true,
+                ],
+            ],
+
+        ],
+
+        [
+            'name'         => CustomerOrderState::ORDER_FIELD_STATE,
+            'type'         => BaseColumn::TYPE_DROPDOWN,
+            'items'        => CustomerOrderState::getStatesList(),
+            'defaultValue' => CustomerOrderState::ORDER_STATE_CREATED,
+            'options'      => [
+                'class' => 'customer-order-state-description',
+
+            ],
+
+        ],
+
+        [
+            'name'    => CustomerOrderState::ORDER_FIELD_DESCRIPTION,
+            'title'   => '',
+            'options' => [
+                'class'       => 'customer-order-state-description',
+                'placeholder' => Yii::t('app', 'Описание'),
+            ],
+
+        ],
+    ],
+    //'theme'             => BaseRenderer::THEME_BS,
+    'layoutConfig'      => [
+        'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
+        'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 customer-order-images-wrapper',
+        'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 image-button-offset-1',
+        'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 customer-order-button-offset',
+    ],
+
+    'rowOptions' => [
+        'class' => 'col-md-12 col-lg-12 col-xs-12 col-xs-offset-0',
+    ],
+
+]);
+
+echo Html::endTag('div');
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'form-group']);
