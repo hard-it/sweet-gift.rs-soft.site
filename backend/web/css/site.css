@@ -190,6 +190,7 @@ th a:before {
 #node-images .hidden-image-name {
     display: none;
 }
+
 #node-images .multiple-input-list__item .multiple-input-elfinder {
     margin-top: -347px;
     float: right;
@@ -301,8 +302,23 @@ button, a, tr {
     display: none;
 }
 
-.customer-order-button-offset > .js-input-remove  {
+.customer-order-button-offset > .js-input-remove {
     position: static;
     top: auto;
     right: auto;
+}
+
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    margin-top: 0px !important;
+}
+
+.margined-multiinput {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.customer-order-button-offset-1 {
+    margin-top: -30px;
+    margin-bottom: 20px;
 }

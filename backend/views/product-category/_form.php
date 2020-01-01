@@ -355,7 +355,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'max'               => 10,
         // should be at least 2 rows
         //'min'               => 2,
-        'rendererClass'     => \unclead\multipleinput\renderers\DivRenderer::class,
+        'rendererClass'     => DivRenderer::class,
         'allowEmptyList'    => true,
         'enableGuessTitle'  => true,
         'cloneButton'       => false,

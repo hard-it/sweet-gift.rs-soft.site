@@ -20,6 +20,20 @@ use sjaakp\spatial\ActiveRecord;
  */
 class CustomerOrder extends ActiveRecord
 {
+    const ORDER_PRODUCT_ID           = 'id';
+    const ORDER_PRODUCT_PRODUCT_TYPE = 'product_type';
+    const ORDER_PRODUCT_COST         = 'cost';
+    const ORDER_PRODUCT_QUANTITY     = 'quantity';
+    const ORDER_PRODUCT_SUM          = 'sum';
+    const ORDER_PRODUCT_COMMENT      = 'comment';
+
+    /**
+     * Список продуктов для заказа
+     * @var array
+     */
+    public $productData = [];
+
+
     /**
      * копия данных о заказчике
      * @var Customer|null
@@ -54,7 +68,7 @@ class CustomerOrder extends ActiveRecord
     {
         return [
             [['Customer'], 'integer'],
-            [['State', 'OrderPoint', 'OrderPointDescription', 'customerData'], 'safe'],
+            [['State', 'OrderPoint', 'OrderPointDescription', 'customerData', 'productData'], 'safe'],
             [['Sum'], 'number'],
             [['Number'], 'string', 'max' => 20],
             [['Number'], 'unique'],
@@ -75,6 +89,7 @@ class CustomerOrder extends ActiveRecord
             'State'                 => Yii::t('app', 'Состояние заказа'),
             'Sum'                   => Yii::t('app', 'Сумма заказа'),
             'OrderPoint'            => Yii::t('app', 'Точка получения заказа'),
+            'productData'           => Yii::t('app', 'Товары'),
             'OrderPointDescription' => Yii::t('app', 'Описание точки получения заказа'),
         ];
     }
@@ -141,5 +156,33 @@ class CustomerOrder extends ActiveRecord
     public static function find()
     {
         return new CustomerOrderQuery(get_called_class());
+    }
+
+    /**
+     * @return array
+     */
+    protected function loadProductData()
+    {
+        $products = $this->getOrderProducts();
+
+        $this->productData = [];
+
+        /**
+         * @var OrderProduct $product
+         */
+        foreach ($products as $product) {
+            $row = [
+                static::ORDER_PRODUCT_ID           => $product->Id,
+                static::ORDER_PRODUCT_PRODUCT_TYPE => $product->Product,
+                static::ORDER_PRODUCT_COST         => $product->Cost,
+                static::ORDER_PRODUCT_QUANTITY     => $product->Quantity,
+                static::ORDER_PRODUCT_SUM          => $product->Sum,
+                static::ORDER_PRODUCT_COMMENT      => $product->Comment,
+            ];
+
+            $this->productData[] = $row;
+        }
+
+        return $this->productData;
     }
 }
