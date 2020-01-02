@@ -93,7 +93,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     //'min'               => 2,
     'rendererClass'     => \unclead\multipleinput\renderers\DivRenderer::class,
     'allowEmptyList'    => true,
-    'enableGuessTitle'  => true,
+    //'enableGuessTitle'  => true,
     'cloneButton'       => false,
     'sortable'          => true,
     // show add button in the footer

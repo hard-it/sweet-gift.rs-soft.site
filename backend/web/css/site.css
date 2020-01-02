@@ -286,7 +286,7 @@ div.image-preview-container div.container {
     margin-right: 5px;
 }
 
-button, a, tr, #node-images .js-input-remove {
+button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus {
     -webkit-transition-duration: 750ms; /* Safari */
     transition-duration: 750ms;
 }
@@ -380,6 +380,15 @@ button, a, tr, #node-images .js-input-remove {
 #node-images .js-input-remove {
     opacity: 0.75;
 }
+
+.btn {
+    opacity: 0.75;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
 
 #node-images .glyphicon-camera:hover {
     opacity: 1;
