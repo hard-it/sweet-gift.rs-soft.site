@@ -176,7 +176,8 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     'layoutConfig'      => [
         'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
         'wrapperClass'      => 'col-10 col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
-        'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-11 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1',
+        //'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-11 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1',
+        'buttonAddClass'    => 'col-md-offset-12 col-xs-offset-12 col-lg-offset-12 col-sm-offset-12 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1',
         'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
         //'buttonActionClass' => 'col-xs-offset-0 col-lg-offset-0 col-md-offset-0 col-xs-0 image-button-offset-1',
     ],

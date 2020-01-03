@@ -397,3 +397,8 @@ button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus {
 #node-images .js-input-remove:hover {
     opacity: 1;
 }
+
+#node-images .js-input-plus {
+    margin-right: 38px;
+    float: right;
+}
