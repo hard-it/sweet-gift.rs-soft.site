@@ -120,7 +120,7 @@ echo Html::beginTag('div', ['class' => 'form-group']);
 
                 echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3  col-xs-3']);
                     echo Html::resetButton(
-                        Yii::t('app', '<span>Очистить</span>'),
+                        Yii::t('app', '<span>Очистка</span>'),
                         [
                             'id'    => 'reset-form-btn',
                             'class' => 'btn btn-lg fa btn-danger fa-refresh fa-refresh-button btn-block btn-flat',
