@@ -216,8 +216,8 @@ th a:before {
     display: grid;
     padding-right: 6px;
     position: absolute;
-    top: 52px;
-    right: 15px;
+    top: 15px;
+    right: 60px;
 }
 
 #node-images .list-cell__button {
@@ -401,4 +401,8 @@ button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus {
 #node-images .js-input-plus {
     margin-right: 38px;
     float: right;
+}
+
+#node-images .product-type-add-button {
+    padding-right: 0px ;
 }
