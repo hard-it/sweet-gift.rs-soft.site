@@ -17,6 +17,7 @@ use kartik\number\NumberControl;
 use common\models\ProductType;
 use backend\helpers\js\grids\ButtonHelper;
 use unclead\multipleinput\renderers\BaseRenderer;
+use backend\helpers\MarkedDivRenderer;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProductType */
@@ -91,7 +92,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     'max'               => 10,
     // should be at least 2 rows
     //'min'               => 2,
-    'rendererClass'     => \unclead\multipleinput\renderers\DivRenderer::class,
+    'rendererClass'     => MarkedDivRenderer::class,
     'allowEmptyList'    => true,
     //'enableGuessTitle'  => true,
     'cloneButton'       => false,

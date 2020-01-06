@@ -131,6 +131,15 @@ class ProductType extends BaseTagKeywordModel
 
     use Images;
 
+    public function getCost()
+    {
+        return [
+            'Id'              => $this->Id,
+            'Cost'            => $this->Cost,
+            'MinimalQuantity' => $this->MinimalQuantity,
+        ];
+    }
+
     /**
      * {@inheritdoc}
      * @return ProductTypeQuery the active query used by this AR class.

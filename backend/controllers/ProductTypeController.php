@@ -113,6 +113,20 @@ class ProductTypeController extends ForbiddingController
     }
 
     /**
+     * @param int $id
+     *
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionCost(int $id)
+    {
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return $this->findModel($id)->getCost();
+    }
+
+    /**
      * Finds the ProductType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
