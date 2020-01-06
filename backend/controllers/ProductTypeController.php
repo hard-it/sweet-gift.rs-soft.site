@@ -123,7 +123,7 @@ class ProductTypeController extends ForbiddingController
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return $this->findModel($id)->getCost();
+        return $this->findModel($id)->getCostData();
     }
 
     /**

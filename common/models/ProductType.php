@@ -6,6 +6,7 @@ use common\models\traits\Images;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "ProductType".
@@ -131,7 +132,10 @@ class ProductType extends BaseTagKeywordModel
 
     use Images;
 
-    public function getCost()
+    /**
+     * @return array
+     */
+    public function getCostData()
     {
         return [
             'Id'              => $this->Id,
@@ -147,5 +151,51 @@ class ProductType extends BaseTagKeywordModel
     public static function find()
     {
         return new ProductTypeQuery(get_called_class());
+    }
+
+    public static function getFullTree()
+    {
+        $products           = static::find()->orderBy('Category, Name')->all();
+        $productsByCategory = [];
+
+        foreach ($products as $product) {
+            if (!isset($productsByCategory[$product->Category])) {
+                $productsByCategory[$product->Category] = [];
+            }
+
+            $productsByCategory[$product->Category][] = $product;
+        }
+
+        $results    = [];
+        $categories = ProductCategory::getActiveTree();
+
+        static::buildFullTree($results, $categories, $productsByCategory, 0, 0);
+
+        return $results;
+    }
+
+    protected static function buildFullTree(array &$root, array $categories, array $products, int $prevLevel, int $curIndex): int
+    {
+        while ($curIndex < count($categories)) {
+            /**
+             * @var ProductCategory $category
+             */
+            $category = $categories[$curIndex];
+
+            if ($category->lvl == $prevLevel) {
+                $categoryIndex        = str_repeat('  ', $category->lvl + 1) . $category->Name;
+                $root[$categoryIndex] = [];
+                $curIndex             = static::buildFullTree($root[$categoryIndex], $categories, $products, $prevLevel + 1, $curIndex + 1);
+                if (isset($products[$category->Id])) {
+                    $root[$categoryIndex] = ArrayHelper::merge($root[$categoryIndex], ArrayHelper::map($products[$category->Id], 'Id', 'Name'));
+                }
+                continue;
+            }
+            if ($category->lvl < $prevLevel) {
+                break;
+            }
+        }
+
+        return $curIndex;
     }
 }

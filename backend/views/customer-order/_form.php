@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use borales\extensions\phoneInput\PhoneInput;
 use backend\helpers\js\grids\ButtonHelper;
-use kartik\date\DatePicker;
 use unclead\multipleinput\MultipleInput;
 use backend\helpers\js\MultiInputHelper;
 use kartik\datetime\DateTimePicker;
@@ -15,6 +14,7 @@ use common\models\CustomerOrder;
 use common\models\Tag;
 use kartik\select2\Select2;
 use unclead\multipleinput\renderers\DivRenderer;
+use common\models\ProductType;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\CustomerOrder */
@@ -90,7 +90,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             'name'    => CustomerOrder::ORDER_PRODUCT_PRODUCT_TYPE,
             'type'    => Select2::class,
             'options' => [
-                'data'          => Tag::getList(),
+                'data'          => ProductType::getFullTree(),
                 'pluginOptions' => [
                     'placeholder' => 'Товары...',
                 ],

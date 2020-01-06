@@ -131,4 +131,12 @@ class ProductCategory extends Tree
         return new ProductCategoryQuery(get_called_class());
     }
 
+    /**
+     * @return array|ProductCategory[]
+     */
+    public static function getActiveTree()
+    {
+        return static::find()->andWhere(['active'=>true])->addOrderBy('root, lft')->all();
+    }
+
 }
