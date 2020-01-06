@@ -407,6 +407,11 @@ button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus {
     padding-right: 0px ;
 }
 
+#node-images .product-category-add-button > div {
+    margin-right: 56px;
+}
+
+
 div.placeholder {
     display: none;
     background: red;
