@@ -411,6 +411,10 @@ button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus {
     margin-right: 56px;
 }
 
+#model-products .customer-order-add-button  > div {
+    margin-right: 56px;
+}
+
 
 div.placeholder {
     display: none;
