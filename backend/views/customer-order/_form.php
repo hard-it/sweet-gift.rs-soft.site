@@ -94,6 +94,17 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
                 'pluginOptions' => [
                     'placeholder' => 'Товары...',
                 ],
+                'pluginEvents'  => [
+                    "change"              => "function() { console.log('change'); }",
+                    "select2:opening"     => "function() { console.log('select2:opening'); }",
+                    "select2:open"        => "function() { console.log('open'); }",
+                    "select2:closing"     => "function() { console.log('closing'); }",
+                    "select2:close"       => "function() { console.log('close'); }",
+                    "select2:selecting"   => "function() { console.log('selecting'); }",
+                    "select2:select"      => "function() { console.log('select'); }",
+                    "select2:unselecting" => "function() { console.log('unselecting'); }",
+                    "select2:unselect"    => "function() { console.log('unselect'); }",
+                ],
                 'class'         => 'customer-order-state-description',
             ],
         ],
@@ -108,7 +119,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
 
         ],
     ],
-    //'theme'             => BaseRenderer::THEME_BS,
+    'theme'             => BaseRenderer::THEME_BS,
     'layoutConfig'      => [
         //'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
         //'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 customer-order-images-wrapper',
