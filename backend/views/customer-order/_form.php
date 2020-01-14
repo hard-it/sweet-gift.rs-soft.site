@@ -10,10 +10,10 @@ use kartik\datetime\DateTimePicker;
 use backend\helpers\js\TimeZoneHelper;
 use common\models\CustomerOrderState;
 use unclead\multipleinput\components\BaseColumn;
-use common\models\CustomerOrder;
-use common\models\Tag;
-use kartik\select2\Select2;
+use unclead\multipleinput\renderers\BaseRenderer;
 use unclead\multipleinput\renderers\DivRenderer;
+use common\models\CustomerOrder;
+use kartik\select2\Select2;
 use common\models\ProductType;
 
 /* @var $this yii\web\View */
@@ -119,7 +119,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
 
         ],
     ],
-    //'theme'             => BaseRenderer::THEME_BS,
+    'theme'             => BaseRenderer::THEME_BS,
     'layoutConfig'      => [
         //'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
         //'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 customer-order-images-wrapper',
@@ -129,13 +129,14 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
         //'wrapperClass'      => 'col-10 col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
         'wrapperClass'      => 'col-12 col-md-12 col-lg-12 col-xs-12 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
         //'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-11 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1',
-        'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-11 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1',
+        'buttonAddClass'    => 'col-md-offset-12 col-xs-offset-12 col-lg-offset-12 col-sm-offset-12 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1 customer-order-add-product-button',
         //'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
         'buttonActionClass' => 'col-xs-offset-12 col-lg-offset-12 col-md-offset-12 col-sm-offset-12 col-xs-0 image-button-offset-1',
     ],
 
     'rowOptions' => [
         //'class' => 'col-md-12 col-lg-12 col-xs-12 col-xs-offset-0',
+        'class' => 'col-11 col-md-11 col-lg-11 col-xs-11 col-xs-offset-0 order-product-item',
     ],
 
 ]);
@@ -203,11 +204,12 @@ echo $form->field($model, 'State')->widget(MultipleInput::class, [
 
         ],
     ],
-    //'theme'             => BaseRenderer::THEME_BS,
+    'theme'             => BaseRenderer::THEME_BS,
     'layoutConfig'      => [
         'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
         'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 customer-order-images-wrapper',
-        'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 customer-order-button-offset-1',
+        //'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 customer-order-button-offset-1',
+        'buttonAddClass'    => 'col-md-offset-12 col-xs-offset-12 col-lg-offset-12 col-sm-offset-12 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1 product-type-add-button',
         'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 customer-order-button-offset',
     ],
 
