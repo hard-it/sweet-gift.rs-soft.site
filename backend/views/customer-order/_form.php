@@ -13,6 +13,7 @@ use unclead\multipleinput\components\BaseColumn;
 use unclead\multipleinput\renderers\BaseRenderer;
 use unclead\multipleinput\renderers\DivRenderer;
 use common\models\CustomerOrder;
+use common\models\OrderProduct;
 use kartik\select2\Select2;
 use common\models\ProductType;
 
@@ -105,15 +106,26 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
                     "select2:unselecting" => "function() { console.log('unselecting'); }",
                     "select2:unselect"    => "function() { console.log('unselect'); }",
                 ],
-                'class'         => 'customer-order-state-description',
+                'class'         => 'customer-order-product-id',
             ],
         ],
 
         [
-            'name'    => CustomerOrderState::ORDER_FIELD_DESCRIPTION,
+            'name'  => CustomerOrder::ORDER_PRODUCT_PRICE,
+            'type'  => BaseColumn::TYPE_STATIC,
+            'title' => '',
+            'value' => function ($data) {
+                return Html::tag('span', 'Go go og');
+
+            },
+
+        ],
+
+        [
+            'name'    => CustomerOrder::ORDER_PRODUCT_COMMENT,
             'title'   => '',
             'options' => [
-                'class'       => 'customer-order-state-description',
+                'class'       => 'customer-order-product-comment',
                 'placeholder' => Yii::t('app', 'Описание'),
             ],
 

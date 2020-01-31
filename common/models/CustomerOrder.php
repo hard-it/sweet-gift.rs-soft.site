@@ -26,6 +26,7 @@ class CustomerOrder extends ActiveRecord
     const ORDER_PRODUCT_QUANTITY     = 'quantity';
     const ORDER_PRODUCT_SUM          = 'sum';
     const ORDER_PRODUCT_COMMENT      = 'comment';
+    const ORDER_PRODUCT_PRICE        = 'price';
 
     /**
      * Список продуктов для заказа
@@ -174,9 +175,11 @@ class CustomerOrder extends ActiveRecord
             $row = [
                 static::ORDER_PRODUCT_ID           => $product->Id,
                 static::ORDER_PRODUCT_PRODUCT_TYPE => $product->Product,
-                static::ORDER_PRODUCT_COST         => $product->Cost,
-                static::ORDER_PRODUCT_QUANTITY     => $product->Quantity,
-                static::ORDER_PRODUCT_SUM          => $product->Sum,
+                static::ORDER_PRODUCT_PRICE        => [
+                    static::ORDER_PRODUCT_COST     => $product->Cost,
+                    static::ORDER_PRODUCT_QUANTITY => $product->Quantity,
+                    static::ORDER_PRODUCT_SUM      => $product->Sum,
+                ],
                 static::ORDER_PRODUCT_COMMENT      => $product->Comment,
             ];
 
