@@ -3,12 +3,16 @@
 namespace common\helpers;
 
 use Yii;
-use yii\web\Controller;
+use BaseController;
 use yii\web\ForbiddenHttpException;
 use common\models\User;
 use common\helpers\rbac\BaseRule;
 
-class ForbiddingController extends Controller
+/**
+ * Class ForbiddingController
+ * @package common\helpers
+ */
+class ForbiddingController extends BaseController
 {
     /**
      * @param $action

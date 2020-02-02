@@ -126,6 +126,11 @@ class ProductTypeController extends ForbiddingController
         return $this->findModel($id)->getCostData();
     }
 
+    public function actionGetCost()
+    {
+
+    }
+
     /**
      * Finds the ProductType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

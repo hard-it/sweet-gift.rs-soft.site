@@ -452,3 +452,7 @@ div.placeholder:before {
     left: -5px;
     border-right: none;
 }
+
+.form-horizontal .control-label {
+    text-align: left;
+}

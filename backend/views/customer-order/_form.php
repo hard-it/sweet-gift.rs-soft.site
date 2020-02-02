@@ -13,6 +13,7 @@ use unclead\multipleinput\components\BaseColumn;
 use unclead\multipleinput\renderers\BaseRenderer;
 use unclead\multipleinput\renderers\DivRenderer;
 use common\models\CustomerOrder;
+use \kartik\number\NumberControl;
 use common\models\OrderProduct;
 use kartik\select2\Select2;
 use common\models\ProductType;
@@ -77,47 +78,90 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
     'id'                => 'model-products',
     'class'             => 'multiple-input col-md-12 col-xs-12 col-lg-12',
     'columns'           => [
-        [
-            'name'    => CustomerOrder::ORDER_PRODUCT_ID,
-            'type'    => 'hiddenInput',
-            'title'   => '',
-            'options' => [
-                'class' => 'order-product-id',
-            ],
-
-        ],
 
         [
             'name'    => CustomerOrder::ORDER_PRODUCT_PRODUCT_TYPE,
             'type'    => Select2::class,
+            'title'   => '',
             'options' => [
                 'data'          => ProductType::getFullTree(),
                 'pluginOptions' => [
                     'placeholder' => 'Товары...',
                 ],
                 'pluginEvents'  => [
-                    "change"              => "function() { console.log('change'); }",
-                    "select2:opening"     => "function() { console.log('select2:opening'); }",
-                    "select2:open"        => "function() { console.log('open'); }",
-                    "select2:closing"     => "function() { console.log('close'); }",
-                    "select2:close"       => "function() { console.log('close'); }",
-                    "select2:selecting"   => "function() { console.log('selecting'); }",
-                    "select2:select"      => "function() { console.log('select'); }",
-                    "select2:unselecting" => "function() { console.log('unselecting'); }",
-                    "select2:unselect"    => "function() { console.log('unselect'); }",
+                    'select2:select' => 'function() { loadOrderProductCost(this); }',
                 ],
                 'class'         => 'customer-order-product-id',
             ],
         ],
 
         [
-            'name'  => CustomerOrder::ORDER_PRODUCT_PRICE,
-            'type'  => BaseColumn::TYPE_STATIC,
-            'title' => '',
-            'value' => function ($data) {
-                return Html::tag('span', 'Go go og');
+            'name'         => CustomerOrder::ORDER_PRODUCT_COST,
+            'type'         => NumberControl::class,
+            'title'        => 'Цена',
+            'value'        => function ($data) {
+                return $data[CustomerOrder::ORDER_PRODUCT_COST];
 
             },
+            'defaultValue' => 0.00,
+            'options'      => [
+                'class'              => 'product-cost',
+                'displayOptions'     => [
+                    'placeholder' => Yii::t('app', 'Цена...'),
+                ],
+                'maskedInputOptions' => [
+                    'groupSeparator' => '',
+                    'digits'         => 2,
+                    'rightAlign'     => true,
+                ],
+            ],
+
+        ],
+
+        [
+            'name'         => CustomerOrder::ORDER_PRODUCT_QUANTITY,
+            'type'         => NumberControl::class,
+            'title'        => Yii::t('app', 'Количество'),
+            'value'        => function ($data) {
+                return $data[CustomerOrder::ORDER_PRODUCT_QUANTITY];
+
+            },
+            'defaultValue' => 0,
+            'options'      => [
+                'class'              => 'product-quantity',
+                'displayOptions'     => [
+                    'placeholder' => Yii::t('app', 'Количество...'),
+                ],
+                'maskedInputOptions' => [
+                    'groupSeparator' => '',
+                    'digits'         => 0,
+                    'rightAlign'     => true,
+                ],
+            ],
+
+        ],
+
+        [
+            'name'         => CustomerOrder::ORDER_PRODUCT_SUM,
+            'type'         => NumberControl::class,
+            'title'        => Yii::t('app', 'Всего'),
+            'value'        => function ($data) {
+                return $data[CustomerOrder::ORDER_PRODUCT_SUM];
+
+            },
+            'defaultValue' => 0.00,
+            'options'      => [
+                'class'              => 'product-sum',
+                'readonly'           => true,
+                'displayOptions'     => [
+                    'placeholder' => Yii::t('app', 'Всего...'),
+                ],
+                'maskedInputOptions' => [
+                    'groupSeparator' => '',
+                    'digits'         => 2,
+                    'rightAlign'     => true,
+                ],
+            ],
 
         ],
 
@@ -254,6 +298,8 @@ echo Html::endTag('div');
 $buttonHelper->registerPreviousMoveScript('previous-button');
 
 MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', '.input-group.date > input');
+
+echo Html::script(MultiInputHelper::buildAfterSelectOrderProductCost());
 ?>
 
 <div class="customer-order-form">

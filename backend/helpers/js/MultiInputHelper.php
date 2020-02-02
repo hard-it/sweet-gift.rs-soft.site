@@ -80,4 +80,42 @@ JS;
         $view->registerJs($js);
 
     }
+
+    public static function buildAfterSelectOrderProductCost()
+    {
+        $js = <<<JS
+
+        function loadOrderProductCost(point) {
+          let blockDiv = $(point).parent().parent().parent();
+          let productCost = blockDiv.find('.product-cost');
+          let productQty = blockDiv.find('.product-quantity');
+          let productSum = blockDiv.find('.product-sum');
+          
+          let productIdId = $(point).val();
+          let data = {
+            id: productId             
+          };
+            $.post(
+              'product-type/get-cost',
+            data
+            ).done(function (data) {
+
+            if (data.code) {
+              data.data.cost = 0.00;
+            }
+            productCost.val(data.data.cost);
+            productSum.val(data.data.cost*productQty.val());
+            $('#pay-error').html('&nbsp;')
+        }).error(function () {
+      $('#pay-error').html(anyThingMessage);
+    });
+            
+          )
+        }
+
+JS;
+
+        return $js;
+
+    }
 }
