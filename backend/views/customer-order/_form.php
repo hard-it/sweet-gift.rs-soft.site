@@ -105,9 +105,9 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             },
             'defaultValue' => 0.00,
             'options'      => [
-                'class'              => 'product-cost',
                 'displayOptions'     => [
                     'placeholder' => Yii::t('app', 'Цена...'),
+                    'class'       => 'form-control product-cost',
                 ],
                 'maskedInputOptions' => [
                     'groupSeparator' => '',
@@ -128,8 +128,8 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             },
             'defaultValue' => 0,
             'options'      => [
-                'class'              => 'product-quantity',
                 'displayOptions'     => [
+                    'class'       => 'form-control product-quantity',
                     'placeholder' => Yii::t('app', 'Количество...'),
                 ],
                 'maskedInputOptions' => [
@@ -151,9 +151,9 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             },
             'defaultValue' => 0.00,
             'options'      => [
-                'class'              => 'product-sum',
                 'readonly'           => true,
                 'displayOptions'     => [
+                    'class'       => 'form-control product-sum',
                     'placeholder' => Yii::t('app', 'Всего...'),
                 ],
                 'maskedInputOptions' => [
@@ -300,6 +300,8 @@ $buttonHelper->registerPreviousMoveScript('previous-button');
 MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', '.input-group.date > input');
 
 echo Html::script(MultiInputHelper::buildAfterSelectOrderProductCost());
+echo Html::script(MultiInputHelper::addFormatMoneyValue('.product-cost'));
+echo Html::script(MultiInputHelper::addFormatMoneyValue('.product-cost'));
 ?>
 
 <div class="customer-order-form">

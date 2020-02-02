@@ -119,4 +119,23 @@ JS;
         return $js;
 
     }
+
+    /**
+     * @param string $valueContainer
+     * @param int    $decimals
+     *
+     * @return string
+     */
+    public static function addFormatMoneyValue(string $valueContainer, int $decimals)
+    {
+        $js = <<<JS
+        $({$valueContainer}).on('change input keyup', function ()
+        {
+          
+        })
+JS;
+
+        return $js;
+
+    }
 }
