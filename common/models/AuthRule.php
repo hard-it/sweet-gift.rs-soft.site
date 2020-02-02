@@ -14,7 +14,7 @@ use Yii;
  *
  * @property Authitem[] $authitems
  */
-class AuthRule extends \yii\db\ActiveRecord
+class AuthRule extends BaseActiveRecord
 {
     /**
      * {@inheritdoc}

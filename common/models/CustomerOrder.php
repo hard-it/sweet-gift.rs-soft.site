@@ -3,8 +3,7 @@
 namespace common\models;
 
 use Yii;
-use sjaakp\spatial\ActiveQuery;
-use sjaakp\spatial\ActiveRecord;
+
 
 /**
  * This is the model class for table "CustomerOrder".
@@ -18,7 +17,7 @@ use sjaakp\spatial\ActiveRecord;
  * @property array    $OrderPoint            Точка получения заказа
  * @property array    $OrderPointDescription Описание точки получения заказа
  */
-class CustomerOrder extends ActiveRecord
+class CustomerOrder extends BaseActiveRecord
 {
     const ORDER_PRODUCT_ID           = 'id';
     const ORDER_PRODUCT_PRODUCT_TYPE = 'product_type';

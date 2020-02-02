@@ -138,9 +138,9 @@ class ProductType extends BaseTagKeywordModel
     public function getCostData()
     {
         return [
-            'Id'              => $this->Id,
-            'Cost'            => $this->Cost,
-            'MinimalQuantity' => $this->MinimalQuantity,
+            'id'              => $this->Id,
+            'cost'            => $this->Cost,
+            'minimalQuantity' => $this->MinimalQuantity,
         ];
     }
 
@@ -153,6 +153,9 @@ class ProductType extends BaseTagKeywordModel
         return new ProductTypeQuery(get_called_class());
     }
 
+    /**
+     * @return array
+     */
     public static function getFullTree()
     {
         $products           = static::find()->orderBy('Category, Name')->all();
@@ -174,6 +177,15 @@ class ProductType extends BaseTagKeywordModel
         return $results;
     }
 
+    /**
+     * @param array $root
+     * @param array $categories
+     * @param array $products
+     * @param int   $prevLevel
+     * @param int   $curIndex
+     *
+     * @return int
+     */
     protected static function buildFullTree(array &$root, array $categories, array $products, int $prevLevel, int $curIndex): int
     {
         while ($curIndex < count($categories)) {

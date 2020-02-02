@@ -6,9 +6,11 @@ use Yii;
 use common\models\ProductType;
 use common\models\ProductTypeSearch;
 use common\helpers\ForbiddingController;
+use common\helpers\BaseController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Url;
+use yii\web\Response;
 
 /**
  * ProductTypeController implements the CRUD actions for ProductType model.
@@ -123,12 +125,9 @@ class ProductTypeController extends ForbiddingController
 
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return $this->findModel($id)->getCostData();
-    }
+        $resultData = $this->findModel($id)->getCostData();
 
-    public function actionGetCost()
-    {
-
+        return BaseController::buildJsonAnswer(0, '', $resultData);
     }
 
     /**

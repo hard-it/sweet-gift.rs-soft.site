@@ -4,14 +4,13 @@ namespace common\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "Keyword".
  *
  * @property string $Name Наименование
  */
-class Keyword extends ActiveRecord
+class Keyword extends ActiveQuery
 {
     /**
      * {@inheritdoc}

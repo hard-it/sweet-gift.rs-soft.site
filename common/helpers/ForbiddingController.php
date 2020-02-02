@@ -3,7 +3,7 @@
 namespace common\helpers;
 
 use Yii;
-use BaseController;
+
 use yii\web\ForbiddenHttpException;
 use common\models\User;
 use common\helpers\rbac\BaseRule;

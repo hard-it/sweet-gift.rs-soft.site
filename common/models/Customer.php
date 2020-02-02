@@ -4,9 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use borales\extensions\phoneInput\PhoneInputValidator;
-use borales\extensions\phoneInput\PhoneInputBehavior;
 
 /**
  * This is the model class for table "Customer".
@@ -18,7 +16,7 @@ use borales\extensions\phoneInput\PhoneInputBehavior;
  * @property int    $User       Пользователь
  * @property User   $user0      Пользователь
  */
-class Customer extends ActiveRecord
+class Customer extends BaseActiveRecord
 {
     /**
      * {@inheritdoc}

@@ -6,7 +6,6 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use common\helpers\rbac\BaseRule;
 
@@ -26,7 +25,7 @@ use common\helpers\rbac\BaseRule;
  * @property string  $password write-only password
  * @property integer $user_type
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends BaseActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED  = 0;
     const STATUS_INACTIVE = 9;

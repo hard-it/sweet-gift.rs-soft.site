@@ -2,9 +2,8 @@
 
 namespace common\models;
 
-use yii\db\ActiveRecord;
 
-class BaseTagKeywordModel extends ActiveRecord
+class BaseTagKeywordModel extends BaseActiveRecord
 {
 
     /**

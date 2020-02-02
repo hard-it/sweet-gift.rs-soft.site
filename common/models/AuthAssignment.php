@@ -13,7 +13,7 @@ use Yii;
  *
  * @property Authitem $itemName
  */
-class AuthAssignment extends \yii\db\ActiveRecord
+class AuthAssignment extends BaseActiveRecord
 {
     /**
      * {@inheritdoc}

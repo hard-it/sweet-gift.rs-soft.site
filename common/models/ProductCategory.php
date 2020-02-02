@@ -4,7 +4,7 @@ namespace common\models;
 
 use common\models\traits\Images;
 use Yii;
-use yii\db\ActiveQuery;
+use common\models\ActiveQuery;
 use kartik\tree\models\Tree;
 
 /**
