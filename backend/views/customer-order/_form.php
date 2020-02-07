@@ -86,7 +86,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             'options' => [
                 'data'          => ProductType::getFullTree(),
                 'pluginOptions' => [
-                    'placeholder' => 'Товары...',
+                    'placeholder' => 'Товар...',
                 ],
                 'pluginEvents'  => [
                     'select2:select' => 'function() { loadOrderProductCost(this); }',
@@ -100,10 +100,10 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             'type'         => NumberControl::class,
             'title'        => 'Цена',
             'value'        => function ($data) {
-                return $data[CustomerOrder::ORDER_PRODUCT_COST];
+                return $data[CustomerOrder::ORDER_PRODUCT_COST] ?? 0;
 
             },
-            'defaultValue' => 0.00,
+            'defaultValue' => 0,
             'options'      => [
                 'displayOptions'     => [
                     'placeholder' => Yii::t('app', 'Цена...'),
@@ -123,7 +123,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             'type'         => NumberControl::class,
             'title'        => Yii::t('app', 'Количество'),
             'value'        => function ($data) {
-                return $data[CustomerOrder::ORDER_PRODUCT_QUANTITY];
+                return $data[CustomerOrder::ORDER_PRODUCT_QUANTITY] ?? 0;
 
             },
             'defaultValue' => 0,
@@ -146,10 +146,10 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             'type'         => NumberControl::class,
             'title'        => Yii::t('app', 'Всего'),
             'value'        => function ($data) {
-                return $data[CustomerOrder::ORDER_PRODUCT_SUM];
+                return $data[CustomerOrder::ORDER_PRODUCT_SUM] ?? 0;
 
             },
-            'defaultValue' => 0.00,
+            'defaultValue' => 0,
             'options'      => [
                 'readonly'           => true,
                 'displayOptions'     => [
@@ -167,7 +167,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
 
         [
             'name'    => CustomerOrder::ORDER_PRODUCT_COMMENT,
-            'title'   => '',
+            'title'   => Yii::t('app', 'Описание'),
             'options' => [
                 'class'       => 'customer-order-product-comment',
                 'placeholder' => Yii::t('app', 'Описание'),
@@ -300,8 +300,7 @@ $buttonHelper->registerPreviousMoveScript('previous-button');
 MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', '.input-group.date > input');
 
 echo Html::script(MultiInputHelper::buildAfterSelectOrderProductCost());
-echo Html::script(MultiInputHelper::addFormatMoneyValue('.product-cost'));
-echo Html::script(MultiInputHelper::addFormatMoneyValue('.product-cost'));
+echo Html::script(MultiInputHelper::addFormatMoneyValue('.product-cost', 2));
 ?>
 
 <div class="customer-order-form">

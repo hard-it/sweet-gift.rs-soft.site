@@ -108,7 +108,7 @@ JS;
               data.data.cost = 0.00;
             }
             productCost.val(data.data.cost);
-            productSum.val(data.data.cost*productQty.val());
+            productSum.val(data.data.cost * productQty.val());
             $('#pay-error').html('&nbsp;')
         } ).fail(function () {
         $('#pay-error').html(anyThingMessage);
@@ -129,10 +129,9 @@ JS;
     public static function addFormatMoneyValue(string $valueContainer, int $decimals)
     {
         $js = <<<JS
-        $({$valueContainer}).on('change input keyup', function ()
-        {
+        $('{$valueContainer}').on('change input keyup', function () {
           
-        })
+        });
 JS;
 
         return $js;

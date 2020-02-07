@@ -25,8 +25,8 @@ return [
         ],
         'gridview'    => [
             'class' => '\kartik\grid\Module'
-            // enter optional module parameters below - only if you need to  
-            // use your own export download action or custom translation 
+            // enter optional module parameters below - only if you need to
+            // use your own export download action or custom translation
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
@@ -80,7 +80,9 @@ return [
         'assetManager' => [
             'bundles' => [
                 'yii\web\JqueryAsset' => [
-                    'sourcePath' => null,   // do not publish the bundle
+                    'jsOptions'  => ['position' => \yii\web\View::POS_HEAD],
+                    // do not publish the bundle
+                    'sourcePath' => null,
                     'js'         => [
                         '//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
                     ],
