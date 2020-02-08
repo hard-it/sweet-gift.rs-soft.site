@@ -76,19 +76,19 @@ echo GridView::widget([
     'columns'          => [
         [
             'attribute'      => 'Number',
-            'label'          => Yii::t('app', 'Код'),
+            'label'          => Yii::t('app', 'Номер'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
             'headerOptions'  => ['class' => 'col-1 col-md-1 col-sm-2 col-xs-2'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
 
+
         [
             'attribute'      => 'RDate',
-            'label'          => Yii::t('app', 'Дата заказа'),
+            'label'          => Yii::t('app', 'Заказ'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
-            'headerOptions'  => ['class' => 'col-3 col-md-3 col-sm-3 col-xs-3'],
-            'value'          => function ($model) {
-                /* @var CustomerOrder $model */
+            'headerOptions'  => ['class' => 'col-2 col-md-2 col-sm-2 col-xs-2'],
+            'value'          => function (CustomerOrder $model) {
                 return $model->Sum ?? '-.--';
             },
             'vAlign'         => GridView::ALIGN_MIDDLE,
@@ -96,18 +96,17 @@ echo GridView::widget([
 
         [
             'attribute'      => 'TDate',
-            'label'          => Yii::t('app', 'Дата доставки'),
+            'label'          => Yii::t('app', 'Доставка'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
             'headerOptions'  => ['class' => 'col-3 col-md-3 col-sm-3 col-xs-3'],
-            'value'          => function ($model) {
-                /* @var CustomerOrder $model */
+            'value'          => function (CustomerOrder $model) {
                 return $model->Sum ?? '-.--';
             },
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
 
         [
-            'attribute'      => 'Contacts',
+            'attribute'      => 'fullName',
             'label'          => Yii::t('app', 'Заказчик'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
             'headerOptions'  => ['class' => 'col-3 col-md-3 col-sm-3 col-xs-3'],
@@ -119,8 +118,7 @@ echo GridView::widget([
             'label'          => Yii::t('app', 'Сумма'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
             'headerOptions'  => ['class' => 'col-2 col-md-2 col-sm-2 col-xs-2'],
-            'value'          => function ($model) {
-                /* @var CustomerOrder $model */
+            'value'          => function (CustomerOrder $model) {
                 return $model->Sum ?? '-.--';
             },
             'hAlign'         => GridView::ALIGN_RIGHT,
@@ -128,10 +126,7 @@ echo GridView::widget([
         ],
         [
             'format'        => 'raw',
-            'value'         => function ($model) {
-
-                /* @var ProductType $model */
-                $update = '';
+            'value'         => function (ProductType $model) {
 
                 $delete = Html::tag('i', '', ['class' => 'fa fa-trash gridview-delete-button', 'data-key' => $model->Id]);
 

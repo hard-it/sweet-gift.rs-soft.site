@@ -30,7 +30,14 @@
         "kartik-v/yii2-grid": "dev-master",
         "kartik-v/yii2-dialog": "dev-master",
         "borales/yii2-phone-input": "*",
-        "sjaakp/yii2-spatial": "*"
+        "sjaakp/yii2-spatial": "*",
+        "kartik-v/yii2-widget-datepicker": "dev-master",
+        "kartik-v/yii2-widget-datetimepicker": "dev-master",
+        "kartik-v/yii2-field-range": "*",
+        "kartik-v/yii2-date-range": "dev-master",
+        "webtoucher/yii2-js-cookie": "*",
+        "gromovfjodor/yii2-points-map": "2.7",
+        "bower-asset/moment": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

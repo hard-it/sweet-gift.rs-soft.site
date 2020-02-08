@@ -20,8 +20,8 @@ use kartik\widgets\Select2;
 use common\models\Tag;
 use common\models\Keyword;
 use unclead\multipleinput\MultipleInput;
-use unclead\multipleinput\renderers\DivRenderer;
 use unclead\multipleinput\renderers\BaseRenderer;
+use backend\helpers\MarkedDivRenderer;
 use mihaildev\elfinder\InputFile;
 use backend\helpers\js\MultiInputHelper;
 
@@ -355,9 +355,9 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'max'               => 10,
         // should be at least 2 rows
         //'min'               => 2,
-        'rendererClass'     => \unclead\multipleinput\renderers\DivRenderer::class,
+        'rendererClass'     => MarkedDivRenderer::class,
         'allowEmptyList'    => true,
-        'enableGuessTitle'  => true,
+        //'enableGuessTitle'  => true,
         'cloneButton'       => false,
         'sortable'          => true,
         // show add button in the footer
@@ -365,38 +365,6 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'id'                => 'node-images',
         'class'             => 'multiple-input col-md-12 col-xs-12 col-lg-12',
         'columns'           => [
-            [
-                'name'  => 'PreviewImages',
-                'type'  => 'static',
-                'value' => function ($data) {
-                    $url = $data['url'] ?? ProductCategory::DEFAULT_IMAGE;
-
-                    if (!strlen($url)) {
-                        $url = ProductCategory::DEFAULT_IMAGE;
-                    }
-
-                    return
-                        Html::tag('div',
-                            Html::img(
-                                Url::toRoute([$url]),
-                                [
-                                    'class'          => 'multiple-input-image',
-                                    //'data-placement' => "top",
-                                    //'data-toggle'    => "tooltip",
-                                    //'data-trigger'   => 'hover',
-                                    //'data-html'      => "true",
-                                    //'title'          => "<img src='$url'>",
-                                ])
-                            . Html::tag('div',
-                                '',
-                                ['class' => 'container']
-                            ),
-                            ['class' => 'image-preview-container']
-
-                        );
-                },
-            ],
-
             [
                 'name'    => 'url',
                 'type'    => InputFile::class,
@@ -416,12 +384,42 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 ],
 
             ],
+            [
+                'name'  => 'PreviewImages',
+                'type'  => 'static',
+                'value' => function ($data) {
+                    $url = $data['url'] ?? ProductCategory::DEFAULT_IMAGE;
 
+                    if (!strlen($url)) {
+                        $url = ProductCategory::DEFAULT_IMAGE;
+                    }
+
+                    return
+                        Html::tag('div',
+                            Html::img(
+                                Url::toRoute([$url]),
+                                [
+                                    'class' => 'multiple-input-image',
+                                    //'data-placement' => "top",
+                                    //'data-toggle'    => "tooltip",
+                                    //'data-trigger'   => 'hover',
+                                    //'data-html'      => "true",
+                                    //'title'          => "<img src='$url'>",
+                                ])
+                            . Html::tag('div',
+                                '',
+                                ['class' => 'container']
+                            ),
+                            ['class' => 'image-preview-container']
+
+                        );
+                },
+            ],
             [
                 'name'    => 'name',
                 'title'   => '',
                 'options' => [
-                    'class' => 'image-title',
+                    'class'       => 'image-title',
                     'placeholder' => Yii::t('app', 'Заголовок'),
                 ],
 
@@ -432,18 +430,22 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 'type'    => 'hiddenInput',
                 'title'   => '',
                 'options' => [
-                        'class' => 'image-index',
+                    'class' => 'image-index',
                 ],
 
             ],
         ],
-        //'theme'             => BaseRenderer::THEME_BS,
+        'theme'             => BaseRenderer::THEME_BS,
+        //'theme'             => BaseRenderer::THEME_DEFAULT,
         'layoutConfig'      => [
             'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
-            'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
-            'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 image-button-offset-1',
-            'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
-            //'buttonActionClass' => 'col-xs-offset-0 col-lg-offset-0 col-md-offset-0 col-xs-0 image-button-offset-1',
+            //'wrapperClass'      => 'col-10 col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
+            'wrapperClass'      => 'col-12 col-md-12 col-lg-12 col-xs-12 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
+            //'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-11 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1',
+            'buttonAddClass'    => 'col-md-offset-12 col-xs-offset-12 col-lg-offset-12 col-sm-offset-12 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1 product-category-add-button',
+            //'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 image-button-offset-1',
+            'buttonActionClass' => 'col-xs-offset-12 col-lg-offset-12 col-md-offset-12 col-sm-offset-12 col-xs-0 image-button-offset-1',
+
         ],
 
         'rowOptions' => [

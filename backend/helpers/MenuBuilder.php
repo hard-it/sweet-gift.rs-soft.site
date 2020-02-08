@@ -64,11 +64,11 @@ class MenuBuilder
             ];
         }
 
-        if (ForbiddingController::hasAccess('app-backend\order\index')) {
+        if (ForbiddingController::hasAccess('app-backend\customer-order\index')) {
             $customerSubmenu[] = [
                 'label' => Yii::t('app', 'Заказы'),
                 'icon'  => 'gift',
-                'url'   => Url::toRoute('/order/index'),
+                'url'   => Url::toRoute('/customer-order/index'),
             ];
         }
 

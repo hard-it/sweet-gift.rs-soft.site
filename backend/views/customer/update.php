@@ -8,13 +8,13 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Изменение заказчика: {name}', [
     'name' => $model->Firstname . ' ' . $model->Lastname,
 ]);
-?>
-<div class="customer-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+echo Html::beginTag('div', ['class' => 'customer-update']);
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+echo Html::tag('h1', Html::encode($this->title));
 
-</div>
+echo $this->render('_form', [
+    'model' => $model,
+]);
+
+echo Html::endTag('div');

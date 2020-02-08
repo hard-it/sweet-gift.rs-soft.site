@@ -174,10 +174,21 @@ th a:before {
     height: calc(100vh - 150px);
 }
 
+/*
 .image-preview-container img {
     width: 100%;
     height: 290px;
     object-fit: cover;
+}
+ */
+.image-preview-container img {
+    width: 100%;
+    height: 89%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
 }
 
 #node-images {
@@ -190,11 +201,23 @@ th a:before {
 #node-images .hidden-image-name {
     display: none;
 }
+
+/*
 #node-images .multiple-input-list__item .multiple-input-elfinder {
     margin-top: -347px;
     float: right;
     display: grid;
     padding-right: 50px;
+}
+
+ */
+
+#node-images .multiple-input-list__item .multiple-input-elfinder {
+    display: grid;
+    padding-right: 6px;
+    position: absolute;
+    top: 15px;
+    right: 60px;
 }
 
 #node-images .list-cell__button {
@@ -203,15 +226,50 @@ th a:before {
     position: relative;
 }
 
+/*
 div.image-preview-container {
     width: 100%;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+ */
 
+div.image-preview-container {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    padding-top: 75%;
+}
+
+div.order-product-item {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 20px;
+}
+
+div.order-state-item {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 20px;
+}
+
+
+/*
 div.image-preview-container div.container {
     text-align: center;
     padding: 21px 20px;
+}
+ */
+
+div.image-preview-container div.container {
+    text-align: center;
+    /* padding: 21px 20px; */
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    bottom: 0px;
+    background-color: white;
 }
 
 .field-productcategory-images {
@@ -241,7 +299,7 @@ div.image-preview-container div.container {
     margin-right: 5px;
 }
 
-button, a, tr {
+button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus, #model-products .js-input-remove, #model-products .js-input-plus {
     -webkit-transition-duration: 750ms; /* Safari */
     transition-duration: 750ms;
 }
@@ -299,4 +357,132 @@ button, a, tr {
 
 #node-images .form-control-static {
     display: none;
+}
+
+.customer-order-button-offset > .js-input-remove {
+    position: static;
+    top: auto;
+    right: auto;
+}
+
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    margin-top: 0px !important;
+}
+
+.margined-multiinput {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.customer-order-button-offset-1 {
+    margin-top: -30px;
+    margin-bottom: 20px;
+}
+
+#node-images .multiple-input-list__btn.js-input-remove.btn.btn-danger {
+    position: absolute;
+    top: 26px;
+}
+
+#node-images .glyphicon-camera {
+    border-radius: 3px;
+    opacity: 0.75;
+}
+
+#node-images .js-input-remove, #model-products .js-input-remove {
+    opacity: 0.75;
+}
+
+.btn {
+    opacity: 0.75;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+
+#node-images .glyphicon-camera:hover  {
+    opacity: 1;
+}
+
+#node-images .js-input-remove:hover, #model-products .js-input-remove:hover {
+    opacity: 1;
+}
+
+#node-images .js-input-plus {
+    margin-right: 38px;
+    float: right;
+}
+
+#node-images .product-type-add-button {
+    padding-right: 0px;
+}
+
+#model-products .js-input-remove {
+    top: 8px;
+    right: 15px;
+}
+#model-states  .js-input-remove {
+    top: 8px;
+    right: 15px;
+}
+
+#model-products .customer-order-add-product-button {
+    padding-right: 0px;
+    float: right;
+    margin-top: -33px;
+    margin-right: 5px;
+}
+
+#model-states .custumer-order-state-add-button {
+    padding-right: 0px;
+    float: right;
+    margin-top: -33px;
+    margin-right: 5px;
+}
+
+
+#model-products .order-product-item {
+    padding-top: 50px;
+}
+
+#model-states .order-state-item {
+    padding-top: 50px;
+}
+
+
+
+#node-images .product-category-add-button > div {
+    margin-right: 56px;
+}
+
+#model-products .customer-order-add-product-button > div {
+    margin-right: 56px;
+}
+
+div.placeholder {
+    display: none;
+    background: red;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+div.placeholder:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-left-color: red;
+    margin-top: -5px;
+    left: -5px;
+    border-right: none;
+}
+
+.form-horizontal .control-label {
+    text-align: left;
 }

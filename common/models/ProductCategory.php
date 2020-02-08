@@ -4,7 +4,7 @@ namespace common\models;
 
 use common\models\traits\Images;
 use Yii;
-use yii\db\ActiveQuery;
+use common\models\ActiveQuery;
 use kartik\tree\models\Tree;
 
 /**
@@ -129,6 +129,14 @@ class ProductCategory extends Tree
     public static function find()
     {
         return new ProductCategoryQuery(get_called_class());
+    }
+
+    /**
+     * @return array|ProductCategory[]
+     */
+    public static function getActiveTree()
+    {
+        return static::find()->andWhere(['active'=>true])->addOrderBy('root, lft')->all();
     }
 
 }

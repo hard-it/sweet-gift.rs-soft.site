@@ -16,7 +16,7 @@ use yii\db\ActiveQuery;
  * @property int          $Quantity       Количество
  * @property array        $State          Состояние части продукта
  */
-class ProductPart extends \yii\db\ActiveRecord
+class ProductPart extends BaseActiveRecord
 {
     /**
      * {@inheritdoc}

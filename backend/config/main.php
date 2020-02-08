@@ -23,10 +23,10 @@ return [
             ],
             'treeEncryptSalt' => '5d95646cbc48343c9531edc114989e60feee568d9b0c3cc3c4a0e9e60ead6564',
         ],
-        'gridview' =>  [
+        'gridview'    => [
             'class' => '\kartik\grid\Module'
-            // enter optional module parameters below - only if you need to  
-            // use your own export download action or custom translation 
+            // enter optional module parameters below - only if you need to
+            // use your own export download action or custom translation
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
@@ -73,6 +73,18 @@ return [
                         'app'       => 'app.php',
                         'elfinder'  => 'elfinder.php',
                         'app/error' => 'error.php',
+                    ],
+                ],
+            ],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'jsOptions'  => ['position' => \yii\web\View::POS_HEAD],
+                    // do not publish the bundle
+                    'sourcePath' => null,
+                    'js'         => [
+                        '//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
                     ],
                 ],
             ],
@@ -128,6 +140,8 @@ return [
                 'source'         => __DIR__ . '/water-mark.png', // Path to Water mark image
                 'marginRight'    => 5,          // Margin right pixel
                 'marginBottom'   => 5,          // Margin bottom pixel
+                'ratio'          => 1,
+                'position'       => 'CM',
                 'quality'        => 95,         // JPEG image save quality
                 'transparency'   => 70,         // Water mark image transparency ( other than PNG )
                 'targetType'     => IMG_GIF | IMG_JPG | IMG_PNG | IMG_WBMP, // Target image formats ( bit-field )

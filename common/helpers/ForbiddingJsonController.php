@@ -3,10 +3,15 @@
 namespace common\helpers;
 
 use Yii;
-use yii\web\Controller;
+use Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\Response;
-class ForbiddingJsonController extends Controller
+
+/**
+ * Class ForbiddingJsonController
+ * @package common\helpers
+ */
+class ForbiddingJsonController extends BaseController
 {
     /**
      * @param $action

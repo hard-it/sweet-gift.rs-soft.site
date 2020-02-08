@@ -4,7 +4,6 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "Product".
@@ -17,7 +16,7 @@ use yii\db\ActiveRecord;
  * @property int             $Quantity         Количество
  * @property array           $State            Множество состояний продукта в JSON.
  */
-class Product extends ActiveRecord
+class Product extends ActiveQuery
 {
     /**
      * {@inheritdoc}

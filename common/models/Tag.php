@@ -4,14 +4,13 @@ namespace common\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "Tag".
  *
  * @property string $Name Наименование
  */
-class Tag extends ActiveRecord
+class Tag extends BaseActiveRecord
 {
     /**
      * {@inheritdoc}

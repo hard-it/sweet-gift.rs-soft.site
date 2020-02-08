@@ -5,19 +5,18 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\CustomerOrder */
 
-$this->title = Yii::t('app', 'Update Customer Order: {name}', [
-    'name' => $model->Id,
+$this->title = Yii::t('app', 'Изменение заказа: #{name}', [
+    'name' => $model->Number,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Customer Orders'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->Id, 'url' => ['view', 'id' => $model->Id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
-?>
-<div class="customer-order-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+$this->title = Yii::t('app', 'Добавление заказа');
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+echo Html::beginTag('div', ['class' => 'customer-order-update']);
 
-</div>
+echo Html::tag('h1', Html::encode($this->title));
+
+echo $this->render('_form', [
+    'model' => $model,
+]);
+
+echo Html::endTag('div');
