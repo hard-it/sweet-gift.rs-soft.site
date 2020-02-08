@@ -25,7 +25,6 @@ class CustomerOrder extends BaseActiveRecord
     const ORDER_PRODUCT_QUANTITY     = 'quantity';
     const ORDER_PRODUCT_SUM          = 'sum';
     const ORDER_PRODUCT_COMMENT      = 'comment';
-    const ORDER_PRODUCT_PRICE        = 'price';
 
     /**
      * Список продуктов для заказа

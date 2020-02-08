@@ -234,7 +234,7 @@ div.image-preview-container {
 }
  */
 
-div.image-preview-container, div.order-product-item {
+div.image-preview-container {
     width: 100%;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -243,12 +243,15 @@ div.image-preview-container, div.order-product-item {
 }
 
 div.order-product-item {
-    width: 100%;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+}
+
+div.order-state-item {
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 20px;
 }
 
 
@@ -421,6 +424,10 @@ button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus, #mode
     top: 8px;
     right: 15px;
 }
+#model-states  .js-input-remove {
+    top: 8px;
+    right: 15px;
+}
 
 #model-products .customer-order-add-product-button {
     padding-right: 0px;
@@ -429,9 +436,22 @@ button, a, tr, #node-images .js-input-remove, #node-images .js-input-plus, #mode
     margin-right: 5px;
 }
 
+#model-states .custumer-order-state-add-button {
+    padding-right: 0px;
+    float: right;
+    margin-top: -33px;
+    margin-right: 5px;
+}
+
+
 #model-products .order-product-item {
     padding-top: 50px;
 }
+
+#model-states .order-state-item {
+    padding-top: 50px;
+}
+
 
 
 #node-images .product-category-add-button > div {

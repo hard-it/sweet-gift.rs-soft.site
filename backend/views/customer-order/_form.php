@@ -192,7 +192,8 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
 
     'rowOptions' => [
         //'class' => 'col-md-12 col-lg-12 col-xs-12 col-xs-offset-0',
-        'class' => 'col-11 col-md-11 col-lg-11 col-xs-11 col-xs-offset-0 order-product-item',
+        //'class' => 'col-11 col-md-11 col-lg-11 col-xs-11 col-xs-offset-0 order-product-item',
+        'class' => 'col-md-5 col-lg-3 col-xs-12 col-xs-offset-0 col-lg-offset-1 col-md-offset-1 order-product-item',
     ],
 
 ]);
@@ -210,7 +211,7 @@ echo $form->field($model, 'State')->widget(MultipleInput::class, [
     'allowEmptyList'    => false,
     'enableGuessTitle'  => true,
     'cloneButton'       => false,
-    'sortable'          => true,
+    'sortable'          => false,
     // show add button in the footer
     'addButtonPosition' => MultipleInput::POS_HEADER,
     'id'                => 'model-states',
@@ -263,14 +264,14 @@ echo $form->field($model, 'State')->widget(MultipleInput::class, [
     'theme'             => BaseRenderer::THEME_BS,
     'layoutConfig'      => [
         'offsetClass'       => 'col-xs-offset-0 col-md-offset-0',
-        'wrapperClass'      => 'col-md-10 col-lg-10 col-xs-10 col-xs-offset-0 col-md-offset-0 customer-order-images-wrapper',
+        'wrapperClass'      => 'col-12 col-md-12 col-lg-12 col-xs-12 col-xs-offset-0 col-md-offset-0 node-images-wrapper',
         //'buttonAddClass'    => 'col-md-offset-11 col-xs-offset-11 col-lg-offset-11 col-sm-offset-10 customer-order-button-offset-1',
-        'buttonAddClass'    => 'col-md-offset-12 col-xs-offset-12 col-lg-offset-12 col-sm-offset-12 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1 product-type-add-button',
-        'buttonActionClass' => 'col-xs-offset-10 col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-0 customer-order-button-offset',
+        'buttonAddClass'    => 'col-md-offset-12 col-xs-offset-12 col-lg-offset-12 col-sm-offset-12 col-1 col-md-1 col-xs-1 col-lg-1 col-sm-1 custumer-order-state-add-button',
+        'buttonActionClass' => 'col-xs-offset-12 col-lg-offset-12 col-md-offset-12 col-sm-offset-12 col-xs-0 image-button-offset-1',
     ],
 
     'rowOptions' => [
-        'class' => 'col-md-12 col-lg-12 col-xs-12 col-xs-offset-0',
+        'class' => 'col-md-5 col-lg-3 col-xs-12 col-xs-offset-0 col-lg-offset-1 col-md-offset-1 order-state-item',
     ],
 
 ]);
