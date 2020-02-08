@@ -2,12 +2,14 @@
 
 namespace common\models;
 
+use \yii\db\ActiveQuery;
+
 /**
  * This is the ActiveQuery class for [[Keyword]].
  *
  * @see Keyword
  */
-class KeywordQuery extends \yii\db\ActiveQuery
+class KeywordQuery extends ActiveQuery
 {
     /*public function active()
     {

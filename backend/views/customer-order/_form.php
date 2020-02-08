@@ -72,7 +72,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
     'allowEmptyList'    => true,
     'enableGuessTitle'  => true,
     'cloneButton'       => false,
-    'sortable'          => true,
+    'sortable'          => false,
     // show add button in the footer
     'addButtonPosition' => MultipleInput::POS_HEADER,
     'id'                => 'model-products',
@@ -86,7 +86,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             'options' => [
                 'data'          => ProductType::getFullTree(),
                 'pluginOptions' => [
-                    'placeholder' => 'Товар...',
+                    'placeholder' => Yii::t('app','Товар...'),
                 ],
                 'pluginEvents'  => [
                     'select2:select' => 'function() { loadOrderProductCost(this); }',
@@ -299,8 +299,8 @@ $buttonHelper->registerPreviousMoveScript('previous-button');
 
 MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', '.input-group.date > input');
 
-echo Html::script(MultiInputHelper::buildAfterSelectOrderProductCost());
-echo Html::script(MultiInputHelper::addFormatMoneyValue('.product-cost', 2));
+echo Html::script(MultiInputHelper::buildAfterSelectOrderProductCost(2));
+echo Html::script(MultiInputHelper::recalcTotals('model-products', 'product-cost', 'product-quantity', 'product-sum', 2));
 ?>
 
 <div class="customer-order-form">

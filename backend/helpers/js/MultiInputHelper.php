@@ -81,12 +81,17 @@ JS;
 
     }
 
-    public static function buildAfterSelectOrderProductCost()
+    /**
+     * @param int $decimals
+     *
+     * @return string
+     */
+    public static function buildAfterSelectOrderProductCost(int $decimals)
     {
         $js = <<<JS
 
         function loadOrderProductCost(point) {
-          let blockDiv = $(point).parent().parent().parent().parent();
+          let blockDiv = $(point).parent().parent().parent();
           let productId = $(point).val();
           let productCost = blockDiv.find('.product-cost');
           let productQty = blockDiv.find('.product-quantity');
@@ -101,14 +106,11 @@ JS;
             }
             ).done(function (data) {
 
-              console.log(blockDiv.html());
-              console.log(productCost.html());
-              
             if (data.code) {
               data.data.cost = 0.00;
             }
             productCost.val(data.data.cost);
-            productSum.val(data.data.cost * productQty.val());
+            productSum.val((data.data.cost * productQty.val()).toFixed({$decimals}));
             $('#pay-error').html('&nbsp;')
         } ).fail(function () {
         $('#pay-error').html(anyThingMessage);
@@ -121,20 +123,27 @@ JS;
     }
 
     /**
-     * @param string $valueContainer
+     * @param string $multiId
+     * @param string $costContainer
+     * @param string $quatityContainer
+     * @param string $totalContainer
      * @param int    $decimals
      *
      * @return string
      */
-    public static function addFormatMoneyValue(string $valueContainer, int $decimals)
+    public static function recalcTotals(string $multiId, string $costContainer, string $quatityContainer, string $totalContainer, int $decimals)
     {
         $js = <<<JS
-        $('{$valueContainer}').on('change input keyup', function () {
-          
+        $('#{$multiId}').on('afterAddRow', function (e, row, currentIndex) {
+        $(row).find('.{$costContainer}, .{$quatityContainer}').on('change input keyup', function () {
+          let total = parseFloat($(row).find('.{$costContainer}').val()) * parseFloat($(row).find('.{$quatityContainer}').val());
+          $(row).find('.{$totalContainer}').val(total.toFixed(2));
+        });
         });
 JS;
 
         return $js;
 
     }
+
 }

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -10,7 +11,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property string $Name Наименование
  */
-class Keyword extends ActiveQuery
+class Keyword extends ActiveRecord
 {
     /**
      * {@inheritdoc}
