@@ -80,4 +80,14 @@ class Customer extends BaseActiveRecord
     {
         return new CustomerQuery(get_called_class());
     }
+
+    /**
+     * @param string $phone
+     *
+     * @return array|Customer|null
+     */
+    public static function findByPhone(string $phone)
+    {
+        return static::find()->andWhere(['like', 'Phone', $phone])->one();
+    }
 }
