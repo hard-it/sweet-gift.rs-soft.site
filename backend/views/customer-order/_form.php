@@ -44,7 +44,7 @@ echo Html::beginTag('div', ['class' => 'row']);
 echo $form->field($model, 'customer0[Id]')->hiddenInput()->label(false);;
 
 echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
-echo $form->field($model, 'customer0[Phone]')->widget(PhoneInput::className(), [
+echo $form->field($model, 'customer0[Phone]')->widget(PhoneInput::class, [
     'jsOptions' => [
         'preferredCountries' => ['ru', 'pl', 'ua'],
     ],
