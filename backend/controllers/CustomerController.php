@@ -121,6 +121,11 @@ class CustomerController extends Controller
         return $this->redirect(Url::previous());
     }
 
+    /**
+     * @param string $phone
+     *
+     * @return array
+     */
     public function actionFindByPhone(string $phone = '')
     {
         $customer = Customer::findByPhone($phone);
@@ -136,6 +141,7 @@ class CustomerController extends Controller
         $customerData = $customer->toArray(
             [
                 'Id',
+                'Phone',
                 'Firstname',
                 'Lastname',
             ]
