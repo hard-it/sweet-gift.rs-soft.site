@@ -98,11 +98,9 @@ class CustomerOrder extends BaseActiveRecord
      */
     public function getCustomer0()
     {
-        if (isset($this->customerData)) {
-            return $this->customerData;
-        }
+        $this->customerData = $this->hasOne(Customer::class, ['Id' => 'Customer']);
 
-        return $this->hasOne(Customer::class, ['Id' => 'Customer']);
+        return $this->customerData;
     }
 
     /**
@@ -147,6 +145,23 @@ class CustomerOrder extends BaseActiveRecord
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        $result   = '';
+        $customer = $this->customer0;
+        if (isset($customer)) {
+            $result = trim(
+                ($customer->Firstname ?? '')
+                . ' '
+                . ($customer->Lastname ?? '')
+            );
+        }
+
+        return $result;
+    }
 
     /**
      * {@inheritdoc}

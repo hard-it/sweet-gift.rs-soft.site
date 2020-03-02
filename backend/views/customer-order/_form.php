@@ -313,10 +313,10 @@ MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', '.input-gro
 echo Html::script(MultiInputHelper::buildAfterSelectOrderProductCost(2));
 
 echo Html::script(CustomerFinderHelper::buildFinderScript(
-    Html::getInputId($model, 'customer0[Phone]'),
-    Html::getInputId($model, 'customer0[Id]'),
-    Html::getInputId($model, 'customer0[Firstname]'),
-    Html::getInputId($model, 'customer0[Lastname]')
+    Html::getInputId($model, 'customerData[Phone]'),
+    Html::getInputId($model, 'customerData[Id]'),
+    Html::getInputId($model, 'customerData[Firstname]'),
+    Html::getInputId($model, 'customerData[Lastname]')
 ));
 
 echo Html::script(MultiInputHelper::recalcTotals('model-products', 'product-cost', 'product-quantity', 'product-sum', 2));

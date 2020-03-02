@@ -5,15 +5,23 @@ namespace backend\helpers\js;
 class CustomerFinderHelper extends BaseJsHelper
 {
 
+    const CUSTOMER_FIND_BY_PHONE_URL = '/customer/find-by-phone';
+
     public static function buildFinderScript(string $fieldId, string $customerId, string $firstNameId, string $lastNameId)
     {
-        $js = <<<JS
-          $("#{$fieldId}").on('change', function() {
+        $url = static::CUSTOMER_FIND_BY_PHONE_URL;
+        $js  = "
+          $('#{$fieldId}').on('change', function() {
+            let curPhone = $('#{$fieldId}').val();
+            
+            if (curPhone.length < 4) {
+                return;
+            }
             let data = {
-            phone: $('#{$fieldId}').val()              
+            phone: curPhone              
           };
             $.ajax({
-              url: '/customer/find-by-phone',
+              url: '{$url}',
             data: data,
             }).done(function (data) {
 
@@ -30,8 +38,8 @@ class CustomerFinderHelper extends BaseJsHelper
                 $('#{$lastNameId}').removeAttr('value');
               }
             });
-          });
-JS;
+          });";
+
         return $js;
     }
 }

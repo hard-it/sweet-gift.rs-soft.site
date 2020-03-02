@@ -126,7 +126,7 @@ echo GridView::widget([
         ],
         [
             'format'        => 'raw',
-            'value'         => function (ProductType $model) {
+            'value'         => function (CustomerOrder $model) {
 
                 $delete = Html::tag('i', '', ['class' => 'fa fa-trash gridview-delete-button', 'data-key' => $model->Id]);
 
