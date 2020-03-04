@@ -1,0 +1,29 @@
+"popular":{
+	"code": 403,
+	"message": "Forbidden"
+    "product1":{
+        "image": "/content/images/products/tort-napoleon.svg",
+        "title": "Торт Наполеон",
+        "link": "/categories/torty/tort-napoleon",
+        "category": "Торты",
+        "price":"2500",
+        "measure": "за 1 шт"
+        
+    },
+    "product2":{
+        "image": "/content/images/products/bushe.svg",
+        "title": "Пирожное Буше",
+        "link": "/categories/pirozhnye/pirozhnoe-bushe",
+        "category": "Пирожные",
+        "price":"250",
+        "measure": "3а 1 шт"
+    },
+    "product3":{
+        "image": "/content/images/products/ovsyannoe.svg",
+        "title": "Овсянное",
+        "link": "/categories/pechenie/ovsyannoe",
+        "category": "Печенье",
+        "price":"600",
+        "measure": "за 1 кг"
+    }
+}  

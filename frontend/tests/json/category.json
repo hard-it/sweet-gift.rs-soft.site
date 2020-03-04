@@ -1,0 +1,19 @@
+"categories":{
+	"code": 403,
+	"message": "Forbidden"
+    "category1":{
+        "image": "/content/images/categories/torty.svg",
+        "title": "Торты",
+        "link": "/categories/torty",
+    },
+    "category2":{
+        "image": "/content/images/categories/pirozhnye.svg",
+        "title": "Пирожные",
+        "link": "/categories/pirozhnye",
+    },
+    "category3":{
+        "image": "/content/images/categories/pechenie.svg",
+        "title": "Печенье",
+        "link": "/categories/pechenie",
+    }
+}  
