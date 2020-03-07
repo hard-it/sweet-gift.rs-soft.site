@@ -3,17 +3,17 @@
     "message": "Forbidden",
     "categories": {
         "category1": {
-            "image": "/content/images/categories/torty.svg",
+            "image": "/content/images/category/torty.svg",
             "title": "Торты",
             "link": "/categories/torty"
         },
         "category2": {
-            "image": "/content/images/categories/pirozhnye.svg",
+            "image": "/content/images/category/pirozhnye.svg",
             "title": "Пирожные",
             "link": "/categories/pirozhnye"
         },
         "category3": {
-            "image": "/content/images/categories/pechenie.svg",
+            "image": "/content/images/category/pechenie.svg",
             "title": "Печенье",
             "link": "/categories/pechenie"
         }
