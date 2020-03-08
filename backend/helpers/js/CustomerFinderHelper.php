@@ -34,8 +34,8 @@ class CustomerFinderHelper extends BaseJsHelper
                 $('#{$lastNameId}').val(data.data.Lastname);
               } else {
                 $('#{$customerId}').removeAttr('value');
-                $('#{$firstNameId}').removeAttr('value');
-                $('#{$lastNameId}').removeAttr('value');
+                $('#{$firstNameId}').val('');
+                $('#{$lastNameId}').val('');
               }
             });
           });";
