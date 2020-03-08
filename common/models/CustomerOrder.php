@@ -13,25 +13,24 @@ use Yii;
  * @property int      $Customer              Заказчик
  * @property Customer $customer0             Заказчик
  * @property array    $State                 Состояние заказа
- * @property string   $Sum                   Сумма заказа
+ * @property float    $Sum                   Сумма заказа
  * @property array    $OrderPoint            Точка получения заказа
  * @property array    $OrderPointDescription Описание точки получения заказа
  */
 class CustomerOrder extends BaseActiveRecord
 {
-    const ORDER_PRODUCT_ID           = 'id';
-    const ORDER_PRODUCT_PRODUCT_TYPE = 'product_type';
-    const ORDER_PRODUCT_COST         = 'cost';
-    const ORDER_PRODUCT_QUANTITY     = 'quantity';
-    const ORDER_PRODUCT_SUM          = 'sum';
-    const ORDER_PRODUCT_COMMENT      = 'comment';
+    const ORDER_PRODUCT_ID           = 'Id';
+    const ORDER_PRODUCT_PRODUCT_TYPE = 'Product';
+    const ORDER_PRODUCT_COST         = 'Cost';
+    const ORDER_PRODUCT_QUANTITY     = 'Quantity';
+    const ORDER_PRODUCT_SUM          = 'Sum';
+    const ORDER_PRODUCT_COMMENT      = 'Comment';
 
     /**
      * Список продуктов для заказа
      * @var array
      */
     public $productData = [];
-
 
     /**
      * копия данных о заказчике
@@ -69,6 +68,7 @@ class CustomerOrder extends BaseActiveRecord
             [['Customer'], 'integer'],
             [['State', 'OrderPoint', 'OrderPointDescription', 'customerData', 'productData'], 'safe'],
             [['Sum'], 'number'],
+            [['customer0'], 'safe'],
             [['Number'], 'string', 'max' => 20],
             [['Number'], 'unique'],
             [['Customer', 'Number'], 'unique', 'targetAttribute' => ['Customer', 'Number']],
@@ -110,7 +110,7 @@ class CustomerOrder extends BaseActiveRecord
      */
     public function setCustomer0($data)
     {
-        $this->customerData = $this->getCustomer0() ?? new Customer();
+        $this->customerData = Customer::findOne($data['Id']) ?? new Customer();
 
         $this->customerData->load($data, '');
 
@@ -122,7 +122,7 @@ class CustomerOrder extends BaseActiveRecord
      */
     public function getOrderProducts()
     {
-        return $this->hasMany(OrderProduct::class, ['Order' => 'Id']);
+        return $this->hasMany(OrderProduct::class, ['CustomerOrder' => 'Id']);
     }
 
     /**
@@ -146,38 +146,11 @@ class CustomerOrder extends BaseActiveRecord
     }
 
     /**
-     * @return string
-     */
-    public function getFullName()
-    {
-        $result   = '';
-        $customer = $this->customer0;
-        if (isset($customer)) {
-            $result = trim(
-                ($customer->Firstname ?? '')
-                . ' '
-                . ($customer->Lastname ?? '')
-            );
-        }
-
-        return $result;
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return CustomerOrderQuery the active query used by this AR class.
-     */
-    public static function find()
-    {
-        return new CustomerOrderQuery(get_called_class());
-    }
-
-    /**
      * @return array
      */
-    protected function loadProductData()
+    public function loadProductData()
     {
-        $products = $this->getOrderProducts();
+        $products = $this->getOrderProducts()->all();
 
         $this->productData = [];
 
@@ -199,4 +172,117 @@ class CustomerOrder extends BaseActiveRecord
 
         return $this->productData;
     }
+
+    /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        $result   = '';
+        $customer = $this->getCustomer0();
+        if (isset($customer)) {
+            $customer = $customer->one();
+            $result = trim(
+                ($customer->Firstname ?? '')
+                . ' '
+                . ($customer->Lastname ?? '')
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param bool $runValidation
+     * @param null $attributeNames
+     *
+     * @return bool
+     */
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        try {
+            $transaction = static::getDb()->beginTransaction();
+
+            $this->Sum = $this->calcOrderTotal();
+
+            if (isset($this->customerData) && !$this->customerData->save($runValidation, $attributeNames)) {
+                $transaction->rollBack();
+
+                return false;
+            }
+
+            if (isset($this->customerData)) {
+                $this->Customer = $this->customerData->Id;
+            }
+
+            if (!parent::save($runValidation, $attributeNames)) {
+                $transaction->rollBack();
+
+                return false;
+            }
+
+            if (!$this->saveProductData()) {
+                $transaction->rollBack();
+
+                return false;
+            }
+
+            $transaction->commit();
+
+        } catch (Exception $e) {
+            throw $e;
+        } catch (Throwable $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+
+        return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     * @return CustomerOrderQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new CustomerOrderQuery(get_called_class());
+    }
+
+    /**
+     * @return float|int
+     */
+    protected function calcOrderTotal()
+    {
+        $result = 0;
+
+        foreach ($this->productData as $productDatum) {
+            $curSum = round($productDatum[static::ORDER_PRODUCT_SUM], 2) ?? 0;
+            $result += $curSum ? $curSum : 0;
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function saveProductData()
+    {
+        static::getDb()
+            ->createCommand()
+            ->delete(OrderProduct::tableName(), ['CustomerOrder' => $this->Id])
+            ->execute();
+
+        foreach ($this->productData as $productDatum) {
+            $product = new OrderProduct();
+            $product->load($productDatum, '');
+            $product->CustomerOrder = $this->Id;
+            if (!$product->save()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }

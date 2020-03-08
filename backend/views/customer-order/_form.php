@@ -24,6 +24,8 @@ use backend\helpers\js\CustomerFinderHelper;
 
 $buttonHelper = new ButtonHelper($this);
 
+$model->loadProductData();
+
 echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
 
 echo Html::beginTag('div', ['class' => 'customer-order-form']);
@@ -161,7 +163,6 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             },
             'defaultValue' => 0,
             'options'      => [
-                'readonly'           => true,
                 'displayOptions'     => [
                     'class'       => 'form-control product-sum',
                     'placeholder' => Yii::t('app', 'Всего...'),
