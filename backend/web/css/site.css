@@ -486,3 +486,8 @@ div.placeholder:before {
 .form-horizontal .control-label {
     text-align: left;
 }
+
+.input-multiselect {
+    overflow: auto;
+    min-height: 183px !important;
+}

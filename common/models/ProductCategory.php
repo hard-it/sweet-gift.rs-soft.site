@@ -6,6 +6,8 @@ use common\models\traits\Images;
 use Yii;
 use common\models\ActiveQuery;
 use kartik\tree\models\Tree;
+use yii\behaviors\SluggableBehavior;
+use yii\helpers\Inflector;
 
 /**
  * This is the model class for table "ProductCategory".
@@ -13,6 +15,7 @@ use kartik\tree\models\Tree;
  * @property int    $Id              Идентификатор записи
  * @property string $Code            Код категории
  * @property string $Name            Наименование
+ * @property string $Alias           СЕО наименование
  * @property string $Description     Описание
  * @property array  $Tags            Тэги
  * @property array  $Images          Изображения
@@ -63,6 +66,7 @@ class ProductCategory extends Tree
             [['Code'], 'required'],
             [['Name'], 'unique'],
             [['Name'], 'required'],
+            [['Alias'], 'unique'],
             [['Tags', 'Keywords', 'Images'], 'safe'],
             [['root', 'lft', 'rgt', 'lvl', 'icon_type', 'active', 'selected', 'disabled', 'readonly', 'visible', 'collapsed', 'movable_u', 'movable_d', 'movable_l', 'movable_r', 'removable', 'removable_all', 'child_allowed'], 'integer'],
         ];
@@ -77,6 +81,7 @@ class ProductCategory extends Tree
             'Id'            => Yii::t('app', 'Идентификатор записи'),
             'Code'          => Yii::t('app', 'Код категории'),
             'Name'          => Yii::t('app', 'Наименование'),
+            'Alias'         => Yii::t('app', 'URL'),
             'Description'   => Yii::t('app', 'Описание'),
             'Tags'          => Yii::t('app', 'Тэги'),
             'Keywords'      => Yii::t('app', 'Ключевые слова'),
@@ -102,6 +107,35 @@ class ProductCategory extends Tree
             'child_allowed' => Yii::t('app', 'Можно добавлять подчинённые'),
 
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        $result = parent::behaviors();
+
+        $result[] = [
+            'class'         => SluggableBehavior::class,
+            'attribute'     => null,
+            'slugAttribute' => 'Alias',
+            'immutable'     => false,
+            'ensureUnique'  => true,
+            'value'         => function ($event) {
+                $len = isset($this->Alias) ? strlen($this->Alias) : 0;
+                $slug = null;
+                if (!$len) {
+                    $slug = Inflector::slug($this->Name);
+                } else {
+                    $slug = $this->Alias;
+                }
+
+                return $slug;
+            },
+        ];
+
+        return $result;
     }
 
     /**
@@ -136,7 +170,7 @@ class ProductCategory extends Tree
      */
     public static function getActiveTree()
     {
-        return static::find()->andWhere(['active'=>true])->addOrderBy('root, lft')->all();
+        return static::find()->andWhere(['active' => true])->addOrderBy('root, lft')->all();
     }
 
 }

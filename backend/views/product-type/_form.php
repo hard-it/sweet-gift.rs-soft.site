@@ -15,7 +15,8 @@ use mihaildev\elfinder\InputFile;
 use backend\helpers\js\MultiInputHelper;
 use kartik\number\NumberControl;
 use common\models\ProductType;
-use backend\helpers\js\grids\ButtonHelper;
+use backend\helpers\js\grids\ButtonHelper as GridButtonHelper;
+use backend\helpers\js\forms\ButtonHelper as FormButtonHelper;
 use unclead\multipleinput\renderers\BaseRenderer;
 use backend\helpers\MarkedDivRenderer;
 
@@ -23,7 +24,7 @@ use backend\helpers\MarkedDivRenderer;
 /* @var $model common\models\ProductType */
 /* @var $form yii\widgets\ActiveForm */
 
-$buttonHelper = new ButtonHelper($this);
+$buttonHelper = new GridButtonHelper($this);
 
 echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
 
@@ -37,17 +38,28 @@ $form = ActiveForm::begin(
 
 echo Html::beginTag('div', ['class' => 'row']);
 
-echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-12']);
+echo Html::beginTag('div', ['class' => 'col-lg-2 col-xs-12']);
 echo $form->field($model, 'Code')
     ->textInput(['maxlength' => true])
     ->label(null, ['maxlength' => true]);
 echo Html::endTag('div');
 
-echo Html::beginTag('div', ['class' => 'col-lg-9 col-xs-12']);
+echo Html::beginTag('div', ['class' => 'col-lg-5 col-xs-12']);
 echo $form->field($model, 'Name')
     ->textInput(['maxlength' => true])
     ->label(null, ['maxlength' => true]);;
 
+echo Html::endTag('div');
+
+echo Html::beginTag('div', ['class' => 'col-lg-5 col-xs-12']);
+echo $form->field($model, 'Alias', [
+    'addon' => [
+        'append' => ['content' => '<button class="btn btn-danger btn-clear-url"><i class="glyphicon glyphicon-remove"></i></button>', 'asButton' => true],
+    ],
+])
+    ->textInput([
+        'class' => 'url-input',
+    ]);
 echo Html::endTag('div');
 
 
@@ -299,3 +311,6 @@ echo Html::endTag('div');
 echo Html::endTag('div');
 
 $buttonHelper->registerPreviousMoveScript('previous-button');
+
+$clearScript = new FormButtonHelper($this);
+$clearScript->registerClearInputTextValue('url-input', 'btn-clear-url');
