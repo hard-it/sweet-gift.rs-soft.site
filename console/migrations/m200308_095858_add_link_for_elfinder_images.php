@@ -18,7 +18,7 @@ class m200308_095858_add_link_for_elfinder_images extends Migration
         if (static::isWindows()) {
             $command = "mklink /D  \"{$dstReal}\" \"{$srcReal}\"";
         } else {
-            $command = "ln -sf  {$srcReal} {$dstReal}";
+            $command = "ln -sf  {$dstReal} {$srcReal}";
         }
 
         echo $command;
