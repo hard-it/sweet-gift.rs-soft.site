@@ -24,6 +24,7 @@ use unclead\multipleinput\renderers\BaseRenderer;
 use backend\helpers\MarkedDivRenderer;
 use mihaildev\elfinder\InputFile;
 use backend\helpers\js\MultiInputHelper;
+use backend\helpers\js\forms\ButtonHelper;
 
 /**
  * @var View            $this
@@ -272,6 +273,16 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                     echo $form->field($node, 'Code')->textInput();
                     ?>
                     <?= $nameField ?>
+                    <?php
+                    echo $form->field($node, 'Alias', [
+                        'addon' => [
+                            'append' => ['content' => '<button class="btn btn-danger btn-clear-url"><i class="glyphicon glyphicon-remove"></i></button>', 'asButton' => true],
+                        ],
+                    ])
+                        ->textInput([
+                            'class' => 'url-input',
+                    ]);
+                    ?>
                 </div>
             </div>
         <?php else: ?>
@@ -280,6 +291,16 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
             echo $form->field($node, 'Code')->textInput();
             ?>
             <?= $nameField ?>
+            <?php
+            echo $form->field($node, 'Alias', [
+                'addon' => [
+                    'append' => ['content' => '<button class="btn btn-danger btn-clear-url"><i class="glyphicon glyphicon-remove"></i></button>', 'asButton' => true],
+                ],
+            ])
+                ->textInput([
+                    'class' => 'url-input',
+                ]);
+            ?>
         <?php endif; ?>
         <div class="row">
             <div class="col-12">
@@ -307,6 +328,16 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 echo $form->field($node, 'Code')->textInput();
                 ?>
                 <?= $nameField ?>
+                <?php
+                echo $form->field($node, 'Alias', [
+                    'addon' => [
+                        'append' => ['content' => '<button class="btn btn-danger btn-clear-url"><i class="glyphicon glyphicon-remove"></i></button>', 'asButton' => true],
+                    ],
+                ])
+                    ->textInput([
+                        'class' => 'url-input',
+                    ]);
+                ?>
             </div>
             <div class="col-xs-6">
                 <?= /** @noinspection PhpUndefinedMethodInspection */
@@ -555,7 +586,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
 <?php
 ActiveForm::end();
 MultiInputHelper::registerImageScript($this, 'node-images');
-//MultiInputHelper::registerTooltip($this);
-//MultiInputHelper::registerSortableOrder($this, 'node-images', '');
 MultiInputHelper::registerUpdateImagesIndexScript($this, 'product-category-tree-nodeform', 'image-index');
+$clearScript = new ButtonHelper($this);
+$clearScript->registerClearInputTextValue('url-input', 'btn-clear-url');
 ?>

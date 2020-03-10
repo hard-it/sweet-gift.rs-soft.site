@@ -7,6 +7,7 @@ use Yii;
 use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Inflector;
 
 /**
  * This is the model class for table "ProductType".
@@ -101,15 +102,26 @@ class ProductType extends BaseTagKeywordModel
      */
     public function behaviors()
     {
-        return [
-            [
-                'class'         => SluggableBehavior::class,
-                'attribute'     => 'Name',
-                'slugAttribute' => 'Alias',
-                'immutable'     => false,
-                'ensureUnique'  => true,
-            ],
+        $result = parent::behaviors();
+
+        $result[] = [
+            'class'         => SluggableBehavior::class,
+            'attribute'     => null,
+            'slugAttribute' => 'Alias',
+            'immutable'     => false,
+            'ensureUnique'  => true,
+            'value'         => function ($event) {
+                $len = isset($this->Alias) ? strlen($this->Alias) : 0;
+                $slug = null;
+                if (!$len) {
+                    $slug = Inflector::slug($this->Name);
+                }
+
+                return $slug;
+            },
         ];
+
+        return $result;
     }
 
     /**
