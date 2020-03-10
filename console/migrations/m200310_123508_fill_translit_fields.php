@@ -1,8 +1,6 @@
 <?php
 
 use yii\db\Migration;
-use common\models\ProductCategory;
-use common\models\ProductType;
 
 /**
  * Class m200310_123508_fill_translit_fields
@@ -14,20 +12,8 @@ class m200310_123508_fill_translit_fields extends Migration
      */
     public function safeUp()
     {
-        $categories = ProductCategory::find()->all();
-        foreach ($categories as $category) {
-            if (!$category->save()) {
-                return false;
-            }
-        }
-
-        $products = ProductType::find()->all();
-
-        foreach ($products as $product) {
-            if (!$product->save()) {
-                return false;
-            }
-        }
+        $this->buildAllAliases('ProductCategory', 'Id', 'Name', 'Alias');
+        $this->buildAllAliases('ProductType', 'Id', 'Name', 'Alias');
 
         return true;
 
@@ -57,4 +43,31 @@ class m200310_123508_fill_translit_fields extends Migration
         return false;
     }
     */
+
+    /**
+     * @param string $tableName
+     * @param string $idField
+     * @param string $name
+     * @param string $slug
+     *
+     * @throws \yii\db\Exception
+     */
+    protected function buildAllAliases(string $tableName, string $idField, string $name, string $slug)
+    {
+        $connection = $this->getDb();
+
+        $command = $connection->createCommand("
+         SELECT $idField, $name FROM $tableName   
+        ");
+
+        $records = $command->queryAll();
+        foreach ($records as $record) {
+            $id       = $record[$idField];
+            $slugData = \yii\helpers\Inflector::slug($record[$name]);
+            $connection->createCommand("
+         UPDATE $tableName SET $slug = '$slugData' WHERE $idField = $id;   
+        ")->execute();
+
+        }
+    }
 }
