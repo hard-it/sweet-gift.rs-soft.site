@@ -68,6 +68,7 @@ class ProductType extends BaseTagKeywordModel
             [['Code'], 'required'],
             [['Name'], 'required'],
             [['Category'], 'required'],
+            [['Alias'], 'unique'],
             [['Tags', 'Keywords', 'Images'], 'safe'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
@@ -85,7 +86,7 @@ class ProductType extends BaseTagKeywordModel
             'Category'        => Yii::t('app', 'Категория товара'),
             'Code'            => Yii::t('app', 'Код'),
             'Name'            => Yii::t('app', 'Наименование'),
-            'Alias'           => Yii::t('app', 'СЕО наименование'),
+            'Alias'           => Yii::t('app', 'URL'),
             'MinimalQuantity' => Yii::t('app', 'Минимальное количество'),
             'ShelfLife'       => Yii::t('app', 'Срок хранения товара'),
             'Measure'         => Yii::t('app', 'Единица измерения'),
@@ -115,6 +116,8 @@ class ProductType extends BaseTagKeywordModel
                 $slug = null;
                 if (!$len) {
                     $slug = Inflector::slug($this->Name);
+                } else {
+                    $slug = $this->Alias;
                 }
 
                 return $slug;
