@@ -4,9 +4,10 @@ namespace common\models;
 
 use common\models\traits\Images;
 use Yii;
+use yii\behaviors\SluggableBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Inflector;
 
 /**
  * This is the model class for table "ProductType".
@@ -16,6 +17,7 @@ use yii\helpers\ArrayHelper;
  * @property Category $сategory0        Категория товара
  * @property string   $Code             Код
  * @property string   $Name             Наименование
+ * @property string   $Alias            СЕО наименование
  * @property int      $MinimalQuantity  Минимальное количество
  * @property int      $ShelfLife        Срок хранения, сек
  * @property int      $Measure          Единица измерения
@@ -66,6 +68,7 @@ class ProductType extends BaseTagKeywordModel
             [['Code'], 'required'],
             [['Name'], 'required'],
             [['Category'], 'required'],
+            [['Alias'], 'unique'],
             [['Tags', 'Keywords', 'Images'], 'safe'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
@@ -83,6 +86,7 @@ class ProductType extends BaseTagKeywordModel
             'Category'        => Yii::t('app', 'Категория товара'),
             'Code'            => Yii::t('app', 'Код'),
             'Name'            => Yii::t('app', 'Наименование'),
+            'Alias'           => Yii::t('app', 'URL'),
             'MinimalQuantity' => Yii::t('app', 'Минимальное количество'),
             'ShelfLife'       => Yii::t('app', 'Срок хранения товара'),
             'Measure'         => Yii::t('app', 'Единица измерения'),
@@ -92,6 +96,35 @@ class ProductType extends BaseTagKeywordModel
             'Keywords'        => Yii::t('app', 'Ключевые слова'),
             'Images'          => Yii::t('app', 'Изображения'),
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        $result = parent::behaviors();
+
+        $result[] = [
+            'class'         => SluggableBehavior::class,
+            'attribute'     => null,
+            'slugAttribute' => 'Alias',
+            'immutable'     => false,
+            'ensureUnique'  => true,
+            'value'         => function ($event) {
+                $len = isset($this->Alias) ? strlen($this->Alias) : 0;
+                $slug = null;
+                if (!$len) {
+                    $slug = Inflector::slug($this->Name);
+                } else {
+                    $slug = $this->Alias;
+                }
+
+                return $slug;
+            },
+        ];
+
+        return $result;
     }
 
     /**
