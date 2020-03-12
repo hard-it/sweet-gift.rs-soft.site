@@ -286,6 +286,19 @@ echo Html::endTag('div');
 echo Html::endTag('div');
 echo Html::endTag('div');
 
+echo Html::beginTag('div', ['class' => 'row']);
+
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'IsNew')->checkbox();
+echo Html::endTag('div');
+
+echo Html::beginTag('div', ['class' => 'col-lg-2 col-xs-3']);
+echo $form->field($model, 'IsPopular')->checkbox();
+echo Html::endTag('div');
+
+
+echo Html::endTag('div');
+
 echo Html::beginTag('div', ['class' => 'form-group']);
 echo Html::beginTag('div', ['class' => 'row']);
 echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-sm-4 col-xs-6']);
