@@ -12,20 +12,22 @@ use yii\helpers\Inflector;
 /**
  * This is the model class for table "ProductType".
  *
- * @property int      $Id               Идентификатор записи
- * @property int      $Category         Категория товара
- * @property Category $сategory0        Категория товара
- * @property string   $Code             Код
- * @property string   $Name             Наименование
- * @property string   $Alias            СЕО наименование
- * @property int      $MinimalQuantity  Минимальное количество
- * @property int      $ShelfLife        Срок хранения, сек
- * @property int      $Measure          Единица измерения
- * @property string   $Cost             Цена за единицу
- * @property string   $Description      Описание
- * @property array    $Tags             Тэги
- * @property array    $Keywords         Ключевые слова
- * @property array    $Images           Изображения
+ * @property int      $Id                  Идентификатор записи
+ * @property int      $Category            Категория товара
+ * @property Category $сategory0           Категория товара
+ * @property string   $Code                Код
+ * @property string   $Name                Наименование
+ * @property string   $Alias               СЕО наименование
+ * @property int      $MinimalQuantity     Минимальное количество
+ * @property int      $ShelfLife           Срок хранения, сек
+ * @property int      $Measure             Единица измерения
+ * @property string   $Cost                Цена за единицу
+ * @property string   $Description         Описание
+ * @property array    $Tags                Тэги
+ * @property array    $Keywords            Ключевые слова
+ * @property array    $Images              Изображения
+ * @property bool     $IsNew               Новинка
+ * @property bool     $IsPopular           Популярный
  */
 class ProductType extends BaseTagKeywordModel
 {
@@ -73,6 +75,7 @@ class ProductType extends BaseTagKeywordModel
             [['Name'], 'required'],
             [['Category'], 'required'],
             [['Alias'], 'unique'],
+            [['IsNew', 'IsPopular'], 'boolean'],
             [['Tags', 'Keywords', 'Images'], 'safe'],
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
@@ -99,6 +102,8 @@ class ProductType extends BaseTagKeywordModel
             'Tags'            => Yii::t('app', 'Тэги'),
             'Keywords'        => Yii::t('app', 'Ключевые слова'),
             'Images'          => Yii::t('app', 'Изображения'),
+            'IsNew'           => Yii::t('app', 'Новинка'),
+            'IsPopular'       => Yii::t('app', 'Популярный'),
         ];
     }
 
