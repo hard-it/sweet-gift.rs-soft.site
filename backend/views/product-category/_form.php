@@ -397,7 +397,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
         'class'             => 'multiple-input col-md-12 col-xs-12 col-lg-12',
         'columns'           => [
             [
-                'name'    => 'url',
+                'name'    => ProductCategory::IMAGE_URL,
                 'type'    => InputFile::class,
                 'title'   => '',
                 'options' => [
@@ -447,7 +447,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
                 },
             ],
             [
-                'name'    => 'name',
+                'name'    => ProductCategory::IMAGE_NAME,
                 'title'   => '',
                 'options' => [
                     'class'       => 'image-title',
@@ -457,7 +457,7 @@ $icons = is_array($iconsList) ? array_values($iconsList) : $iconsList;
             ],
 
             [
-                'name'    => 'order',
+                'name'    => ProductCategory::IMAGE_ORDER,
                 'type'    => 'hiddenInput',
                 'title'   => '',
                 'options' => [

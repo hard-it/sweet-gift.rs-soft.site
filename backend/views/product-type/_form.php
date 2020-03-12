@@ -115,7 +115,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     'class'             => 'multiple-input col-md-12 col-xs-12 col-lg-12',
     'columns'           => [
         [
-            'name'    => 'url',
+            'name'    => ProductType::IMAGE_URL,
             'type'    => InputFile::class,
             'title'   => '',
             'options' => [
@@ -137,10 +137,10 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
             'name'  => 'PreviewImages',
             'type'  => 'static',
             'value' => function ($data) {
-                $url = $data['url'] ?? ProductCategory::DEFAULT_IMAGE;
+                $url = $data['url'] ?? ProductType::DEFAULT_IMAGE;
 
                 if (!strlen($url)) {
-                    $url = ProductCategory::DEFAULT_IMAGE;
+                    $url = ProductType::DEFAULT_IMAGE;
                 }
 
                 return
@@ -165,7 +165,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
             },
         ],
         [
-            'name'    => 'name',
+            'name'    => ProductType::IMAGE_NAME,
             'title'   => '',
             'options' => [
                 'class'       => 'image-title',
@@ -175,7 +175,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
         ],
 
         [
-            'name'    => 'order',
+            'name'    => ProductType::IMAGE_ORDER,
             'type'    => 'hiddenInput',
             'title'   => '',
             'options' => [

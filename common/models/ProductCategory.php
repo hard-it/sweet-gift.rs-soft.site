@@ -43,6 +43,9 @@ use yii\helpers\Inflector;
 class ProductCategory extends Tree
 {
     const DEFAULT_IMAGE = '/images/water-mark.png';
+    const IMAGE_NAME    = 'name';
+    const IMAGE_URL     = 'url';
+    const IMAGE_ORDER   = 'order';
 
     /**
      * {@inheritdoc}
@@ -123,7 +126,7 @@ class ProductCategory extends Tree
             'immutable'     => false,
             'ensureUnique'  => true,
             'value'         => function ($event) {
-                $len = isset($this->Alias) ? strlen($this->Alias) : 0;
+                $len  = isset($this->Alias) ? strlen($this->Alias) : 0;
                 $slug = null;
                 if (!$len) {
                     $slug = Inflector::slug($this->Name);
