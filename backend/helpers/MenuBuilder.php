@@ -88,6 +88,37 @@ class MenuBuilder
     /**
      * @return array
      */
+    public static function buildDictionaryItem()
+    {
+        $menuItems = [];
+
+        $dictsSubmenu = [];
+
+        if (ForbiddingController::hasAccess('app-backend\volume-measure\index')) {
+            $dictsSubmenu[] = [
+                'label' => Yii::t('app', 'Единицы объёмов'),
+                'icon'  => 'book',
+                'url'   => Url::toRoute('/volume-measure/index'),
+            ];
+        }
+
+        if (count($dictsSubmenu)) {
+            $menuItems = [
+                'label' => Yii::t('app', 'Справочники'),
+                'icon'  => 'book',
+                'items' => [],
+            ];
+
+            $menuItems['items'] = $dictsSubmenu;
+        }
+
+        return $menuItems;
+
+    }
+
+    /**
+     * @return array
+     */
     public static function buildImagesItem()
     {
         $menuItems = [];

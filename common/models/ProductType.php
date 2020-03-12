@@ -12,22 +12,25 @@ use yii\helpers\Inflector;
 /**
  * This is the model class for table "ProductType".
  *
- * @property int      $Id                  Идентификатор записи
- * @property int      $Category            Категория товара
- * @property Category $сategory0           Категория товара
- * @property string   $Code                Код
- * @property string   $Name                Наименование
- * @property string   $Alias               СЕО наименование
- * @property int      $MinimalQuantity     Минимальное количество
- * @property int      $ShelfLife           Срок хранения, сек
- * @property int      $Measure             Единица измерения
- * @property string   $Cost                Цена за единицу
- * @property string   $Description         Описание
- * @property array    $Tags                Тэги
- * @property array    $Keywords            Ключевые слова
- * @property array    $Images              Изображения
- * @property bool     $IsNew               Новинка
- * @property bool     $IsPopular           Популярный
+ * @property int           $Id                           Идентификатор записи
+ * @property int           $Category                     Категория товара
+ * @property Category      $сategory0                    Категория товара
+ * @property float         $VolumeSize                   Объём
+ * @property int           $VolumeSizeMeasure            Единица измерения объёма
+ * @property VolumeMeasure $volumeSizeMeasure0           Единица измерения объёма
+ * @property string        $Code                         Код
+ * @property string        $Name                         Наименование
+ * @property string        $Alias                        СЕО наименование
+ * @property int           $MinimalQuantity              Минимальное количество
+ * @property int           $ShelfLife                    Срок хранения, сек
+ * @property int           $Measure                      Единица измерения
+ * @property string        $Cost                         Цена за единицу
+ * @property string        $Description                  Описание
+ * @property array         $Tags                         Тэги
+ * @property array         $Keywords                     Ключевые слова
+ * @property array         $Images                       Изображения
+ * @property bool          $IsNew                        Новинка
+ * @property bool          $IsPopular                    Популярный
  */
 class ProductType extends BaseTagKeywordModel
 {
@@ -67,7 +70,7 @@ class ProductType extends BaseTagKeywordModel
     {
         return [
             [['Category', 'MinimalQuantity', 'ShelfLife', 'Measure'], 'integer'],
-            [['Cost'], 'number'],
+            [['Cost', 'VolumeSize'], 'number'],
             [['Description'], 'string'],
             [['Code'], 'string', 'max' => 21],
             [['Name'], 'string', 'max' => 128],
@@ -142,6 +145,14 @@ class ProductType extends BaseTagKeywordModel
     public function getCategory0()
     {
         return $this->hasOne(ProductCategory::class, ['Id' => 'Category']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getVolumeSizeMeasure0()
+    {
+        return $this->hasOne(VolumeMeasure::class, ['Id' => 'VolumeMeasure']);
     }
 
     /**
