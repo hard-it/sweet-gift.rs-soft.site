@@ -20,7 +20,7 @@ echo Html::beginTag('div', ['class' => 'customer-form']);
     echo Html::beginTag('div', ['class' => 'row']);
 
         echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
-            echo $form->field($model, 'Phone')->widget(PhoneInput::className(), [
+            echo $form->field($model, 'Phone')->widget(PhoneInput::class, [
                 'jsOptions' => [
                     'preferredCountries' => ['ru', 'pl', 'ua'],
                 ]
