@@ -48,7 +48,10 @@ class VolumeMeasureSearch extends VolumeMeasure
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query'      => $query,
+            'pagination' => [
+                'pageSize' => $this->pageSize ?? static::DEFAULT_PAGE_SIZE,
+            ],
         ]);
 
         $this->load($params);
