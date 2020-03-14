@@ -21,7 +21,7 @@ class VolumeMeasureSearch extends VolumeMeasure
     {
         return [
             [['Id'], 'integer'],
-            [['ShortName', 'OneName', 'SomeName', 'ManyName'], 'safe'],
+            [['ShortName', 'OneName', 'SomeName', 'ManyName', 'pageSize'], 'safe'],
         ];
     }
 
