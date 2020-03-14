@@ -2,28 +2,50 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use backend\helpers\js\grids\ButtonHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\VolumeMeasure */
 /* @var $form yii\widgets\ActiveForm */
-?>
 
-<div class="volume-measure-form">
+$buttonHelper = new ButtonHelper($this);
 
-    <?php $form = ActiveForm::begin(); ?>
+echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
 
-    <?= $form->field($model, 'ShortName')->textInput(['maxlength' => true]) ?>
+echo Html::beginTag('div', ['class' => 'customer-form']);
 
-    <?= $form->field($model, 'OneName')->textInput(['maxlength' => true]) ?>
+$form = ActiveForm::begin();
 
-    <?= $form->field($model, 'SomeName')->textInput(['maxlength' => true]) ?>
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-xs-6']);
+echo $form->field($model, 'ShortName')->textInput(['maxlength' => true]);
+echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-xs-6']);
+echo $form->field($model, 'OneName')->textInput(['maxlength' => true]);
+echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-xs-6']);
+echo $form->field($model, 'SomeName')->textInput(['maxlength' => true]);
+echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-xs-6']);
+echo $form->field($model, 'ManyName')->textInput(['maxlength' => true]);
+echo Html::endTag('div');
+echo Html::endTag('div');
 
-    <?= $form->field($model, 'Many')->textInput() ?>
+echo Html::beginTag('div', ['class' => 'form-group']);
+echo Html::beginTag('div', ['class' => 'row']);
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-sm-4 col-xs-6']);
+echo Html::submitButton(Yii::t('app', 'Сохранить'), ['class' => 'btn btn-lg btn-primary btn-success fa fa-save btn-block btn-flat']);
+echo Html::endTag('div');
+echo Html::beginTag('div', ['class' => 'col-3 col-md-3 col-lg-3 col-sm-4 col-xs-6']);
+echo Html::submitButton(Yii::t('app', 'Назад'), ['id'=>'previous-button', 'class' => 'btn btn-lg btn-primary fa fa-undo btn-block btn-flat btn-back']);
+echo Html::endTag('div');
+echo Html::endTag('div');
+echo Html::endTag('div');
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
 
-    <?php ActiveForm::end(); ?>
+ActiveForm::end();
 
-</div>
+echo Html::endTag('div');
+echo Html::endTag('div');
+
+$buttonHelper->registerPreviousMoveScript('previous-button');

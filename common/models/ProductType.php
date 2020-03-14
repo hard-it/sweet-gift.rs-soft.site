@@ -83,6 +83,7 @@ class ProductType extends BaseTagKeywordModel
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
             [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['Category' => 'Id']],
+            [['VolumeMeasure'], 'exist', 'skipOnError' => true, 'targetClass' => VolumeMeasure::class, 'targetAttribute' => ['VolumeMeasure' => 'Id']],
         ];
     }
 

@@ -5,7 +5,6 @@ use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use backend\helpers\js\grids\ButtonHelper;
-use kartik\dialog\DialogAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CustomerSearch */
@@ -98,13 +97,11 @@ echo GridView::widget([
             'headerOptions'  => ['class' => 'col-4 col-md-4 col-sm-4 col-xs-4'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
         ],
-
         [
             'format'        => 'raw',
             'value'         => function ($model) {
 
                 /* @var ProductType $model */
-                $update = '';
 
                 $delete = Html::tag('i', '', ['class' => 'fa fa-trash gridview-delete-button', 'data-key' => $model->Id]);
 

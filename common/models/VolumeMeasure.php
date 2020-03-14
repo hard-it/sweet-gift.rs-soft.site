@@ -11,7 +11,7 @@ use Yii;
  * @property string|null   $ShortName Сокращение
  * @property string|null   $OneName   Один
  * @property string|null   $SomeName  Несколько
- * @property resource|null $Many      Много
+ * @property string|null $ManyName      Много
  *
  * @property ProductType[] $productTypes
  */
@@ -32,7 +32,7 @@ class VolumeMeasure extends \yii\db\ActiveRecord
     {
         return [
             [['ShortName'], 'string', 'max' => 20],
-            [['OneName', 'SomeName', 'Many'], 'string', 'max' => 64],
+            [['OneName', 'SomeName', 'ManyName'], 'string', 'max' => 64],
             [['ShortName'], 'unique'],
         ];
     }
@@ -47,7 +47,7 @@ class VolumeMeasure extends \yii\db\ActiveRecord
             'ShortName' => Yii::t('app', 'Сокращение'),
             'OneName'   => Yii::t('app', 'Один'),
             'SomeName'  => Yii::t('app', 'Несколько'),
-            'Many'      => Yii::t('app', 'Много'),
+            'ManyName'      => Yii::t('app', 'Много'),
         ];
     }
 
@@ -58,7 +58,7 @@ class VolumeMeasure extends \yii\db\ActiveRecord
      */
     public function getProductTypes()
     {
-        return $this->hasMany(Producttype::className(), ['VolumeSizeMeasure' => 'Id']);
+        return $this->hasMany(Producttype::class, ['VolumeSizeMeasure' => 'Id']);
     }
 
     /**

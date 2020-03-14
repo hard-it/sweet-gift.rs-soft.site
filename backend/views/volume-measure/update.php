@@ -5,19 +5,16 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\VolumeMeasure */
 
-$this->title = Yii::t('app', 'Update Volume Measure: {name}', [
-    'name' => $model->Id,
+$this->title = Yii::t('app', 'Изменение единицы измерения: {name}', [
+    'name' => $model->ShortName,
 ]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Volume Measures'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->Id, 'url' => ['view', 'id' => $model->Id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
-?>
-<div class="volume-measure-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+echo Html::beginTag('div', ['class' => 'volume-measure-update']);
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+echo Html::tag('h1', Html::encode($this->title));
 
-</div>
+echo $this->render('_form', [
+    'model' => $model,
+]);
+
+echo Html::endTag('div');

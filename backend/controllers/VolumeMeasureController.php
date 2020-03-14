@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\VolumeMeasure;
 use common\models\VolumeMeasureSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,7 +24,7 @@ class VolumeMeasureController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['GET'],
                 ],
             ],
         ];
@@ -38,22 +39,24 @@ class VolumeMeasureController extends Controller
         $searchModel = new VolumeMeasureSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        Url::remember();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    /**
-     * Displays a single VolumeMeasure model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
+    public function actionClearSearch()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        $searchModel = new VolumeMeasureSearch();
+        $dataProvider = $searchModel->cleanSearch(Yii::$app->request->queryParams);
+
+        Url::remember();
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -67,7 +70,7 @@ class VolumeMeasureController extends Controller
         $model = new VolumeMeasure();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(Url::previous());
         }
 
         return $this->render('create', [
@@ -87,7 +90,7 @@ class VolumeMeasureController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(Url::previous());
         }
 
         return $this->render('update', [
@@ -106,7 +109,7 @@ class VolumeMeasureController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Url::previous());
     }
 
     /**

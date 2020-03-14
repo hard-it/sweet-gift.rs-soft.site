@@ -23,7 +23,7 @@ class m200312_083654_create_measure_dicts extends Migration
              COMMENT 'Один',
               `SomeName` Varchar(64)
              COMMENT 'Несколько',
-              `Many` Varbinary(64)
+              `ManyName` Varchar(64)
              COMMENT 'Много',
               PRIMARY KEY (`Id`)
             )
