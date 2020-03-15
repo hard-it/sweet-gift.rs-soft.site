@@ -9,12 +9,13 @@ use borales\extensions\phoneInput\PhoneInputValidator;
 /**
  * This is the model class for table "Customer".
  *
- * @property int    $Id         Идентификатор записи
- * @property string $Phone      Телефон
- * @property string $Firstname  Имя
- * @property string $Lastname   Фамилия
- * @property int    $User       Пользователь
- * @property User   $user0      Пользователь
+ * @property int    $Id                            Идентификатор записи
+ * @property string $Phone                         Телефон
+ * @property string $Firstname                     Имя
+ * @property string $Lastname                      Фамилия
+ * @property string $fullName                      Полное имя
+ * @property int    $User                          Пользователь
+ * @property User   $user0                         Пользователь
  */
 class Customer extends BaseActiveRecord
 {
@@ -70,6 +71,24 @@ class Customer extends BaseActiveRecord
     public function getUser0()
     {
         return $this->hasOne(User::class, ['Id' => 'User']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        $arr = [];
+
+        if (isset($this->Firstname)) {
+            $arr[] = $this->Firstname;
+        }
+
+        if (isset($this->Lastname)) {
+            $arr[] = $this->Lastname;
+        }
+
+        return implode(' ', $arr);
     }
 
     /**

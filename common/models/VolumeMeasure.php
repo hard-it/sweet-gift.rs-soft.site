@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "volumemeasure".
@@ -46,7 +47,7 @@ class VolumeMeasure extends \yii\db\ActiveRecord
             'Id'        => Yii::t('app', 'Идентификатор записи'),
             'ShortName' => Yii::t('app', 'Сокращение'),
             'OneName'   => Yii::t('app', 'Один'),
-            'SomeName'  => Yii::t('app', 'Несколько'),
+            'SomeName'  => Yii::t('app', 'Пара'),
             'ManyName'      => Yii::t('app', 'Много'),
         ];
     }
@@ -68,5 +69,17 @@ class VolumeMeasure extends \yii\db\ActiveRecord
     public static function find()
     {
         return new VolumeMeasureQuery(get_called_class());
+    }
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        $list = static::find()->orderBy(['ShortName' => 'ASC'])->all();
+
+        $dataList = ArrayHelper::map($list, 'Id', 'ShortName');
+
+        return $dataList;
+
     }
 }

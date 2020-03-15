@@ -19,6 +19,7 @@ use backend\helpers\js\grids\ButtonHelper as GridButtonHelper;
 use backend\helpers\js\forms\ButtonHelper as FormButtonHelper;
 use unclead\multipleinput\renderers\BaseRenderer;
 use backend\helpers\MarkedDivRenderer;
+use common\models\VolumeMeasure;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProductType */
@@ -282,6 +283,43 @@ echo Html::endTag('div');
 echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
 echo $form->field($model, 'Measure')->dropDownList(ProductType::MEASURE_VALUES);
 echo Html::endTag('div');
+
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'VolumeSize')->widget(NumberControl::class, [
+    'maskedInputOptions' => [
+        'prefix'         => '',
+        'suffix'         => '',
+        'allowMinus'     => false,
+        'groupSeparator' => '',
+        'radixPoint'     => '.',
+        'digits'         => 3,
+    ],
+    'displayOptions'     => [
+        'placeholder' => Yii::t('app', 'Введите объём...'),
+    ],
+]);
+echo Html::endTag('div');
+
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+
+$vsMeasure = VolumeMeasure::getList();
+
+if (!$model->VolumeSizeMeasure) {
+    $model->VolumeSizeMeasure = array_key_first($vsMeasure);
+}
+
+echo $form->field($model,'VolumeSizeMeasure')->widget(Select2::class, [
+    'data'          => $vsMeasure,
+    'value'         => $model->VolumeSizeMeasure,
+    'options'       => [
+        'placeholder' => Yii::t('app', 'Единица измерения ...'),
+    ],
+    'pluginOptions' => [
+        'allowClear' => false,
+    ],
+]);
+echo Html::endTag('div');
+
 
 echo Html::endTag('div');
 echo Html::endTag('div');

@@ -106,6 +106,18 @@ class CustomerOrder extends BaseActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        $customer = $this->getCustomer0()->one();
+
+        $result = isset($customer) ? $customer->fullName : '';
+
+        return $result;
+    }
+
+    /**
      * @param $data
      *
      * @return $this
