@@ -138,6 +138,7 @@ JS;
         $(row).find('.{$costContainer}, .{$quatityContainer}').on('change input keyup', function () {
           let total = parseFloat($(row).find('.{$costContainer}').val()) * parseFloat($(row).find('.{$quatityContainer}').val());
           $(row).find('.{$totalContainer}').val(total.toFixed(2));
+          $(row).find('.{$totalContainer}').next().children('input').val(total.toFixed(2));
         });
         });
 JS;

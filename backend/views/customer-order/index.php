@@ -106,11 +106,14 @@ echo GridView::widget([
         ],
 
         [
-            'attribute'      => 'fullName',
+            'attribute'      => 'fullname',
             'label'          => Yii::t('app', 'Заказчик'),
             'contentOptions' => ['class' => 'clickable-gridview-column'],
             'headerOptions'  => ['class' => 'col-3 col-md-3 col-sm-3 col-xs-3'],
             'vAlign'         => GridView::ALIGN_MIDDLE,
+            'value'          => function (CustomerOrder $model) {
+                return $model->getFullname();
+            },
         ],
 
         [

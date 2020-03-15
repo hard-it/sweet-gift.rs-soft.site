@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\helpers\BaseController;
 use Yii;
 use common\models\Customer;
 use common\models\CustomerSearch;
@@ -9,6 +10,7 @@ use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * CustomerController implements the CRUD actions for Customer model.
@@ -22,7 +24,7 @@ class CustomerController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class'   => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['GET'],
                 ],
@@ -36,26 +38,29 @@ class CustomerController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CustomerSearch();
+        $searchModel  = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         Url::remember();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionClearSearch()
     {
-        $searchModel = new CustomerSearch();
+        $searchModel  = new CustomerSearch();
         $dataProvider = $searchModel->cleanSearch(Yii::$app->request->queryParams);
 
         Url::remember();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -81,7 +86,9 @@ class CustomerController extends Controller
     /**
      * Updates an existing Customer model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -101,7 +108,9 @@ class CustomerController extends Controller
     /**
      * Deletes an existing Customer model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     *
      * @param integer $id
+     *
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -113,9 +122,47 @@ class CustomerController extends Controller
     }
 
     /**
+     * @param string $phone
+     *
+     * @return array
+     */
+    public function actionFindByPhone(string $phone = '')
+    {
+        $customer = Customer::findByPhone($phone);
+
+        $response = Yii::$app->response;
+
+        $response->format = Response::FORMAT_JSON;
+
+        if (!isset($customer)) {
+            return BaseController::buildNotFoundAnswer();
+        }
+
+        $customerData = $customer->toArray(
+            [
+                'Id',
+                'Phone',
+                'Firstname',
+                'Lastname',
+            ]
+        );
+
+        $responseData = BaseController::buildJsonAnswer(
+            BaseController::CODE_OK,
+            BaseController::MESSAGE_OK,
+            $customerData
+        );
+
+        return $responseData;
+
+    }
+
+    /**
      * Finds the Customer model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param integer $id
+     *
      * @return Customer the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

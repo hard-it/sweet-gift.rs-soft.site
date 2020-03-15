@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "OrderProduct".
@@ -17,7 +18,7 @@ use yii\db\ActiveQuery;
  * @property string        $Comment        Примечание
  * @property number        $Sum            Сумма
  */
-class OrderProduct extends ActiveQuery
+class OrderProduct extends ActiveRecord
 {
     /**
      * {@inheritdoc}
