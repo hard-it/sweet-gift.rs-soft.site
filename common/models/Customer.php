@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 use borales\extensions\phoneInput\PhoneInputValidator;
+use borales\extensions\phoneInput\PhoneInputBehavior;
 
 /**
  * This is the model class for table "Customer".
@@ -18,6 +19,8 @@ use borales\extensions\phoneInput\PhoneInputValidator;
  */
 class Customer extends BaseActiveRecord
 {
+    public $phone;
+
     /**
      * {@inheritdoc}
      */
@@ -56,6 +59,13 @@ class Customer extends BaseActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'PhoneInput' => PhoneInputBehavior::class,
+        ];
+    }
+
     /**
      * @return ActiveQuery
      */
@@ -79,5 +89,18 @@ class Customer extends BaseActiveRecord
     public static function find()
     {
         return new CustomerQuery(get_called_class());
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return array|Customer|null
+     */
+    public static function findByPhone(string $phone = null)
+    {
+        if (!isset($phone) || !strlen($phone)) {
+            return null;
+        }
+        return static::find()->andWhere(['like', 'Phone', $phone])->one();
     }
 }
