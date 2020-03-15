@@ -14,15 +14,17 @@ use unclead\multipleinput\renderers\BaseRenderer;
 use unclead\multipleinput\renderers\DivRenderer;
 use common\models\CustomerOrder;
 use \kartik\number\NumberControl;
-use common\models\OrderProduct;
 use kartik\select2\Select2;
 use common\models\ProductType;
+use backend\helpers\js\CustomerFinderHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\CustomerOrder */
 /* @var $form yii\widgets\ActiveForm */
 
 $buttonHelper = new ButtonHelper($this);
+
+$model->loadProductData();
 
 echo Html::beginTag('div', ['class' => ' box box-no-top-border']);
 
@@ -41,22 +43,32 @@ echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'row']);
 
-echo $form->field($model, 'customer0[Id]')->hiddenInput()->label(false);;
+echo $form->field($model, 'customer0[Id]')->hiddenInput()->label(false);
 
 echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
-echo $form->field($model, 'customer0[Phone]')->widget(PhoneInput::className(), [
-    'jsOptions' => [
-        'preferredCountries' => ['ru', 'pl', 'ua'],
-    ],
-])->label(Yii::t('app', 'Телефон'));
+echo $form
+    ->field($model, 'customer0[Phone]')
+    ->widget(PhoneInput::class, [
+        'options'   => [
+            'class' => 'phone-class form-control',
+        ],
+        'jsOptions' => [
+            'preferredCountries' => ['ru', 'pl', 'ua'],
+        ],
+    ])
+    ->label(Yii::t('app', 'Телефон'));
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
-echo $form->field($model, 'customer0[Firstname]')->label(Yii::t('app', 'Имя'));;
+echo $form
+    ->field($model, 'customer0[Firstname]')
+    ->label(Yii::t('app', 'Имя'));;
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'col-lg-4 col-xs-12']);
-echo $form->field($model, 'customer0[Lastname]')->label(Yii::t('app', 'Фамилия'));
+echo $form
+    ->field($model, 'customer0[Lastname]')
+    ->label(Yii::t('app', 'Фамилия'));
 echo Html::endTag('div');
 
 echo Html::endTag('div');
@@ -86,7 +98,7 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             'options' => [
                 'data'          => ProductType::getFullTree(),
                 'pluginOptions' => [
-                    'placeholder' => Yii::t('app','Товар...'),
+                    'placeholder' => Yii::t('app', 'Товар...'),
                 ],
                 'pluginEvents'  => [
                     'select2:select' => 'function() { loadOrderProductCost(this); }',
@@ -151,7 +163,6 @@ echo $form->field($model, 'productData')->widget(MultipleInput::class, [
             },
             'defaultValue' => 0,
             'options'      => [
-                'readonly'           => true,
                 'displayOptions'     => [
                     'class'       => 'form-control product-sum',
                     'placeholder' => Yii::t('app', 'Всего...'),
@@ -301,6 +312,14 @@ $buttonHelper->registerPreviousMoveScript('previous-button');
 MultiInputHelper::registerInsertDateTimeValue($this, 'model-states', '.input-group.date > input');
 
 echo Html::script(MultiInputHelper::buildAfterSelectOrderProductCost(2));
+
+echo Html::script(CustomerFinderHelper::buildFinderScript(
+    Html::getInputId($model, 'customer0[Phone]'),
+    Html::getInputId($model, 'customer0[Id]'),
+    Html::getInputId($model, 'customer0[Firstname]'),
+    Html::getInputId($model, 'customer0[Lastname]')
+));
+
 echo Html::script(MultiInputHelper::recalcTotals('model-products', 'product-cost', 'product-quantity', 'product-sum', 2));
 ?>
 
