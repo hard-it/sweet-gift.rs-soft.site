@@ -4,12 +4,15 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
-use backend\helpers\js\grids\ButtonHelper;
 use \common\models\VolumeMeasure;
+use backend\helpers\js\grids\ButtonHelper;
+use kartik\dialog\DialogAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\VolumeMeasureSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+DialogAsset::register($this);
 
 $buttonsHelper = new ButtonHelper($this);
 

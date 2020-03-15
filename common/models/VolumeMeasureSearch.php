@@ -47,6 +47,8 @@ class VolumeMeasureSearch extends VolumeMeasure
 
         // add conditions that should always apply here
 
+        $this->load($params);
+
         $dataProvider = new ActiveDataProvider([
             'query'      => $query,
             'pagination' => [
@@ -54,18 +56,11 @@ class VolumeMeasureSearch extends VolumeMeasure
             ],
         ]);
 
-        $this->load($params);
-
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'Id' => $this->Id,
-        ]);
 
         $query->andFilterWhere(['like', 'ShortName', $this->ShortName])
             ->andFilterWhere(['like', 'OneName', $this->OneName])

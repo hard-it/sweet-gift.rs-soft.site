@@ -71,8 +71,6 @@ class ProductTypeSearch extends ProductType
 
         $this->setCategoryFilter($query);
 
-        $txt = $query->createCommand()->getRawSql();
-
         return $dataProvider;
     }
 

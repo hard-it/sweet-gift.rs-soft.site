@@ -83,7 +83,7 @@ class ProductType extends BaseTagKeywordModel
             [['Category', 'Code'], 'unique', 'targetAttribute' => ['Category', 'Code']],
             [['Category', 'Name'], 'unique', 'targetAttribute' => ['Category', 'Name']],
             [['Category'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['Category' => 'Id']],
-            [['VolumeMeasure'], 'exist', 'skipOnError' => true, 'targetClass' => VolumeMeasure::class, 'targetAttribute' => ['VolumeMeasure' => 'Id']],
+            [['VolumeSizeMeasure'], 'exist', 'skipOnError' => true, 'targetClass' => VolumeMeasure::class, 'targetAttribute' => ['VolumeSizeMeasure' => 'Id']],
         ];
     }
 
@@ -108,6 +108,8 @@ class ProductType extends BaseTagKeywordModel
             'Images'          => Yii::t('app', 'Изображения'),
             'IsNew'           => Yii::t('app', 'Новинка'),
             'IsPopular'       => Yii::t('app', 'Популярный'),
+            'VolumeSize'      => Yii::t('app', 'Объём товара'),
+            'VolumeSizeMeasure'      => Yii::t('app', 'Единица измерения объёма'),
         ];
     }
 
@@ -153,7 +155,7 @@ class ProductType extends BaseTagKeywordModel
      */
     public function getVolumeSizeMeasure0()
     {
-        return $this->hasOne(VolumeMeasure::class, ['Id' => 'VolumeMeasure']);
+        return $this->hasOne(VolumeMeasure::class, ['Id' => 'VolumeSize']);
     }
 
     /**
