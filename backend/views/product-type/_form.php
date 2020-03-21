@@ -19,6 +19,7 @@ use backend\helpers\js\grids\ButtonHelper as GridButtonHelper;
 use backend\helpers\js\forms\ButtonHelper as FormButtonHelper;
 use unclead\multipleinput\renderers\BaseRenderer;
 use backend\helpers\MarkedDivRenderer;
+use common\models\VolumeMeasure;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\ProductType */
@@ -115,7 +116,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
     'class'             => 'multiple-input col-md-12 col-xs-12 col-lg-12',
     'columns'           => [
         [
-            'name'    => 'url',
+            'name'    => ProductType::IMAGE_URL,
             'type'    => InputFile::class,
             'title'   => '',
             'options' => [
@@ -137,10 +138,10 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
             'name'  => 'PreviewImages',
             'type'  => 'static',
             'value' => function ($data) {
-                $url = $data['url'] ?? ProductCategory::DEFAULT_IMAGE;
+                $url = $data['url'] ?? ProductType::DEFAULT_IMAGE;
 
                 if (!strlen($url)) {
-                    $url = ProductCategory::DEFAULT_IMAGE;
+                    $url = ProductType::DEFAULT_IMAGE;
                 }
 
                 return
@@ -165,7 +166,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
             },
         ],
         [
-            'name'    => 'name',
+            'name'    => ProductType::IMAGE_NAME,
             'title'   => '',
             'options' => [
                 'class'       => 'image-title',
@@ -175,7 +176,7 @@ echo $form->field($model, 'Images')->widget(MultipleInput::class, [
         ],
 
         [
-            'name'    => 'order',
+            'name'    => ProductType::IMAGE_ORDER,
             'type'    => 'hiddenInput',
             'title'   => '',
             'options' => [
@@ -283,7 +284,57 @@ echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
 echo $form->field($model, 'Measure')->dropDownList(ProductType::MEASURE_VALUES);
 echo Html::endTag('div');
 
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'VolumeSize')->widget(NumberControl::class, [
+    'maskedInputOptions' => [
+        'prefix'         => '',
+        'suffix'         => '',
+        'allowMinus'     => false,
+        'groupSeparator' => '',
+        'radixPoint'     => '.',
+        'digits'         => 3,
+    ],
+    'displayOptions'     => [
+        'placeholder' => Yii::t('app', 'Введите объём...'),
+    ],
+]);
 echo Html::endTag('div');
+
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+
+$vsMeasure = VolumeMeasure::getList();
+
+if (!$model->VolumeSizeMeasure) {
+    $model->VolumeSizeMeasure = array_key_first($vsMeasure);
+}
+
+echo $form->field($model,'VolumeSizeMeasure')->widget(Select2::class, [
+    'data'          => $vsMeasure,
+    'value'         => $model->VolumeSizeMeasure,
+    'options'       => [
+        'placeholder' => Yii::t('app', 'Единица измерения ...'),
+    ],
+    'pluginOptions' => [
+        'allowClear' => false,
+    ],
+]);
+echo Html::endTag('div');
+
+
+echo Html::endTag('div');
+echo Html::endTag('div');
+
+echo Html::beginTag('div', ['class' => 'row']);
+
+echo Html::beginTag('div', ['class' => 'col-lg-3 col-xs-6']);
+echo $form->field($model, 'IsNew')->checkbox();
+echo Html::endTag('div');
+
+echo Html::beginTag('div', ['class' => 'col-lg-2 col-xs-3']);
+echo $form->field($model, 'IsPopular')->checkbox();
+echo Html::endTag('div');
+
+
 echo Html::endTag('div');
 
 echo Html::beginTag('div', ['class' => 'form-group']);

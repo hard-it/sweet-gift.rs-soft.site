@@ -2,14 +2,13 @@
 
 namespace common\models;
 
-use common\models\ProductType;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ProductTypeSearch represents the model behind the search form of `common\models\ProductType`.
+ * VolumeMeasureSearch represents the model behind the search form of `common\models\VolumeMeasure`.
  */
-class ProductTypeSearch extends ProductType
+class VolumeMeasureSearch extends VolumeMeasure
 {
     const DEFAULT_PAGE_SIZE = 20;
 
@@ -21,9 +20,8 @@ class ProductTypeSearch extends ProductType
     public function rules()
     {
         return [
-            [['Id', 'MinimalQuantity', 'ShelfLife', 'Measure'], 'integer'],
-            [['pageSize', 'Category', 'Code', 'Name', 'Description', 'Tags', 'Keywords', 'Images'], 'safe'],
-            [['Cost'], 'number'],
+            [['Id'], 'integer'],
+            [['ShortName', 'OneName', 'SomeName', 'ManyName', 'pageSize'], 'safe'],
         ];
     }
 
@@ -45,13 +43,11 @@ class ProductTypeSearch extends ProductType
      */
     public function search($params)
     {
-        $query = ProductType::find()->alias('producttype');
-
-        $query->joinWith('category0 category0');
-
-        $this->load($params);
+        $query = VolumeMeasure::find();
 
         // add conditions that should always apply here
+
+        $this->load($params);
 
         $dataProvider = new ActiveDataProvider([
             'query'      => $query,
@@ -66,10 +62,10 @@ class ProductTypeSearch extends ProductType
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'producttype.Code', $this->Code])
-            ->andFilterWhere(['like', 'producttype.Name', $this->Name]);
-
-        $this->setCategoryFilter($query);
+        $query->andFilterWhere(['like', 'ShortName', $this->ShortName])
+            ->andFilterWhere(['like', 'OneName', $this->OneName])
+            ->andFilterWhere(['like', 'SomeName', $this->SomeName])
+            ->andFilterWhere(['like', 'ManyName', $this->ManyName]);
 
         return $dataProvider;
     }
@@ -83,9 +79,9 @@ class ProductTypeSearch extends ProductType
      */
     public function cleanSearch($params)
     {
-        $query = ProductType::find();
+        $query = VolumeMeasure::find();
 
-        $query->joinWith('category0 category0');
+        // add conditions that should always apply here
 
         $this->pageSize = $params[static::class]['pageSize'] ?? static::DEFAULT_PAGE_SIZE;
 
@@ -98,23 +94,6 @@ class ProductTypeSearch extends ProductType
             ],
         ]);
 
-        //$txt = $query->createCommand()->getRawSql();
-
         return $dataProvider;
-    }
-
-    /**
-     * @param ProductTypeQuery $query
-     */
-    public function setCategoryFilter(ProductTypeQuery $query)
-    {
-        if (!isset($this->Category) || !strlen($this->Category)) {
-            return;
-        }
-
-        $cats = explode(',', $this->Category);
-
-        $query->andFilterWhere(['IN', 'producttype.Category', $cats]);
-
     }
 }

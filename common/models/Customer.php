@@ -5,19 +5,23 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveQuery;
 use borales\extensions\phoneInput\PhoneInputValidator;
+use borales\extensions\phoneInput\PhoneInputBehavior;
 
 /**
  * This is the model class for table "Customer".
  *
- * @property int    $Id         Идентификатор записи
- * @property string $Phone      Телефон
- * @property string $Firstname  Имя
- * @property string $Lastname   Фамилия
- * @property int    $User       Пользователь
- * @property User   $user0      Пользователь
+ * @property int    $Id                            Идентификатор записи
+ * @property string $Phone                         Телефон
+ * @property string $Firstname                     Имя
+ * @property string $Lastname                      Фамилия
+ * @property string $fullName                      Полное имя
+ * @property int    $User                          Пользователь
+ * @property User   $user0                         Пользователь
  */
 class Customer extends BaseActiveRecord
 {
+    public $phone;
+
     /**
      * {@inheritdoc}
      */
@@ -56,6 +60,13 @@ class Customer extends BaseActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'PhoneInput' => PhoneInputBehavior::class,
+        ];
+    }
+
     /**
      * @return ActiveQuery
      */
@@ -73,11 +84,42 @@ class Customer extends BaseActiveRecord
     }
 
     /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        $arr = [];
+
+        if (isset($this->Firstname)) {
+            $arr[] = $this->Firstname;
+        }
+
+        if (isset($this->Lastname)) {
+            $arr[] = $this->Lastname;
+        }
+
+        return implode(' ', $arr);
+    }
+
+    /**
      * {@inheritdoc}
      * @return CustomerQuery the active query used by this AR class.
      */
     public static function find()
     {
         return new CustomerQuery(get_called_class());
+    }
+
+    /**
+     * @param string $phone
+     *
+     * @return array|Customer|null
+     */
+    public static function findByPhone(string $phone = null)
+    {
+        if (!isset($phone) || !strlen($phone)) {
+            return null;
+        }
+        return static::find()->andWhere(['like', 'Phone', $phone])->one();
     }
 }

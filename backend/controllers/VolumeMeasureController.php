@@ -3,19 +3,17 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\ProductType;
-use common\models\ProductTypeSearch;
-use common\helpers\ForbiddingController;
-use common\helpers\BaseController;
+use common\models\VolumeMeasure;
+use common\models\VolumeMeasureSearch;
+use yii\helpers\Url;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
-use yii\web\Response;
 
 /**
- * ProductTypeController implements the CRUD actions for ProductType model.
+ * VolumeMeasureController implements the CRUD actions for VolumeMeasure model.
  */
-class ProductTypeController extends ForbiddingController
+class VolumeMeasureController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,12 +31,12 @@ class ProductTypeController extends ForbiddingController
     }
 
     /**
-     * Lists all ProductType models.
+     * Lists all VolumeMeasure models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProductTypeSearch();
+        $searchModel = new VolumeMeasureSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         Url::remember();
@@ -51,7 +49,7 @@ class ProductTypeController extends ForbiddingController
 
     public function actionClearSearch()
     {
-        $searchModel = new ProductTypeSearch();
+        $searchModel = new VolumeMeasureSearch();
         $dataProvider = $searchModel->cleanSearch(Yii::$app->request->queryParams);
 
         Url::remember();
@@ -63,13 +61,13 @@ class ProductTypeController extends ForbiddingController
     }
 
     /**
-     * Creates a new ProductType model.
+     * Creates a new VolumeMeasure model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ProductType();
+        $model = new VolumeMeasure();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(Url::previous());
@@ -81,7 +79,7 @@ class ProductTypeController extends ForbiddingController
     }
 
     /**
-     * Updates an existing ProductType model.
+     * Updates an existing VolumeMeasure model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -101,7 +99,7 @@ class ProductTypeController extends ForbiddingController
     }
 
     /**
-     * Deletes an existing ProductType model.
+     * Deletes an existing VolumeMeasure model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -115,34 +113,18 @@ class ProductTypeController extends ForbiddingController
     }
 
     /**
-     * @param int $id
-     *
-     * @return array
-     * @throws NotFoundHttpException
-     */
-    public function actionCost(int $id)
-    {
-
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        $resultData = $this->findModel($id)->getCostData();
-
-        return BaseController::buildJsonAnswer(0, '', $resultData);
-    }
-
-    /**
-     * Finds the ProductType model based on its primary key value.
+     * Finds the VolumeMeasure model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ProductType the loaded model
+     * @return VolumeMeasure the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ProductType::findOne($id)) !== null) {
+        if (($model = VolumeMeasure::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'Запрошенная страница не найдена.'));
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }
