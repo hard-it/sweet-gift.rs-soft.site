@@ -5,17 +5,17 @@
         "category1": {
             "image": "/images/category/torty.svg",
             "title": "Торты",
-            "link": "/categories/torty"
+            "link": "/category/torty"
         },
         "category2": {
             "image": "/images/category/pirozhnye.svg",
             "title": "Пирожные",
-            "link": "/categories/pirozhnye"
+            "link": "/category/pirozhnye"
         },
         "category3": {
             "image": "/images/category/pechenie.svg",
             "title": "Печенье",
-            "link": "/categories/pechenie"
+            "link": "/category/pechenie"
         }
     }
 }
