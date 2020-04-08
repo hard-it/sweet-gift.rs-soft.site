@@ -16,6 +16,31 @@
             "image": "/images/category/pechenie.svg",
             "title": "Печенье",
             "link": "/category/pechenie"
+        },
+        "category4": {
+            "image": "/images/category/torty.svg",
+            "title": "Торты",
+            "link": "/category/torty"
+        },
+        "category5": {
+            "image": "/images/category/pirozhnye.svg",
+            "title": "Пирожные",
+            "link": "/category/pirozhnye"
+        },
+        "category6": {
+            "image": "/images/category/pechenie.svg",
+            "title": "Печенье",
+            "link": "/category/pechenie"
+        },
+        "category7": {
+            "image": "/images/category/torty.svg",
+            "title": "Торты",
+            "link": "/category/torty"
+        },
+        "category8": {
+            "image": "/images/category/pirozhnye.svg",
+            "title": "Пирожные",
+            "link": "/category/pirozhnye"
         }
     }
 }
